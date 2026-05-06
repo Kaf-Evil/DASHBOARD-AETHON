@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<title>Hero Cover</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body{margin:0;background:var(--bg2);padding:18px;}
+  .cover{background:var(--aethon-900);border-radius:18px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;overflow:hidden;}
+  .cover::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle, rgba(25,96,166,.4) 0%, transparent 70%);}
+  .cover::after{content:'';position:absolute;bottom:-50px;left:18%;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle, rgba(240,160,38,.18) 0%, transparent 70%);}
+  .t{position:relative;z-index:1;}
+  .tag{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--logo-gold);margin-bottom:8px;}
+  .h{font-size:30px;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;margin-bottom:10px;}
+  .d{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;max-width:340px;}
+  .lg{position:relative;z-index:1;flex-shrink:0;}
+  .lg img{height:90px;}
+</style></head>
+<body>
+<div class="cover">
+  <div class="t">
+    <div class="tag">Aethon · 2026</div>
+    <div class="h">El RH del<br/>futuro, hoy.</div>
+    <div class="d">Automatización, IA y aplicaciones web hechas exclusivamente para Recursos Humanos en México y Chile.</div>
+  </div>
+  <div class="lg"><img src="../assets/aethon-logo-light.svg"/></div>
+</div>
+</body></html>

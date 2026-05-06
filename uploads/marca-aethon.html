@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AETHON — Política de Marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* ── Paleta primaria (extraída del logo) ── */
+    --logo-navy:    #1a2e50;
+    --logo-blue:    #1960a6;
+    --logo-gold:    #f0a026;
+
+    /* ── Escala Aethon (UI) ── */
+    --aethon-900:   #0A1628;
+    --aethon-800:   #0F2040;
+    --aethon-700:   #1A3158;
+    --aethon-600:   #1E3A5F;
+    --aethon-500:   #2563EB;
+    --aethon-400:   #3B82F6;
+    --aethon-300:   #60A5FA;
+    --aethon-100:   #DBEAFE;
+    --aethon-50:    #EFF6FF;
+
+    /* ── Neutros ── */
+    --slate-800:    #1E293B;
+    --slate-600:    #475569;
+    --slate-400:    #94A3B8;
+    --slate-200:    #E2E8F0;
+    --slate-100:    #F1F5F9;
+    --slate-50:     #F8FAFC;
+    --white:        #FFFFFF;
+
+    /* ── Estados ── */
+    --success:      #059669;
+    --danger:       #DC2626;
+    --warning:      #D97706;
+
+    /* ── Tipografía ── */
+    --font:         'Inter', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--slate-50); color: var(--slate-800); -webkit-font-smoothing: antialiased; }
+
+  /* ── Layout ── */
+  .page { max-width: 960px; margin: 0 auto; padding: 0 24px 80px; }
+  .section { margin-top: 80px; }
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--aethon-500); margin-bottom: 8px;
+  }
+  .section-heading {
+    font-size: 28px; font-weight: 800; color: var(--aethon-900); margin-bottom: 6px; letter-spacing: -.02em;
+  }
+  .section-sub {
+    font-size: 15px; color: var(--slate-600); line-height: 1.6; margin-bottom: 36px; max-width: 560px;
+  }
+  .divider { height: 1px; background: var(--slate-200); margin: 80px 0; }
+
+  /* ── Portada ── */
+  .cover {
+    background: var(--aethon-900);
+    border-radius: 20px;
+    padding: 64px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(25,96,166,.35) 0%, transparent 70%);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 20%;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,160,38,.12) 0%, transparent 70%);
+  }
+  .cover-text { position: relative; z-index: 1; }
+  .cover-tag { font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--logo-gold); margin-bottom: 12px; }
+  .cover-title { font-size: 40px; font-weight: 900; color: #fff; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 16px; }
+  .cover-desc { font-size: 15px; color: rgba(255,255,255,.55); line-height: 1.6; max-width: 380px; }
+  .cover-logo { position: relative; z-index: 1; flex-shrink: 0; }
+
+  /* ── Grid genérico ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media(max-width:640px) { .grid-2,.grid-3,.grid-4 { grid-template-columns: 1fr 1fr; } }
+
+  /* ── Logo cards ── */
+  .logo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .logo-card {
+    border-radius: 16px;
+    padding: 36px 24px 20px;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+  }
+  .logo-card-label { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  .logo-card-use { font-size: 11px; line-height: 1.5; text-align: center; max-width: 140px; }
+  .on-white  { background: #fff; border: 1.5px solid var(--slate-200); }
+  .on-light  { background: #EDF1F8; border: 1.5px solid #d8e0eb; }
+  .on-navy   { background: var(--logo-navy); }
+  .on-dark   { background: var(--aethon-900); }
+  .on-blue   { background: linear-gradient(135deg, #2563EB, #1a3a8a); }
+  .on-black  { background: #111; }
+  .label-dark { color: var(--slate-600); }
+  .label-light { color: rgba(255,255,255,.55); }
+
+  /* ── No usar ── */
+  .no-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  .no-card {
+    border-radius: 12px; padding: 24px; display: flex; align-items: center;
+    justify-content: center; background: var(--slate-100); border: 1.5px solid var(--slate-200);
+    position: relative;
+  }
+  .no-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent, transparent 8px,
+      rgba(220,38,38,.08) 8px, rgba(220,38,38,.08) 10px
+    );
+    border-radius: 10px;
+  }
+  .no-card-label { font-size: 11px; color: var(--danger); font-weight: 600; margin-top: 8px; text-align: center; }
+  .no-wrap { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .badge-no { background: var(--danger); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; letter-spacing:.05em; }
+
+  /* ── Color swatches ── */
+  .swatch-row { display: flex; gap: 0; border-radius: 12px; overflow: hidden; height: 64px; margin-bottom: 28px; }
+  .swatch { flex: 1; }
+  .color-card {
+    border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(0,0,0,.06);
+  }
+  .color-swatch { height: 80px; }
+  .color-info { padding: 12px 14px; background: #fff; }
+  .color-name { font-size: 13px; font-weight: 700; color: var(--aethon-900); }
+  .color-hex  { font-size: 11px; font-weight: 600; color: var(--slate-400); letter-spacing:.06em; font-family: 'JetBrains Mono', 'Courier New', monospace; }
+  .color-use  { font-size: 11px; color: var(--slate-600); margin-top: 2px; line-height: 1.4; }
+
+  /* ── Tipografía ── */
+  .type-scale { display: flex; flex-direction: column; gap: 0; }
+  .type-row {
+    display: flex; align-items: baseline; gap: 24px; padding: 20px 0;
+    border-bottom: 1px solid var(--slate-200);
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-meta { width: 100px; flex-shrink: 0; }
+  .type-meta-name { font-size: 11px; font-weight: 700; color: var(--aethon-500); text-transform: uppercase; letter-spacing:.1em; }
+  .type-meta-spec { font-size: 10px; color: var(--slate-400); font-family: monospace; margin-top: 2px; line-height: 1.5; }
+  .type-sample { flex: 1; }
+
+  /* ── Weights ── */
+  .weight-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .weight-card { background: #fff; border: 1.5px solid var(--slate-200); border-radius: 12px; padding: 20px; }
+  .weight-sample { font-size: 28px; color: var(--aethon-900); line-height: 1; margin-bottom: 8px; }
+  .weight-label { font-size: 11px; color: var(--slate-400); font-weight: 600; text-transform: uppercase; letter-spacing:.08em; }
+  .weight-value { font-size: 11px; color: var(--slate-600); }
+
+  /* ── Buttons ── */
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 20px; }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:9px 18px; border-radius:8px; font-size:14px; font-weight:600; font-family:var(--font); border:none; cursor:pointer; letter-spacing:-.01em; }
+  .btn-primary   { background:var(--aethon-500); color:#fff; }
+  .btn-secondary { background:#fff; color:var(--slate-800); border:1.5px solid var(--slate-200); }
+  .btn-navy      { background:var(--logo-navy); color:#fff; }
+  .btn-gold      { background:var(--logo-gold); color:#fff; }
+  .btn-danger    { background:var(--danger); color:#fff; }
+  .btn-ghost     { background:transparent; color:var(--aethon-500); border:1.5px solid var(--aethon-100); }
+  .btn-sm        { padding:6px 13px; font-size:12px; border-radius:6px; }
+  .btn-lg        { padding:13px 26px; font-size:16px; border-radius:10px; }
+
+  /* ── Badges ── */
+  .badge { display:inline-flex; align-items:center; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:600; }
+  .badge-blue   { background:var(--aethon-100); color:#1E40AF; }
+  .badge-gold   { background:#FEF3C7; color:#92400E; }
+  .badge-green  { background:#D1FAE5; color:#065F46; }
+  .badge-red    { background:#FEE2E2; color:#991B1B; }
+  .badge-slate  { background:var(--slate-100); color:var(--slate-600); }
+  .badge-navy   { background:var(--logo-navy); color:#fff; }
+
+  /* ── Cards ── */
+  .ui-card { background:#fff; border-radius:12px; border:1.5px solid var(--slate-200); box-shadow:0 1px 3px rgba(0,0,0,.04); padding:20px; }
+  .ui-card-title { font-size:14px; font-weight:700; color:var(--aethon-900); margin-bottom:4px; }
+  .ui-card-value { font-size:28px; font-weight:800; color:var(--aethon-900); letter-spacing:-.03em; }
+  .ui-card-sub   { font-size:12px; color:var(--slate-400); margin-top:4px; }
+
+  /* ── Input ── */
+  .ui-input { width:100%; padding:9px 13px; border:1.5px solid var(--slate-200); border-radius:8px; font-size:14px; font-family:var(--font); color:var(--slate-800); outline:none; }
+  .ui-input:focus { border-color:var(--aethon-500); box-shadow:0 0 0 3px rgba(37,99,235,.12); }
+  .ui-label { font-size:11px; font-weight:700; color:var(--slate-400); text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; display:block; }
+
+  /* ── Radius & Shadow ── */
+  .radius-grid { display:flex; gap:16px; flex-wrap:wrap; }
+  .radius-card { background:#fff; border:1.5px solid var(--slate-200); display:flex; flex-direction:column; align-items:center; gap:12px; padding:24px 20px; }
+  .radius-box  { width:64px; height:64px; background:var(--aethon-100); border:2px solid var(--aethon-300); }
+  .radius-name { font-size:11px; font-weight:700; color:var(--aethon-500); text-transform:uppercase; letter-spacing:.08em; }
+  .radius-val  { font-size:11px; color:var(--slate-400); font-family:monospace; }
+
+  .shadow-grid { display:flex; gap:20px; flex-wrap:wrap; margin-top:24px; }
+  .shadow-card { background:#fff; border-radius:12px; padding:24px 28px; display:flex; flex-direction:column; align-items:center; gap:10px; min-width:140px; }
+  .shadow-name { font-size:11px; font-weight:700; color:var(--aethon-500); text-transform:uppercase; letter-spacing:.08em; }
+
+  /* ── Gradient strip ── */
+  .gradient-strip {
+    border-radius: 16px; height: 80px; margin-bottom: 12px;
+  }
+  .gradient-strip-label { font-size: 12px; color: var(--slate-600); font-weight: 500; }
+
+  /* ── Iconography ── */
+  .icon-grid { display:flex; gap:8px; flex-wrap:wrap; }
+  .icon-chip { background:#fff; border:1.5px solid var(--slate-200); border-radius:10px; padding:14px; display:flex; align-items:center; justify-content:center; }
+
+  /* ── Sidebar preview ── */
+  .sidebar-preview { background:var(--aethon-900); border-radius:16px; padding:20px 0; width:220px; flex-shrink:0; }
+  .sidebar-logo-area { display:flex; align-items:center; gap:12px; padding:0 16px 16px; border-bottom:1px solid rgba(255,255,255,.08); margin-bottom:12px; }
+  .sidebar-group-label { font-size:9px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.3); padding:8px 16px 4px; }
+  .sidebar-item { display:flex; align-items:center; gap:10px; padding:9px 14px; margin:1px 8px; border-radius:8px; font-size:13px; font-weight:500; color:rgba(255,255,255,.5); cursor:default; }
+  .sidebar-item.active { background:#2563EB; color:#fff; }
+  .sidebar-dot { width:16px; height:16px; border-radius:4px; flex-shrink:0; background:currentColor; opacity:.4; }
+  .sidebar-dot.active { opacity:1; }
+
+  /* ── Tabla de tokens ── */
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; padding:8px 12px; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--slate-400); border-bottom:2px solid var(--slate-200); }
+  td { padding:10px 12px; border-bottom:1px solid var(--slate-200); color:var(--slate-700); vertical-align:middle; }
+  td:first-child { font-weight:600; color:var(--aethon-900); }
+  td code { font-family:monospace; font-size:11px; background:var(--slate-100); padding:2px 6px; border-radius:4px; color:var(--aethon-600); }
+
+  /* ── Info box ── */
+  .info-box { background:var(--aethon-50); border:1.5px solid var(--aethon-100); border-radius:12px; padding:16px 20px; font-size:13px; color:var(--aethon-700); line-height:1.6; }
+  .info-box strong { color:var(--aethon-900); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════
+       PORTADA
+  ═══════════════════════════════════════════ -->
+  <div class="cover">
+    <div class="cover-text">
+      <div class="cover-tag">Política de Marca · 2026</div>
+      <h1 class="cover-title">AETHON<br>Brand Guidelines</h1>
+      <p class="cover-desc">Referencia oficial de identidad visual para la construcción de todos los productos y comunicaciones digitales de AETHON.</p>
+    </div>
+    <div class="cover-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560.24 508.43" width="170">
+        <path d="M405.2,306.54c3.98-5.66,7.2-11.72,9.29-18.21l-13.35-18.12-47.63-61.95,5.2-28.99-25.86,23.52-2.12.49c-.45.1-.77-1.72-.66-2.27l2.2-10.7-56-.11c-21.4-.04-35.39-14.69-43.7-33.18l-14.77-.63,42.95-83.63,29.7-57.34,52.45,102.12,57.4,110.5,37.83,72.21,29.13,55.38-109.97.05c-21.55-4.7-38.58-18.57-48.85-37.64-13.33-24.42-11.81-54.1,5.92-76.44-1.65,11.91-1.13,22.5,6.66,30.87,7.72,8.3,19.35,11.21,30.88,7.66l27.57,16.58,2.78,9.93,22.97-.09Z" fill="#fff"/>
+        <path d="M204.09,355.61l-91.09.04,25.67-49.86c13.13.53,25.99,4.09,38,9.91,14,8.5,24.1,21.82,27.42,39.91Z" fill="#fff"/>
+        <path d="M537.05,495.72c-2.72,3.85-8.32,1.59-10.97-1.34l-40.89-45.01-.25,47.53c-4.57.78-8.78.81-13.41-.1l-.13-74.08c3.4-.72,7.58-.87,9.74.29l41.59,46.85.21-47.54,14.05.07.07,73.33Z" fill="#fff"/>
+        <path d="M432.01,493.55c-12.74,7.73-28.28,7.17-40.9-.34-11.64-6.92-19.67-20.31-19.17-35.06.69-20.34,16.65-36.1,36.64-37.57,18.46-1.36,35.18,9.55,40.61,26.3,5.78,17.86-.54,36.58-17.17,46.67Zm-6.26-12.26c12.33-7.94,14.62-23.55,7.65-34.72s-21.23-15.53-33.18-9.69-17.7,20.03-12.32,32.73c6.07,14.36,24.33,20.4,37.86,11.68Z" fill="#fff"/>
+        <path d="M351.94,496.76c-4.79.95-9.41.91-14.23.02l-.13-31.21-34.66.12-.06,31.3c-4.55.53-8.86.58-13.76.14l-.24-74.87,13.78-.06.4,30.44,34.53-.05.11-30.09,14.06-.18.2,74.45Z" fill="#fff"/>
+        <polygon points="184.67 465.52 151.76 465.46 151.72 483.93 191.44 484.1 191.35 497.49 137.68 497.33 137.59 422.15 190.78 422.1 191.04 435.21 151.79 435.42 151.64 452 184.44 451.96 184.67 465.52" fill="#fff"/>
+        <path d="M284.34,207.48c-14.44,7.08-28.18,15.27-39.15,28.54-12.75-17.57-25.68-30.88-47.99-25.93-9.52,2.11-20.15,1.07-28.09-4.77-9.26-6.81-15.64-17.72-15.16-29.81,12.12,15.99,29.96,21.74,47.95,15.33,12.52-4.46,25.42-2.04,36.08,5.67,6.82,4.93,13.54,8.78,21.6,11.62l24.77-.66Z" fill="#f0a026"/>
+        <path d="M97.33,482.38l-32.72-.19-6.47,14.8c-5.24.42-9.59.69-15.18-.55l35.03-73.54c.87-1.83,6.45-1.59,7.29.2l34.27,73.35-15.38.79-6.84-14.86Zm-5.61-13.02l-10.38-23.4-10.58,23.6,20.96-.2Z" fill="#fff"/>
+        <path d="M208.23,322.27c-5.78-10.9-12.3-19.55-21.95-26.08-19.43-13.15-35.63,2.18-55.49-7.59-12.11-5.96-20.44-18.47-21.02-32.22,9.41,12.13,21.91,18.98,36.38,17.72l18.64-4.27c20.82-4.77,41.69,9.21,45.36,30.38,1.26,7.29-.16,14.32-1.93,22.06Z" fill="#f0a026"/>
+        <path d="M231.36,253.66l-9.78,21.75-13.23-16.23c-9.05-8.69-20.84-11.69-32.97-8.84-21.8,5.12-42.11-11.21-44.15-33.16,13.43,13.04,26.66,19.29,44.95,13.94,21.49-7.22,46.09,1.17,55.18,22.54Z" fill="#f0a026"/>
+        <polygon points="245.64 496.85 231.81 497.13 231.48 435.39 207.25 435.16 207.19 422.01 269.24 422.08 269.37 435.28 245.63 435.21 245.64 496.85" fill="#fff"/>
+      </svg>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       1. LOGO
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">01 · Identidad</div>
+    <h2 class="section-heading">El Logo</h2>
+    <p class="section-sub">El logo AETHON combina un isologo (ícono + wordmark integrados). La marca gráfica superior representa elevación y precisión; el acento dorado es el elemento diferenciador irremplazable.</p>
+
+    <div class="logo-grid">
+
+      <div class="logo-card on-white">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560.24 508.43" width="110">
+          <path d="M405.2,306.54c3.98-5.66,7.2-11.72,9.29-18.21l-13.35-18.12-47.63-61.95,5.2-28.99-25.86,23.52-2.12.49c-.45.1-.77-1.72-.66-2.27l2.2-10.7-56-.11c-21.4-.04-35.39-14.69-43.7-33.18l-14.77-.63,42.95-83.63,29.7-57.34,52.45,102.12,57.4,110.5,37.83,72.21,29.13,55.38-109.97.05c-21.55-4.7-38.58-18.57-48.85-37.64-13.33-24.42-11.81-54.1,5.92-76.44-1.65,11.91-1.13,22.5,6.66,30.87,7.72,8.3,19.35,11.21,30.88,7.66l27.57,16.58,2.78,9.93,22.97-.09Z" fill="#1960a6"/>
+          <path d="M204.09,355.61l-91.09.04,25.67-49.86c13.13.53,25.99,4.09,38,9.91,14,8.5,24.1,21.82,27.42,39.91Z" fill="#1960a6"/>
+          <path d="M537.05,495.72c-2.72,3.85-8.32,1.59-10.97-1.34l-40.89-45.01-.25,47.53c-4.57.78-8.78.81-13.41-.1l-.13-74.08c3.4-.72,7.58-.87,9.74.29l41.59,46.85.21-47.54,14.05.07.07,73.33Z" fill="#1a2e50"/>
+          <path d="M432.01,493.55c-12.74,7.73-28.28,7.17-40.9-.34-11.64-6.92-19.67-20.31-19.17-35.06.69-20.34,16.65-36.1,36.64-37.57,18.46-1.36,35.18,9.55,40.61,26.3,5.78,17.86-.54,36.58-17.17,46.67Zm-6.26-12.26c12.33-7.94,14.62-23.55,7.65-34.72s-21.23-15.53-33.18-9.69-17.7,20.03-12.32,32.73c6.07,14.36,24.33,20.4,37.86,11.68Z" fill="#1a2e50"/>
+          <path d="M351.94,496.76c-4.79.95-9.41.91-14.23.02l-.13-31.21-34.66.12-.06,31.3c-4.55.53-8.86.58-13.76.14l-.24-74.87,13.78-.06.4,30.44,34.53-.05.11-30.09,14.06-.18.2,74.45Z" fill="#1a2e50"/>
+          <polygon points="184.67 465.52 151.76 465.46 151.72 483.93 191.44 484.1 191.35 497.49 137.68 497.33 137.59 422.15 190.78 422.1 191.04 435.21 151.79 435.42 151.64 452 184.44 451.96 184.67 465.52" fill="#1a2e50"/>
+          <path d="M284.34,207.48c-14.44,7.08-28.18,15.27-39.15,28.54-12.75-17.57-25.68-30.88-47.99-25.93-9.52,2.11-20.15,1.07-28.09-4.77-9.26-6.81-15.64-17.72-15.16-29.81,12.12,15.99,29.96,21.74,47.95,15.33,12.52-4.46,25.42-2.04,36.08,5.67,6.82,4.93,13.54,8.78,21.6,11.62l24.77-.66Z" fill="#f0a026"/>
+          <path d="M97.33,482.38l-32.72-.19-6.47,14.8c-5.24.42-9.59.69-15.18-.55l35.03-73.54c.87-1.83,6.45-1.59,7.29.2l34.27,73.35-15.38.79-6.84-14.86Zm-5.61-13.02l-10.38-23.4-10.58,23.6,20.96-.2Z" fill="#1a2e50"/>
+          <path d="M208.23,322.27c-5.78-10.9-12.3-19.55-21.95-26.08-19.43-13.15-35.63,2.18-55.49-7.59-12.11-5.96-20.44-18.47-21.02-32.22,9.41,12.13,21.91,18.98,36.38,17.72l18.64-4.27c20.82-4.77,41.69,9.21,45.36,30.38,1.26,7.29-.16,14.32-1.93,22.06Z" fill="#f0a026"/>
+          <path d="M231.36,253.66l-9.78,21.75-13.23-16.23c-9.05-8.69-20.84-11.69-32.97-8.84-21.8,5.12-42.11-11.21-44.15-33.16,13.43,13.04,26.66,19.29,44.95,13.94,21.49-7.22,46.09,1.17,55.18,22.54Z" fill="#f0a026"/>
+          <polygon points="245.64 496.85 231.81 497.13 231.48 435.39 207.25 435.16 207.19 422.01 269.24 422.08 269.37 435.28 245.63 435.21 245.64 496.85" fill="#1a2e50"/>
+        </svg>
+        <span class="logo-card-label label-dark">Color completo</span>
+        <span class="logo-card-use label-dark">Fondo blanco o muy claro. Uso principal en web y documentos.</span>
+      </div>
+
+      <div class="logo-card on-navy">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560.24 508.43" width="110">
+          <path d="M405.2,306.54c3.98-5.66,7.2-11.72,9.29-18.21l-13.35-18.12-47.63-61.95,5.2-28.99-25.86,23.52-2.12.49c-.45.1-.77-1.72-.66-2.27l2.2-10.7-56-.11c-21.4-.04-35.39-14.69-43.7-33.18l-14.77-.63,42.95-83.63,29.7-57.34,52.45,102.12,57.4,110.5,37.83,72.21,29.13,55.38-109.97.05c-21.55-4.7-38.58-18.57-48.85-37.64-13.33-24.42-11.81-54.1,5.92-76.44-1.65,11.91-1.13,22.5,6.66,30.87,7.72,8.3,19.35,11.21,30.88,7.66l27.57,16.58,2.78,9.93,22.97-.09Z" fill="#fff"/>
+          <path d="M204.09,355.61l-91.09.04,25.67-49.86c13.13.53,25.99,4.09,38,9.91,14,8.5,24.1,21.82,27.42,39.91Z" fill="#fff"/>
+          <path d="M537.05,495.72c-2.72,3.85-8.32,1.59-10.97-1.34l-40.89-45.01-.25,47.53c-4.57.78-8.78.81-13.41-.1l-.13-74.08c3.4-.72,7.58-.87,9.74.29l41.59,46.85.21-47.54,14.05.07.07,73.33Z" fill="#fff"/>
+          <path d="M432.01,493.55c-12.74,7.73-28.28,7.17-40.9-.34-11.64-6.92-19.67-20.31-19.17-35.06.69-20.34,16.65-36.1,36.64-37.57,18.46-1.36,35.18,9.55,40.61,26.3,5.78,17.86-.54,36.58-17.17,46.67Zm-6.26-12.26c12.33-7.94,14.62-23.55,7.65-34.72s-21.23-15.53-33.18-9.69-17.7,20.03-12.32,32.73c6.07,14.36,24.33,20.4,37.86,11.68Z" fill="#fff"/>
+          <path d="M351.94,496.76c-4.79.95-9.41.91-14.23.02l-.13-31.21-34.66.12-.06,31.3c-4.55.53-8.86.58-13.76.14l-.24-74.87,13.78-.06.4,30.44,34.53-.05.11-30.09,14.06-.18.2,74.45Z" fill="#fff"/>
+          <polygon points="184.67 465.52 151.76 465.46 151.72 483.93 191.44 484.1 191.35 497.49 137.68 497.33 137.59 422.15 190.78 422.1 191.04 435.21 151.79 435.42 151.64 452 184.44 451.96 184.67 465.52" fill="#fff"/>
+          <path d="M284.34,207.48c-14.44,7.08-28.18,15.27-39.15,28.54-12.75-17.57-25.68-30.88-47.99-25.93-9.52,2.11-20.15,1.07-28.09-4.77-9.26-6.81-15.64-17.72-15.16-29.81,12.12,15.99,29.96,21.74,47.95,15.33,12.52-4.46,25.42-2.04,36.08,5.67,6.82,4.93,13.54,8.78,21.6,11.62l24.77-.66Z" fill="#f0a026"/>
+          <path d="M97.33,482.38l-32.72-.19-6.47,14.8c-5.24.42-9.59.69-15.18-.55l35.03-73.54c.87-1.83,6.45-1.59,7.29.2l34.27,73.35-15.38.79-6.84-14.86Zm-5.61-13.02l-10.38-23.4-10.58,23.6,20.96-.2Z" fill="#fff"/>
+          <path d="M208.23,322.27c-5.78-10.9-12.3-19.55-21.95-26.08-19.43-13.15-35.63,2.18-55.49-7.59-12.11-5.96-20.44-18.47-21.02-32.22,9.41,12.13,21.91,18.98,36.38,17.72l18.64-4.27c20.82-4.77,41.69,9.21,45.36,30.38,1.26,7.29-.16,14.32-1.93,22.06Z" fill="#f0a026"/>
+          <path d="M231.36,253.66l-9.78,21.75-13.23-16.23c-9.05-8.69-20.84-11.69-32.97-8.84-21.8,5.12-42.11-11.21-44.15-33.16,13.43,13.04,26.66,19.29,44.95,13.94,21.49-7.22,46.09,1.17,55.18,22.54Z" fill="#f0a026"/>
+          <polygon points="245.64 496.85 231.81 497.13 231.48 435.39 207.25 435.16 207.19 422.01 269.24 422.08 269.37 435.28 245.63 435.21 245.64 496.85" fill="#fff"/>
+        </svg>
+        <span class="logo-card-label label-light">Blanco + dorado</span>
+        <span class="logo-card-use label-light">Fondos oscuros, navy o azul. Sidebar, headers, email.</span>
+      </div>
+
+      <div class="logo-card on-light">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560.24 508.43" width="110">
+          <path d="M405.2,306.54c3.98-5.66,7.2-11.72,9.29-18.21l-13.35-18.12-47.63-61.95,5.2-28.99-25.86,23.52-2.12.49c-.45.1-.77-1.72-.66-2.27l2.2-10.7-56-.11c-21.4-.04-35.39-14.69-43.7-33.18l-14.77-.63,42.95-83.63,29.7-57.34,52.45,102.12,57.4,110.5,37.83,72.21,29.13,55.38-109.97.05c-21.55-4.7-38.58-18.57-48.85-37.64-13.33-24.42-11.81-54.1,5.92-76.44-1.65,11.91-1.13,22.5,6.66,30.87,7.72,8.3,19.35,11.21,30.88,7.66l27.57,16.58,2.78,9.93,22.97-.09Z" fill="#1960a6"/>
+          <path d="M204.09,355.61l-91.09.04,25.67-49.86c13.13.53,25.99,4.09,38,9.91,14,8.5,24.1,21.82,27.42,39.91Z" fill="#1960a6"/>
+          <path d="M537.05,495.72c-2.72,3.85-8.32,1.59-10.97-1.34l-40.89-45.01-.25,47.53c-4.57.78-8.78.81-13.41-.1l-.13-74.08c3.4-.72,7.58-.87,9.74.29l41.59,46.85.21-47.54,14.05.07.07,73.33Z" fill="#1960a6"/>
+          <path d="M432.01,493.55c-12.74,7.73-28.28,7.17-40.9-.34-11.64-6.92-19.67-20.31-19.17-35.06.69-20.34,16.65-36.1,36.64-37.57,18.46-1.36,35.18,9.55,40.61,26.3,5.78,17.86-.54,36.58-17.17,46.67Zm-6.26-12.26c12.33-7.94,14.62-23.55,7.65-34.72s-21.23-15.53-33.18-9.69-17.7,20.03-12.32,32.73c6.07,14.36,24.33,20.4,37.86,11.68Z" fill="#1960a6"/>
+          <path d="M351.94,496.76c-4.79.95-9.41.91-14.23.02l-.13-31.21-34.66.12-.06,31.3c-4.55.53-8.86.58-13.76.14l-.24-74.87,13.78-.06.4,30.44,34.53-.05.11-30.09,14.06-.18.2,74.45Z" fill="#1960a6"/>
+          <polygon points="184.67 465.52 151.76 465.46 151.72 483.93 191.44 484.1 191.35 497.49 137.68 497.33 137.59 422.15 190.78 422.1 191.04 435.21 151.79 435.42 151.64 452 184.44 451.96 184.67 465.52" fill="#1960a6"/>
+          <path d="M284.34,207.48c-14.44,7.08-28.18,15.27-39.15,28.54-12.75-17.57-25.68-30.88-47.99-25.93-9.52,2.11-20.15,1.07-28.09-4.77-9.26-6.81-15.64-17.72-15.16-29.81,12.12,15.99,29.96,21.74,47.95,15.33,12.52-4.46,25.42-2.04,36.08,5.67,6.82,4.93,13.54,8.78,21.6,11.62l24.77-.66Z" fill="#1960a6"/>
+          <path d="M97.33,482.38l-32.72-.19-6.47,14.8c-5.24.42-9.59.69-15.18-.55l35.03-73.54c.87-1.83,6.45-1.59,7.29.2l34.27,73.35-15.38.79-6.84-14.86Zm-5.61-13.02l-10.38-23.4-10.58,23.6,20.96-.2Z" fill="#1960a6"/>
+          <path d="M208.23,322.27c-5.78-10.9-12.3-19.55-21.95-26.08-19.43-13.15-35.63,2.18-55.49-7.59-12.11-5.96-20.44-18.47-21.02-32.22,9.41,12.13,21.91,18.98,36.38,17.72l18.64-4.27c20.82-4.77,41.69,9.21,45.36,30.38,1.26,7.29-.16,14.32-1.93,22.06Z" fill="#1960a6"/>
+          <path d="M231.36,253.66l-9.78,21.75-13.23-16.23c-9.05-8.69-20.84-11.69-32.97-8.84-21.8,5.12-42.11-11.21-44.15-33.16,13.43,13.04,26.66,19.29,44.95,13.94,21.49-7.22,46.09,1.17,55.18,22.54Z" fill="#1960a6"/>
+          <polygon points="245.64 496.85 231.81 497.13 231.48 435.39 207.25 435.16 207.19 422.01 269.24 422.08 269.37 435.28 245.63 435.21 245.64 496.85" fill="#1960a6"/>
+        </svg>
+        <span class="logo-card-label label-dark">Monocromático</span>
+        <span class="logo-card-use label-dark">Fondos azul claro o gris. Documentos PDF, impresión.</span>
+      </div>
+
+    </div>
+
+    <!-- Zona de exclusión y reglas -->
+    <div style="margin-top:36px;">
+      <div style="font-size:13px;font-weight:700;color:var(--aethon-900);margin-bottom:16px;">Zona de exclusión mínima</div>
+      <div class="info-box">
+        Mantener siempre un espacio libre alrededor del logo equivalente a la altura de la letra <strong>A</strong> del wordmark. No colocar texto, íconos ni bordes dentro de esa zona. El logo nunca debe aparecer sobre fondos de color no aprobados ni sobre fotografías complejas sin un overlay oscuro.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       2. COLORES
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">02 · Color</div>
+    <h2 class="section-heading">Paleta de Colores</h2>
+    <p class="section-sub">Tres colores estructurales extraídos del logo + una escala de interfaz para el sistema digital.</p>
+
+    <!-- Barra cromática -->
+    <div style="display:flex;gap:0;border-radius:14px;overflow:hidden;height:56px;margin-bottom:40px;box-shadow:0 2px 12px rgba(0,0,0,.08);">
+      <div style="flex:3;background:#0A1628;"></div>
+      <div style="flex:2;background:#1a2e50;"></div>
+      <div style="flex:3;background:#1960a6;"></div>
+      <div style="flex:2;background:#2563EB;"></div>
+      <div style="flex:1;background:#60A5FA;"></div>
+      <div style="flex:2;background:#f0a026;"></div>
+      <div style="flex:1;background:#FEF3C7;"></div>
+    </div>
+
+    <!-- Colores primarios de marca (del logo) -->
+    <div style="font-size:12px;font-weight:700;color:var(--slate-400);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">Colores de identidad (logo)</div>
+    <div class="grid-3" style="margin-bottom:36px;">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#0A1628;"></div>
+        <div class="color-info">
+          <div class="color-name">Aethon Deep Navy</div>
+          <div class="color-hex">#0A1628</div>
+          <div class="color-use">Sidebar, fondos oscuros, texto sobre claro</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#1960a6;"></div>
+        <div class="color-info">
+          <div class="color-name">Aethon Blue</div>
+          <div class="color-hex">#1960A6</div>
+          <div class="color-use">Color primario del logo. Titulares, links, elementos de marca</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#f0a026;"></div>
+        <div class="color-info">
+          <div class="color-name">Aethon Gold</div>
+          <div class="color-hex">#F0A026</div>
+          <div class="color-use">Acento exclusivo. CTAs premium, highlights, badges especiales</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Escala UI -->
+    <div style="font-size:12px;font-weight:700;color:var(--slate-400);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">Escala UI digital</div>
+    <div class="grid-4" style="margin-bottom:36px;">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#1A3158;"></div>
+        <div class="color-info">
+          <div class="color-name">aethon-700</div>
+          <div class="color-hex">#1A3158</div>
+          <div class="color-use">Hover states oscuros</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#2563EB;"></div>
+        <div class="color-info">
+          <div class="color-name">aethon-500</div>
+          <div class="color-hex">#2563EB</div>
+          <div class="color-use">Botones primarios, links activos</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#3B82F6;"></div>
+        <div class="color-info">
+          <div class="color-name">aethon-400</div>
+          <div class="color-hex">#3B82F6</div>
+          <div class="color-use">Hover states claros</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#DBEAFE;"></div>
+        <div class="color-info">
+          <div class="color-name">aethon-100</div>
+          <div class="color-hex">#DBEAFE</div>
+          <div class="color-use">Badges, fondos de chip</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Neutros -->
+    <div style="font-size:12px;font-weight:700;color:var(--slate-400);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">Neutros</div>
+    <div class="grid-4" style="margin-bottom:36px;">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#1E293B;"></div>
+        <div class="color-info">
+          <div class="color-name">Slate 800</div>
+          <div class="color-hex">#1E293B</div>
+          <div class="color-use">Texto principal</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#475569;"></div>
+        <div class="color-info">
+          <div class="color-name">Slate 600</div>
+          <div class="color-hex">#475569</div>
+          <div class="color-use">Texto secundario</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#94A3B8;"></div>
+        <div class="color-info">
+          <div class="color-name">Slate 400</div>
+          <div class="color-hex">#94A3B8</div>
+          <div class="color-use">Placeholders, labels</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#F8FAFC;border-bottom:1px solid #E2E8F0;"></div>
+        <div class="color-info">
+          <div class="color-name">Slate 50</div>
+          <div class="color-hex">#F8FAFC</div>
+          <div class="color-use">Fondo general de la app</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estados -->
+    <div style="font-size:12px;font-weight:700;color:var(--slate-400);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">Estados semánticos</div>
+    <div class="grid-4">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#059669;"></div>
+        <div class="color-info">
+          <div class="color-name">Success</div>
+          <div class="color-hex">#059669</div>
+          <div class="color-use">Éxito, activo, pagado</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#DC2626;"></div>
+        <div class="color-info">
+          <div class="color-name">Danger</div>
+          <div class="color-hex">#DC2626</div>
+          <div class="color-use">Error, eliminación, alerta crítica</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#D97706;"></div>
+        <div class="color-info">
+          <div class="color-name">Warning</div>
+          <div class="color-hex">#D97706</div>
+          <div class="color-use">Advertencia, vencimiento próximo</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#7C3AED;"></div>
+        <div class="color-info">
+          <div class="color-name">Purple</div>
+          <div class="color-hex">#7C3AED</div>
+          <div class="color-use">Categorías especiales, Ley 19.378</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       3. TIPOGRAFÍA
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">03 · Tipografía</div>
+    <h2 class="section-heading">Inter — Fuente Única</h2>
+    <p class="section-sub">Inter es la única familia tipográfica de AETHON. Diseñada específicamente para interfaces digitales de alta legibilidad, cubre todos los usos desde títulos impactantes hasta datos numéricos en tablas.</p>
+
+    <div class="info-box" style="margin-bottom:36px;">
+      <strong>Importar en web:</strong><br/>
+      <code style="font-family:monospace;font-size:12px;color:var(--aethon-600);">&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/&gt;</code>
+    </div>
+
+    <!-- Escala tipográfica -->
+    <div class="type-scale">
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-name">Display</div>
+          <div class="type-meta-spec">56px / 900<br/>-0.04em</div>
+        </div>
+        <div class="type-sample" style="font-size:52px;font-weight:900;letter-spacing:-.04em;color:var(--aethon-900);line-height:1;">AETHON</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-name">H1</div>
+          <div class="type-meta-spec">36px / 800<br/>-0.03em</div>
+        </div>
+        <div class="type-sample" style="font-size:36px;font-weight:800;letter-spacing:-.03em;color:var(--aethon-900);line-height:1.15;">Sistema de Remuneraciones</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-name">H2</div>
+          <div class="type-meta-spec">24px / 700<br/>-0.02em</div>
+        </div>
+        <div class="type-sample" style="font-size:24px;font-weight:700;letter-spacing:-.02em;color:var(--aethon-900);">Liquidaciones del Período</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-name">H3</div>
+          <div class="type-meta-spec">18px / 700<br/>-0.01em</div>
+        </div>
+        <div class="type-sample" style="font-size:18px;font-weight:700;letter-spacing:-.01em;color:var(--aethon-900);">Resumen de haberes y descuentos</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-name">Body</div>
+          <div class="type-meta-spec">15px / 400<br/>0em</div>
+        </div>
+        <div class="type-sample" style="font-size:15px;font-weight:400;color:var(--slate-700);line-height:1.65;">El sistema procesa remuneraciones bajo dos regímenes: Código del Trabajo y Ley 19.378 (APS). Conecta directamente a SQL Server sin modificar los datos de producción.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-name">Small</div>
+          <div class="type-meta-spec">13px / 500<br/>0em</div>
+        </div>
+        <div class="type-sample" style="font-size:13px;font-weight:500;color:var(--slate-600);">Período activo: Mayo 2026 · 847 funcionarios · 3 instancias conectadas</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-name">Label</div>
+          <div class="type-meta-spec">11px / 700<br/>+0.1em UPPER</div>
+        </div>
+        <div class="type-sample" style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--slate-400);">Sueldo Base · AFP · Salud · Impuesto Único</div>
+      </div>
+    </div>
+
+    <!-- Pesos -->
+    <div style="margin-top:40px;margin-bottom:20px;font-size:13px;font-weight:700;color:var(--aethon-900);">Pesos disponibles</div>
+    <div class="weight-grid">
+      <div class="weight-card">
+        <div class="weight-sample" style="font-weight:300;">Ag</div>
+        <div class="weight-label">Light</div>
+        <div class="weight-value">300 · decorativo</div>
+      </div>
+      <div class="weight-card">
+        <div class="weight-sample" style="font-weight:400;">Ag</div>
+        <div class="weight-label">Regular</div>
+        <div class="weight-value">400 · cuerpo de texto</div>
+      </div>
+      <div class="weight-card">
+        <div class="weight-sample" style="font-weight:600;">Ag</div>
+        <div class="weight-label">SemiBold</div>
+        <div class="weight-value">600 · UI labels, nav</div>
+      </div>
+      <div class="weight-card">
+        <div class="weight-sample" style="font-weight:800;">Ag</div>
+        <div class="weight-label">ExtraBold</div>
+        <div class="weight-value">800 · títulos, KPIs</div>
+      </div>
+    </div>
+
+    <!-- Números -->
+    <div style="margin-top:36px;" class="ui-card">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--slate-400);margin-bottom:16px;">Números — datos financieros</div>
+      <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:baseline;">
+        <div>
+          <div style="font-size:11px;color:var(--slate-400);margin-bottom:4px;">KPI grande</div>
+          <div style="font-size:36px;font-weight:800;letter-spacing:-.03em;color:var(--aethon-900);">$2.847.320</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--slate-400);margin-bottom:4px;">Tabla</div>
+          <div style="font-size:15px;font-weight:600;color:var(--aethon-900);">$847.500</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--slate-400);margin-bottom:4px;">Diferencia positiva</div>
+          <div style="font-size:15px;font-weight:600;color:var(--success);">+$32.400</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--slate-400);margin-bottom:4px;">Diferencia negativa</div>
+          <div style="font-size:15px;font-weight:600;color:var(--danger);">-$18.200</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       4. COMPONENTES UI
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">04 · Componentes</div>
+    <h2 class="section-heading">Sistema de UI</h2>
+    <p class="section-sub">Componentes reutilizables que conforman toda la interfaz. Están definidos como clases utilitarias en Tailwind CSS.</p>
+
+    <!-- Botones -->
+    <div style="font-size:12px;font-weight:700;color:var(--slate-400);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">Botones</div>
+    <div class="ui-card" style="margin-bottom:12px;">
+      <div class="btn-row">
+        <button class="btn btn-primary">Generar PDF</button>
+        <button class="btn btn-secondary">Cancelar</button>
+        <button class="btn btn-navy">Exportar Excel</button>
+        <button class="btn btn-gold">Acción Premium</button>
+        <button class="btn btn-danger">Eliminar</button>
+        <button class="btn btn-ghost">Ver más</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary btn-sm">Pequeño</button>
+        <button class="btn btn-primary">Normal</button>
+        <button class="btn btn-primary btn-lg">Grande</button>
+      </div>
+    </div>
+    <table style="margin-bottom:36px;">
+      <tr><th>Variante</th><th>Fondo</th><th>Uso</th></tr>
+      <tr><td>Primary</td><td><code>#2563EB</code></td><td>Acción principal de cada pantalla</td></tr>
+      <tr><td>Secondary</td><td><code>white + border</code></td><td>Acción secundaria, cancelar</td></tr>
+      <tr><td>Navy</td><td><code>#0A1628</code></td><td>Exportaciones, acciones de datos</td></tr>
+      <tr><td>Gold</td><td><code>#F0A026</code></td><td>Acciones destacadas o de pago</td></tr>
+      <tr><td>Danger</td><td><code>#DC2626</code></td><td>Eliminar, acciones destructivas</td></tr>
+      <tr><td>Ghost</td><td><code>transparent</code></td><td>Links secundarios, "ver más"</td></tr>
+    </table>
+
+    <!-- Badges -->
+    <div style="font-size:12px;font-weight:700;color:var(--slate-400);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">Badges / Etiquetas</div>
+    <div class="ui-card" style="margin-bottom:36px;">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="badge badge-blue">Activo</span>
+        <span class="badge badge-gold">APS</span>
+        <span class="badge badge-green">Pagado</span>
+        <span class="badge badge-red">Vencido</span>
+        <span class="badge badge-slate">Indefinido</span>
+        <span class="badge badge-navy">Código del Trabajo</span>
+        <span class="badge" style="background:#F3E8FF;color:#6B21A8;">Ley 19.378</span>
+        <span class="badge" style="background:#ECFDF5;color:#065F46;">Plazo Fijo</span>
+      </div>
+    </div>
+
+    <!-- Cards de datos -->
+    <div style="font-size:12px;font-weight:700;color:var(--slate-400);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">Cards de datos (KPIs)</div>
+    <div class="grid-3" style="margin-bottom:36px;">
+      <div class="ui-card">
+        <div class="ui-card-title">Total Imponible</div>
+        <div class="ui-card-value">$142.380.500</div>
+        <div class="ui-card-sub">+3.2% vs mes anterior</div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-card-title">Funcionarios</div>
+        <div class="ui-card-value">847</div>
+        <div class="ui-card-sub">Período Mayo 2026</div>
+      </div>
+      <div class="ui-card" style="border-left:3px solid var(--logo-gold);">
+        <div class="ui-card-title">Contratos por vencer</div>
+        <div class="ui-card-value" style="color:var(--warning);">12</div>
+        <div class="ui-card-sub">Próximos 30 días</div>
+      </div>
+    </div>
+
+    <!-- Inputs -->
+    <div style="font-size:12px;font-weight:700;color:var(--slate-400);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">Campos de formulario</div>
+    <div class="ui-card" style="margin-bottom:36px;">
+      <div class="grid-2" style="gap:20px;">
+        <div>
+          <label class="ui-label">RUT Funcionario</label>
+          <input class="ui-input" type="text" value="9.583.637-2" readonly/>
+        </div>
+        <div>
+          <label class="ui-label">Período</label>
+          <input class="ui-input" type="text" placeholder="202605" readonly/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       5. ESPACIADO, RADIOS Y SOMBRAS
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">05 · Espaciado &amp; Forma</div>
+    <h2 class="section-heading">Grid, Radios y Sombras</h2>
+    <p class="section-sub">La UI usa una base de 4px (unidad Tailwind). Todos los radios y sombras son consistentes a lo largo del sistema.</p>
+
+    <!-- Radios -->
+    <div style="font-size:12px;font-weight:700;color:var(--slate-400);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">Border radius</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:36px;">
+      <div class="radius-card" style="border-radius:4px;">
+        <div class="radius-box" style="border-radius:4px;"></div>
+        <div class="radius-name">SM</div>
+        <div class="radius-val">4px · rounded-sm<br/>Badges, chips</div>
+      </div>
+      <div class="radius-card" style="border-radius:8px;">
+        <div class="radius-box" style="border-radius:8px;"></div>
+        <div class="radius-name">Base</div>
+        <div class="radius-val">8px · rounded-lg<br/>Botones, inputs</div>
+      </div>
+      <div class="radius-card" style="border-radius:12px;">
+        <div class="radius-box" style="border-radius:12px;"></div>
+        <div class="radius-name">XL</div>
+        <div class="radius-val">12px · rounded-xl<br/>Cards, paneles</div>
+      </div>
+      <div class="radius-card" style="border-radius:16px;">
+        <div class="radius-box" style="border-radius:16px;"></div>
+        <div class="radius-name">2XL</div>
+        <div class="radius-val">16px · rounded-2xl<br/>Modals, login card</div>
+      </div>
+      <div class="radius-card" style="border-radius:20px;">
+        <div class="radius-box" style="border-radius:20px;"></div>
+        <div class="radius-name">3XL</div>
+        <div class="radius-val">20px · rounded-3xl<br/>Hero, cover blocks</div>
+      </div>
+      <div class="radius-card" style="border-radius:9999px;">
+        <div class="radius-box" style="border-radius:9999px;width:64px;"></div>
+        <div class="radius-name">Full</div>
+        <div class="radius-val">9999px · rounded-full<br/>Avatares, badges</div>
+      </div>
+    </div>
+
+    <!-- Sombras -->
+    <div style="font-size:12px;font-weight:700;color:var(--slate-400);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">Sombras</div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <div class="shadow-card" style="box-shadow:0 1px 2px rgba(0,0,0,.05);">
+        <div class="shadow-name">sm</div>
+        <div style="font-size:11px;color:var(--slate-400);">Tablas, rows</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.04);">
+        <div class="shadow-name">base</div>
+        <div style="font-size:11px;color:var(--slate-400);">Cards de KPI</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 4px 6px rgba(0,0,0,.05),0 2px 4px rgba(0,0,0,.04);">
+        <div class="shadow-name">md</div>
+        <div style="font-size:11px;color:var(--slate-400);">Dropdowns, popovers</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 10px 15px rgba(0,0,0,.08),0 4px 6px rgba(0,0,0,.04);">
+        <div class="shadow-name">lg</div>
+        <div style="font-size:11px;color:var(--slate-400);">Sidebar, nav</div>
+      </div>
+      <div class="shadow-card" style="box-shadow:0 25px 50px rgba(0,0,0,.15);">
+        <div class="shadow-name">2xl</div>
+        <div style="font-size:11px;color:var(--slate-400);">Modals, login</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       6. ICONOGRAFÍA
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">06 · Iconografía</div>
+    <h2 class="section-heading">Estilo de Íconos</h2>
+    <p class="section-sub">Íconos stroke (outline), strokeWidth 1.8–2px, linecap y linejoin <code>round</code>. Tamaño estándar 20×20px (w-5 h-5 en Tailwind). Librería de referencia: Heroicons o Lucide.</p>
+    <div class="ui-card">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+        <!-- Dashboard -->
+        <div class="icon-chip"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1960a6" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+        <!-- Users -->
+        <div class="icon-chip"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1960a6" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <!-- Document -->
+        <div class="icon-chip"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1960a6" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+        <!-- Money -->
+        <div class="icon-chip"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1960a6" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <!-- Receipt -->
+        <div class="icon-chip"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1960a6" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg></div>
+        <!-- Chart -->
+        <div class="icon-chip"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1960a6" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+        <!-- Settings -->
+        <div class="icon-chip"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1960a6" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+        <!-- Search -->
+        <div class="icon-chip"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1960a6" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
+        <!-- Download -->
+        <div class="icon-chip"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1960a6" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg></div>
+        <!-- Bell -->
+        <div class="icon-chip"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1960a6" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg></div>
+        <!-- Calendar -->
+        <div class="icon-chip"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#1960a6" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+      </div>
+      <div style="margin-top:16px;font-size:12px;color:var(--slate-400);">stroke-width: 1.8 · stroke-linecap: round · stroke-linejoin: round · color: <code>#1960A6</code> sobre claro, <code>#fff</code> sobre oscuro</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       7. TOKENS CSS (para la web)
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">07 · Tokens</div>
+    <h2 class="section-heading">Variables CSS para la Web</h2>
+    <p class="section-sub">Copiar estas variables en el <code>:root</code> del proyecto web para mantener consistencia total con la identidad AETHON.</p>
+
+    <div class="ui-card" style="padding:0;overflow:hidden;">
+      <div style="background:var(--aethon-900);padding:14px 20px;display:flex;align-items:center;gap:8px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div>
+        <div style="width:10px;height:10px;border-radius:50%;background:#FFBD2E;"></div>
+        <div style="width:10px;height:10px;border-radius:50%;background:#28C840;"></div>
+        <span style="font-size:12px;color:rgba(255,255,255,.4);margin-left:8px;font-family:monospace;">variables.css</span>
+      </div>
+      <pre style="padding:24px;font-size:12px;line-height:1.8;overflow-x:auto;color:var(--slate-700);background:var(--slate-50);margin:0;"><code>:root {
+  /* ── Marca ── */
+  --color-navy:         #0A1628;
+  --color-navy-logo:    #1a2e50;
+  --color-blue:         #1960a6;
+  --color-blue-ui:      #2563EB;
+  --color-gold:         #f0a026;
+
+  /* ── UI scale ── */
+  --color-blue-700:     #1A3158;
+  --color-blue-400:     #3B82F6;
+  --color-blue-100:     #DBEAFE;
+  --color-blue-50:      #EFF6FF;
+
+  /* ── Neutros ── */
+  --color-text:         #1E293B;
+  --color-text-muted:   #475569;
+  --color-text-subtle:  #94A3B8;
+  --color-border:       #E2E8F0;
+  --color-surface:      #F8FAFC;
+  --color-white:        #FFFFFF;
+
+  /* ── Estados ── */
+  --color-success:      #059669;
+  --color-danger:       #DC2626;
+  --color-warning:      #D97706;
+  --color-purple:       #7C3AED;
+
+  /* ── Tipografía ── */
+  --font-sans:          'Inter', system-ui, sans-serif;
+  --font-mono:          'JetBrains Mono', 'Courier New', monospace;
+
+  /* ── Radios ── */
+  --radius-sm:          4px;
+  --radius-md:          8px;
+  --radius-lg:          12px;
+  --radius-xl:          16px;
+  --radius-2xl:         20px;
+  --radius-full:        9999px;
+}</code></pre>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       8. VOZ DE MARCA
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-title">08 · Voz &amp; Tono</div>
+    <h2 class="section-heading">Cómo comunica AETHON</h2>
+    <p class="section-sub">La comunicación de AETHON es precisa, directa y profesional — sin ser fría. El sistema trabaja con datos reales de funcionarios públicos: la voz refleja esa responsabilidad.</p>
+
+    <div class="grid-2" style="gap:16px;">
+      <div class="ui-card" style="border-left:3px solid var(--success);">
+        <div style="font-size:12px;font-weight:700;color:var(--success);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;">Sí hacemos</div>
+        <ul style="font-size:14px;color:var(--slate-700);line-height:2;padding-left:16px;">
+          <li>Mensajes concretos y accionables</li>
+          <li>Confirmación clara de operaciones críticas</li>
+          <li>Números siempre formateados y con unidad</li>
+          <li>Errores con causa y solución sugerida</li>
+          <li>Terminología técnica correcta (imponible, haberes, líquido)</li>
+        </ul>
+      </div>
+      <div class="ui-card" style="border-left:3px solid var(--danger);">
+        <div style="font-size:12px;font-weight:700;color:var(--danger);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;">No hacemos</div>
+        <ul style="font-size:14px;color:var(--slate-700);line-height:2;padding-left:16px;">
+          <li>Lenguaje excesivamente informal o emojis</li>
+          <li>Mensajes de error genéricos ("algo salió mal")</li>
+          <li>Animaciones innecesarias o distractoras</li>
+          <li>Jerga o abreviaciones ambiguas</li>
+          <li>Confirmaciones implícitas para acciones destructivas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:1px;background:var(--slate-200);margin-top:80px;margin-bottom:40px;"></div>
+  <div style="text-align:center;font-size:12px;color:var(--slate-400);padding-bottom:20px;">
+    AETHON Brand Guidelines · Versión 1.0 · Mayo 2026 · Uso interno
+  </div>
+
+</div>
+</body>
+</html>

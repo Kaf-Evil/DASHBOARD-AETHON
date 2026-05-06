@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<title>Logo · Color</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin:0; padding:0; background:var(--bg2); }
+  .card { display:flex; align-items:center; gap:24px; padding:24px 28px; background:#fff; }
+  .lock { background:#fff; border:1.5px solid var(--border); border-radius:12px; padding:18px 24px; display:flex; align-items:center; justify-content:center; flex:1; min-height:108px;}
+  .lock.dark { background:var(--aethon-900); border-color:transparent;}
+  .lock.light{ background:#EDF1F8; border-color:#d8e0eb;}
+  .lock img { height:64px; width:auto;}
+  .meta { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--fg4); margin-top:10px; text-align:center;}
+  .stack { display:flex; flex-direction:column; align-items:center; flex:1; gap:0;}
+</style></head>
+<body>
+<div class="card">
+  <div class="stack">
+    <div class="lock"><img src="../assets/aethon-logo.svg"/></div>
+    <div class="meta">Color · on white</div>
+  </div>
+  <div class="stack">
+    <div class="lock dark"><img src="../assets/aethon-logo-light.svg"/></div>
+    <div class="meta" style="color:var(--fg3)">White + Gold · on navy ★</div>
+  </div>
+  <div class="stack">
+    <div class="lock light"><img src="../assets/aethon-logo.svg"/></div>
+    <div class="meta">Mono · on light</div>
+  </div>
+</div>
+</body></html>

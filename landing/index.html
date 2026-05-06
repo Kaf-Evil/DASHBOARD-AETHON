@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aethon — Automatización, IA y aplicaciones para RH</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',system-ui,sans-serif;color:#0A1628;background:#fff;-webkit-font-smoothing:antialiased;line-height:1.5;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 28px;}
+
+  /* Nav */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid #E2E8F0;}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em;font-size:17px;}
+  .brand img{height:30px;}
+  .nav-links{display:flex;gap:24px;font-size:13.5px;font-weight:500;color:#475569;}
+  .nav-links a:hover{color:#0A1628;}
+  .nav-right{display:flex;align-items:center;gap:12px;}
+  .lang-toggle{display:flex;background:#F1F5F9;border-radius:8px;padding:3px;border:1px solid #E2E8F0;}
+  .lang-btn{padding:5px 10px;border:none;background:transparent;font-size:11.5px;font-weight:700;color:#64748B;cursor:pointer;border-radius:5px;font-family:inherit;letter-spacing:.06em;}
+  .lang-btn.active{background:#fff;color:#0A1628;box-shadow:0 1px 2px rgba(15,23,42,.08);}
+  .nav-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:#0A1628;color:#fff;font-size:13px;font-weight:600;}
+  .nav-cta:hover{background:#142441;}
+
+  /* Hero */
+  .hero{background:#0A1628;color:#fff;padding:88px 0 100px;position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;overflow:hidden;}
+  .hero-bg::before{content:"";position:absolute;top:-160px;right:-120px;width:540px;height:540px;border-radius:50%;background:radial-gradient(circle,rgba(25,96,166,.45) 0%,transparent 70%);animation:float1 18s ease-in-out infinite;}
+  .hero-bg::after{content:"";position:absolute;bottom:-180px;left:-120px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(240,160,38,.16) 0%,transparent 70%);animation:float2 22s ease-in-out infinite;}
+  @keyframes float1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-40px,30px) scale(1.08);}}
+  @keyframes float2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(50px,-40px) scale(1.12);}}
+  .grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 75%);}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:center;}
+  @media(max-width:980px){.hero-grid{grid-template-columns:1fr;}}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:9999px;background:rgba(240,160,38,.12);border:1px solid rgba(240,160,38,.25);color:#F0A026;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:24px;white-space:nowrap;}
+  .eyebrow .dot{width:6px;height:6px;border-radius:9999px;background:#F0A026;animation:pulse 2.4s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.3);}}
+  .h1{font-size:clamp(40px,5.4vw,64px);font-weight:900;letter-spacing:-.035em;line-height:1.05;margin-bottom:22px;color:#fff;}
+  .h1 .accent{color:#F0A026;display:inline-block;}
+  .h1 .word{display:inline-block;animation:slideUp .8s cubic-bezier(.2,.7,.3,1) backwards;}
+  .h1 .word:nth-child(1){animation-delay:.05s;}
+  .h1 .word:nth-child(2){animation-delay:.13s;}
+  .h1 .word:nth-child(3){animation-delay:.21s;}
+  .h1 .word:nth-child(4){animation-delay:.29s;}
+  .h1 .word:nth-child(5){animation-delay:.37s;}
+  @keyframes slideUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+  .lede{font-size:17px;line-height:1.6;color:rgba(255,255,255,.72);max-width:560px;margin-bottom:32px;animation:slideUp .8s cubic-bezier(.2,.7,.3,1) .45s backwards;}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;animation:slideUp .8s cubic-bezier(.2,.7,.3,1) .55s backwards;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:10px;font-size:14.5px;font-weight:700;border:1.5px solid transparent;cursor:pointer;font-family:inherit;letter-spacing:-.005em;transition:all .15s ease-out;text-align:center;justify-content:center;}
+  .btn:active{transform:translateY(1px);}
+  .btn-gold{background:#F0A026;color:#3A2208;box-shadow:0 1px 0 rgba(120,70,10,.4),inset 0 1px 0 rgba(255,255,255,.32);}
+  .btn-gold:hover{background:#D78A14;}
+  .btn-ghost-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.22);}
+  .btn-ghost-light:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4);}
+  .btn-primary{background:#1960A6;color:#fff;}
+  .btn-primary:hover{background:#0F4880;}
+  .btn-secondary{background:#fff;color:#0A1628;border-color:#E2E8F0;}
+  .btn-secondary:hover{border-color:#1960A6;}
+  .hero-stats{display:flex;gap:40px;margin-top:48px;flex-wrap:wrap;animation:slideUp .8s cubic-bezier(.2,.7,.3,1) .65s backwards;}
+  .stat-num{font-size:32px;font-weight:800;letter-spacing:-.025em;color:#fff;font-feature-settings:"tnum" 1;}
+  .stat-num .accent{color:#F0A026;}
+  .stat-label{font-size:11px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-top:4px;}
+
+  /* Chat demo (hero right) */
+  .chat-demo{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:18px;backdrop-filter:blur(6px);box-shadow:0 24px 60px rgba(0,0,0,.45);animation:slideUp 1s cubic-bezier(.2,.7,.3,1) .4s backwards;}
+  .chat-head{display:flex;align-items:center;gap:10px;padding:4px 6px 14px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px;}
+  .chat-avatar{width:32px;height:32px;border-radius:9999px;background:linear-gradient(135deg,#F0A026,#D78A14);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#3A2208;}
+  .chat-name{font-size:13px;font-weight:700;color:#fff;}
+  .chat-sub{font-size:11px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:5px;}
+  .chat-sub .live{width:6px;height:6px;border-radius:9999px;background:#10B981;animation:pulse 2s ease-in-out infinite;}
+  .chat-body{display:flex;flex-direction:column;gap:10px;min-height:280px;max-height:340px;overflow-y:auto;padding:4px 2px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent;}
+  .chat-body::-webkit-scrollbar{width:4px;}
+  .chat-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:9999px;}
+  .msg{max-width:88%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;animation:msgIn .4s ease-out backwards;}
+  @keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .msg-user{background:#1960A6;color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
+  .msg-bot{background:rgba(255,255,255,.06);color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.08);align-self:flex-start;border-bottom-left-radius:4px;}
+  .msg-bot strong{color:#F0A026;font-weight:700;}
+  .msg-card{margin-top:8px;background:rgba(240,160,38,.08);border:1px solid rgba(240,160,38,.2);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;font-size:12px;color:#F0A026;font-weight:600;cursor:pointer;}
+  .msg-card:hover{background:rgba(240,160,38,.14);}
+  .msg-card svg{flex-shrink:0;}
+  .typing{display:inline-flex;gap:3px;padding:12px 16px;}
+  .typing span{width:6px;height:6px;border-radius:9999px;background:rgba(255,255,255,.5);animation:typing 1.2s ease-in-out infinite;}
+  .typing span:nth-child(2){animation-delay:.15s;}
+  .typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-4px);opacity:1;}}
+  .chat-input{margin-top:14px;display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 10px;}
+  .chat-input input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:13px;font-family:inherit;}
+  .chat-input input::placeholder{color:rgba(255,255,255,.4);}
+  .chat-send{width:30px;height:30px;border-radius:8px;background:#F0A026;border:none;color:#3A2208;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .chat-suggestions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+  .chip{font-size:11px;padding:5px 10px;border-radius:9999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.78);cursor:pointer;font-family:inherit;}
+  .chip:hover{background:rgba(240,160,38,.12);border-color:rgba(240,160,38,.3);color:#F0A026;}
+
+  /* Sections */
+  section{padding:88px 0;}
+  .sec-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#1960A6;margin-bottom:12px;}
+  .sec-h{font-size:clamp(28px,3.4vw,40px);font-weight:800;letter-spacing:-.025em;color:#0A1628;line-height:1.1;margin-bottom:14px;max-width:680px;}
+  .sec-sub{font-size:16px;color:#475569;line-height:1.6;max-width:600px;margin-bottom:48px;}
+
+  /* Markets */
+  .markets{background:#F8FAFC;}
+  .market-tabs{display:flex;gap:6px;background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;padding:5px;width:fit-content;margin-bottom:32px;box-shadow:0 1px 2px rgba(15,23,42,.04);flex-wrap:wrap;}
+  .market-tab{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:600;color:#475569;cursor:pointer;border:none;background:transparent;font-family:inherit;transition:all .14s ease-out;}
+  .market-tab.active{background:#0A1628;color:#fff;}
+  .market-tab:not(.active):hover{background:#F1F5F9;color:#0A1628;}
+  .market-content{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:start;}
+  @media(max-width:880px){.market-content{grid-template-columns:1fr;}}
+  .market-card{background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;padding:32px;}
+  .market-card h3{font-size:22px;font-weight:800;letter-spacing:-.02em;color:#0A1628;margin-bottom:8px;}
+  .market-tagline{font-size:13.5px;color:#1960A6;font-weight:600;margin-bottom:20px;}
+  .market-list{display:flex;flex-direction:column;gap:14px;}
+  .market-item{display:flex;gap:12px;font-size:14px;color:#1E293B;line-height:1.5;}
+  .market-item svg{flex-shrink:0;color:#1960A6;margin-top:2px;}
+  .market-item strong{color:#0A1628;font-weight:700;}
+  .market-aside{padding:28px 32px;background:#0A1628;color:#fff;border-radius:16px;position:relative;overflow:hidden;}
+  .market-aside::before{content:"";position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(240,160,38,.18) 0%,transparent 70%);}
+  .market-aside-eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#F0A026;margin-bottom:10px;position:relative;}
+  .market-aside h4{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:12px;position:relative;}
+  .market-aside p{font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:18px;position:relative;}
+  .stat{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;color:rgba(255,255,255,.55);position:relative;}
+  .stat:last-child{border-bottom:none;}
+  .stat-v{font-weight:700;color:#fff;font-feature-settings:"tnum" 1;}
+
+  /* Chatbot showcase section */
+  .showcase{background:#fff;}
+  .showcase-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:start;}
+  @media(max-width:980px){.showcase-grid{grid-template-columns:1fr;}}
+  .feature-list{display:flex;flex-direction:column;gap:18px;margin-top:28px;}
+  .feature{display:flex;gap:14px;align-items:flex-start;}
+  .feature-ico{width:38px;height:38px;border-radius:9px;background:#EFF6FF;color:#1960A6;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .feature-text h5{font-size:14.5px;font-weight:700;color:#0A1628;margin-bottom:3px;}
+  .feature-text p{font-size:13px;color:#475569;line-height:1.55;}
+
+  /* Interactive chat demo */
+  .chat-iv{background:#0A1628;border-radius:18px;padding:18px;box-shadow:0 24px 60px rgba(15,23,42,.18);position:relative;overflow:hidden;}
+  .chat-iv::before{content:"";position:absolute;top:-100px;right:-100px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(25,96,166,.4) 0%,transparent 70%);pointer-events:none;}
+  .chat-iv-head{position:relative;display:flex;align-items:center;gap:10px;padding:6px 6px 14px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px;}
+  .chat-iv-avatar{width:34px;height:34px;border-radius:9999px;background:linear-gradient(135deg,#F0A026,#D78A14);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#3A2208;flex-shrink:0;}
+  .chat-iv-name{font-size:13.5px;font-weight:700;color:#fff;}
+  .chat-iv-sub{font-size:11px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:5px;margin-top:2px;}
+  .chat-iv-sub .live{width:6px;height:6px;border-radius:9999px;background:#10B981;animation:pulse 2s ease-in-out infinite;}
+  .chat-iv-user-pill{margin-left:auto;display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:9999px;background:rgba(240,160,38,.1);border:1px solid rgba(240,160,38,.25);color:#F0A026;font-size:11px;font-weight:600;}
+  .chat-iv-body{position:relative;display:flex;flex-direction:column;gap:10px;min-height:340px;max-height:380px;overflow-y:auto;padding:6px 4px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent;}
+  .chat-iv-body::-webkit-scrollbar{width:4px;}
+  .chat-iv-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:9999px;}
+  .iv-msg{max-width:86%;padding:11px 14px;border-radius:14px;font-size:13.5px;line-height:1.55;animation:msgIn .35s ease-out backwards;}
+  .iv-msg-user{background:#1960A6;color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
+  .iv-msg-bot{background:rgba(255,255,255,.06);color:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.08);align-self:flex-start;border-bottom-left-radius:4px;}
+  .iv-msg-bot strong{color:#F0A026;font-weight:700;}
+  .iv-msg-bot ul{margin:6px 0 0 0;padding-left:18px;}
+  .iv-msg-bot li{margin:3px 0;color:rgba(255,255,255,.85);}
+  .iv-data-card{margin-top:10px;background:rgba(240,160,38,.06);border:1px solid rgba(240,160,38,.18);border-radius:10px;padding:10px 12px;}
+  .iv-data-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:12.5px;color:rgba(255,255,255,.7);}
+  .iv-data-row + .iv-data-row{border-top:1px dashed rgba(255,255,255,.08);}
+  .iv-data-row b{color:#F0A026;font-weight:700;font-feature-settings:"tnum" 1;}
+  .iv-typing{display:inline-flex;gap:3px;padding:11px 16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:14px;border-bottom-left-radius:4px;align-self:flex-start;}
+  .iv-typing span{width:6px;height:6px;border-radius:9999px;background:rgba(255,255,255,.5);animation:typing 1.2s ease-in-out infinite;}
+  .iv-typing span:nth-child(2){animation-delay:.15s;}
+  .iv-typing span:nth-child(3){animation-delay:.3s;}
+  .chat-iv-prompt{position:relative;font-size:11px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin:14px 0 8px;display:flex;align-items:center;gap:8px;}
+  .chat-iv-prompt::before,.chat-iv-prompt::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.08);}
+  .chat-iv-questions{position:relative;display:flex;flex-direction:column;gap:6px;}
+  .iv-q{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.85);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;text-align:left;transition:all .14s ease-out;}
+  .iv-q:hover{background:rgba(240,160,38,.08);border-color:rgba(240,160,38,.3);color:#F0A026;transform:translateX(2px);}
+  .iv-q:disabled{opacity:.35;cursor:default;transform:none;}
+  .iv-q:disabled:hover{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.85);}
+  .iv-q-icon{flex-shrink:0;color:#1960A6;display:flex;}
+  .iv-q:hover .iv-q-icon{color:#F0A026;}
+  .iv-q-arrow{flex-shrink:0;opacity:.4;}
+  .iv-q span{flex:1;}
+  .iv-reset{margin-top:8px;background:none;border:none;color:rgba(255,255,255,.45);font-size:11.5px;font-family:inherit;cursor:pointer;padding:4px;letter-spacing:.04em;}
+  .iv-reset:hover{color:#F0A026;}
+
+  /* Services */
+  .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  @media(max-width:980px){.svc-grid{grid-template-columns:repeat(2,1fr);}}
+  .svc{background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:26px;transition:all .18s ease-out;}
+  .svc:hover{border-color:#1960A6;box-shadow:0 8px 20px rgba(15,23,42,.06);transform:translateY(-2px);}
+  .svc-ico{width:42px;height:42px;border-radius:10px;background:#EFF6FF;color:#1960A6;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+  .svc h4{font-size:15.5px;font-weight:700;color:#0A1628;margin-bottom:8px;letter-spacing:-.01em;}
+  .svc p{font-size:13px;color:#475569;line-height:1.55;}
+
+  /* Courses */
+  .courses{background:#F8FAFC;}
+  .course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media(max-width:880px){.course-grid{grid-template-columns:1fr;}}
+  .course{background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:all .18s ease-out;}
+  .course:hover{border-color:#1960A6;box-shadow:0 12px 28px rgba(15,23,42,.08);transform:translateY(-3px);}
+  .course-img{aspect-ratio:16/10;background:#0A1628;position:relative;overflow:hidden;}
+  .course-img img{width:100%;height:100%;object-fit:cover;}
+  .course-img::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,22,40,.55) 0%,rgba(10,22,40,.1) 60%);}
+  .course-tag{position:absolute;top:14px;left:14px;padding:4px 10px;border-radius:6px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;z-index:1;}
+  .course-tag.free{background:#10B981;color:#fff;}
+  .course-tag.paid{background:#F0A026;color:#3A2208;}
+  .course-body{padding:22px;flex:1;display:flex;flex-direction:column;gap:8px;}
+  .course-body h4{font-size:17px;font-weight:800;color:#0A1628;letter-spacing:-.015em;}
+  .course-body p{font-size:13.5px;color:#475569;line-height:1.55;flex:1;}
+  .course-meta{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#64748B;padding-top:14px;border-top:1px solid #F1F5F9;margin-top:8px;}
+  .course-meta strong{color:#0A1628;font-weight:700;}
+
+  /* Process */
+  .process{background:#fff;}
+  .proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:step;}
+  @media(max-width:880px){.proc-grid{grid-template-columns:repeat(2,1fr);}}
+  .step{background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:14px;padding:22px;position:relative;}
+  .step::before{counter-increment:step;content:"0" counter(step);font-size:13px;font-weight:800;color:#F0A026;letter-spacing:.06em;display:block;margin-bottom:12px;}
+  .step h4{font-size:15px;font-weight:700;color:#0A1628;margin-bottom:6px;}
+  .step p{font-size:13px;color:#475569;line-height:1.55;}
+
+  /* Founder */
+  .founder{background:#F8FAFC;}
+  .founder-grid{display:grid;grid-template-columns:280px 1fr;gap:48px;align-items:start;}
+  @media(max-width:780px){.founder-grid{grid-template-columns:1fr;}}
+  .founder-photo{aspect-ratio:1;border-radius:16px;overflow:hidden;background:#0A1628;}
+  .founder-photo img{width:100%;height:100%;object-fit:cover;}
+  .founder-quote{font-size:21px;line-height:1.5;color:#0A1628;font-weight:500;letter-spacing:-.01em;margin-bottom:24px;text-wrap:pretty;}
+  .founder-name{font-size:15px;font-weight:700;color:#0A1628;}
+  .founder-role{font-size:13px;color:#475569;margin-bottom:20px;}
+  .founder-creds{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+  .cred{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:6px;background:#fff;border:1px solid #E2E8F0;color:#334155;font-size:12px;font-weight:600;}
+  .cred .dot{width:5px;height:5px;border-radius:9999px;background:#F0A026;}
+  .linkedin-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .li-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:9px;background:#0A66C2;color:#fff;font-size:13px;font-weight:600;}
+  .li-btn:hover{background:#004182;}
+  .li-btn.alt{background:#fff;color:#0A66C2;border:1.5px solid #0A66C2;}
+  .li-btn.alt:hover{background:#EFF6FF;}
+
+  /* CTA section: rebuilt richer */
+  .cta-final{background:#0A1628;color:#fff;padding:96px 0;position:relative;overflow:hidden;}
+  .cta-final::before{content:"";position:absolute;top:-150px;right:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(240,160,38,.18) 0%,transparent 70%);animation:float2 20s ease-in-out infinite;}
+  .cta-final::after{content:"";position:absolute;bottom:-200px;left:-100px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(25,96,166,.35) 0%,transparent 70%);animation:float1 24s ease-in-out infinite;}
+  .cta-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+  @media(max-width:980px){.cta-grid{grid-template-columns:1fr;}}
+  .cta-final h2{font-size:clamp(30px,3.6vw,42px);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:18px;}
+  .cta-final h2 .accent{color:#F0A026;}
+  .cta-final p{font-size:16px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:24px;max-width:520px;}
+  .cta-checks{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+  .cta-check{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.85);}
+  .cta-check svg{color:#F0A026;flex-shrink:0;}
+  .cta-form{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:28px;backdrop-filter:blur(6px);}
+  .cta-form-title{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#F0A026;margin-bottom:6px;}
+  .cta-form h3{font-size:20px;font-weight:800;color:#fff;margin-bottom:18px;letter-spacing:-.015em;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px;}
+  .field input,.field select,.field textarea{width:100%;padding:11px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:9px;color:#fff;font-size:13.5px;font-family:inherit;outline:none;transition:all .14s;}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:#F0A026;background:rgba(255,255,255,.07);box-shadow:0 0 0 3px rgba(240,160,38,.18);}
+  .field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,.35);}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .cta-form button{width:100%;padding:14px;border-radius:10px;background:#F0A026;color:#3A2208;border:none;font-size:14.5px;font-weight:800;font-family:inherit;cursor:pointer;letter-spacing:-.005em;margin-top:6px;transition:all .15s;}
+  .cta-form button:hover{background:#D78A14;}
+  .cta-form-note{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:12px;text-align:center;}
+
+  /* Footer */
+  footer{padding:48px 0 60px;border-top:1px solid #E2E8F0;background:#fff;}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;font-size:12.5px;color:#94A3B8;}
+  .foot-links{display:flex;gap:22px;}
+  .foot-links a:hover{color:#0A1628;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <img src="../assets/aethon-logo.svg" alt="Aethon"/>
+      <span>AETHON</span>
+    </a>
+    <div class="nav-links">
+      <a href="#mercados" data-i18n="nav.markets">Mercados</a>
+      <a href="#chatbot" data-i18n="nav.assistant">Asistente</a>
+      <a href="#cursos" data-i18n="nav.courses">Cursos</a>
+      <a href="#founder" data-i18n="nav.about">Quién soy</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="es">ES</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <a href="#contacto" class="nav-cta" data-i18n="nav.cta">Agendar →</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg"><div class="grid-overlay"></div></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span><span data-i18n="hero.eyebrow">México &nbsp;·&nbsp; Chile &nbsp;·&nbsp; Ley 19.378</span></div>
+      <h1 class="h1" id="h1-text"></h1>
+      <p class="lede" data-i18n="hero.lede">Automatización, IA y aplicaciones web hechas exclusivamente para Recursos Humanos en México y Chile — incluyendo la única solución integral para Ley 19.378 en salud pública.</p>
+      <div class="cta-row">
+        <a href="#contacto" class="btn btn-gold" data-i18n="hero.cta1">Agendar diagnóstico de 30 min →</a>
+        <a href="#chatbot" class="btn btn-ghost-light" data-i18n="hero.cta2">Probar el asistente</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num"><span class="accent">0,3%</span></div>
+          <div class="stat-label" data-i18n="hero.stat1">Margen de error en nómina</div>
+        </div>
+        <div>
+          <div class="stat-num">10+ <span style="font-size:18px;font-weight:600;color:rgba(255,255,255,.5);" data-i18n="hero.statUnit">hrs/sem</span></div>
+          <div class="stat-label" data-i18n="hero.stat2">Liberadas en RH operativo</div>
+        </div>
+        <div>
+          <div class="stat-num">2 <span style="font-size:18px;font-weight:600;color:rgba(255,255,255,.5);" data-i18n="hero.statUnit2">países</span></div>
+          <div class="stat-label" data-i18n="hero.stat3">MX + Chile (privado y APS)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-demo">
+      <div class="chat-head">
+        <div class="chat-avatar">A</div>
+        <div>
+          <div class="chat-name" data-i18n="chat.name">Aethon · Asistente RH</div>
+          <div class="chat-sub"><span class="live"></span><span data-i18n="chat.live">En línea · responde en segundos</span></div>
+        </div>
+      </div>
+      <div class="chat-body" id="chat-body"></div>
+      <div class="chat-suggestions" id="chat-suggestions"></div>
+      <div class="chat-input">
+        <input type="text" data-i18n-attr="placeholder|chat.placeholder" placeholder="Escribe tu pregunta..."/>
+        <button class="chat-send" aria-label="Enviar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="markets" id="mercados">
+  <div class="wrap">
+    <div class="sec-eyebrow" data-i18n="markets.eyebrow">01 · Mercados</div>
+    <h2 class="sec-h" data-i18n="markets.h">Especialización por mercado, no asesoría genérica.</h2>
+    <p class="sec-sub" data-i18n="markets.sub">Trabajo con tres realidades distintas. Cada una tiene su propio régimen legal, sus planillas, sus dolores. Elige el tuyo.</p>
+    <div class="market-tabs" id="market-tabs">
+      <button class="market-tab active" data-m="mx">🇲🇽 <span data-i18n="markets.tab.mx">México · Privado</span></button>
+      <button class="market-tab" data-m="cl">🇨🇱 <span data-i18n="markets.tab.cl">Chile · Privado</span></button>
+      <button class="market-tab" data-m="aps">🏥 <span data-i18n="markets.tab.aps">Chile · Salud Pública (Ley 19.378)</span></button>
+    </div>
+    <div class="market-content" id="market-content"></div>
+  </div>
+</section>
+
+<section class="showcase" id="chatbot">
+  <div class="wrap">
+    <div class="sec-eyebrow" data-i18n="show.eyebrow">02 · Asistente personalizado</div>
+    <h2 class="sec-h" data-i18n="show.h">Un funcionario pregunta. El asistente responde con sus datos reales.</h2>
+    <p class="sec-sub" data-i18n="show.sub">Sin tickets, sin esperar al área de RR.HH., sin abrir Excel. Tu equipo accede a su ficha, beneficios, carrera funcionaria y documentos las 24 horas — con la voz y los datos de tu organización.</p>
+    <div class="showcase-grid">
+      <div>
+        <div class="feature-list">
+          <div class="feature">
+            <div class="feature-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div class="feature-text">
+              <h5 data-i18n="show.f1.h">Carrera funcionaria · Ley 19.378</h5>
+              <p data-i18n="show.f1.p">"¿Cuándo cambio de nivel?" El asistente calcula bienios, capacitación pertinente y mérito acumulado, y te dice exactamente la fecha — o qué te falta.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+            <div class="feature-text">
+              <h5 data-i18n="show.f2.h">Ficha funcionaria descargable</h5>
+              <p data-i18n="show.f2.p">Liquidaciones, certificados de antigüedad, ficha de salud y contrato — generados al vuelo en PDF firmado, sin pasar por RR.HH.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+            <div class="feature-text">
+              <h5 data-i18n="show.f3.h">Bienestar y beneficios</h5>
+              <p data-i18n="show.f3.p">"¿Qué cubre Bienestar de Salud?", "¿Hay convenio dental?" El asistente responde con tu reglamento real, contactos directos, correos y direcciones.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="feature-text">
+              <h5 data-i18n="show.f4.h">Disponible 24/7</h5>
+              <p data-i18n="show.f4.p">Por WhatsApp, web o portal funcionario. Tu equipo de RR.HH. deja de responder las mismas 30 preguntas todos los días.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-iv">
+        <div class="chat-iv-head">
+          <div class="chat-iv-avatar">A</div>
+          <div>
+            <div class="chat-iv-name" data-i18n="show.chat.name">Asistente Aethon</div>
+            <div class="chat-iv-sub"><span class="live"></span><span data-i18n="show.chat.sub">Pruébalo: elige una pregunta</span></div>
+          </div>
+          <span class="chat-iv-user-pill" data-i18n="show.chat.user">Patricia · Enfermera CESFAM</span>
+        </div>
+        <div class="chat-iv-body" id="iv-body"></div>
+        <div class="chat-iv-prompt" data-i18n="show.chat.try">Elige una pregunta</div>
+        <div class="chat-iv-questions" id="iv-questions"></div>
+        <button class="iv-reset" id="iv-reset" data-i18n="show.chat.reset">↺ Reiniciar conversación</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="sec-eyebrow" data-i18n="svc.eyebrow">03 · Servicios</div>
+    <h2 class="sec-h" data-i18n="svc.h">Cuatro líneas, un mismo principio: medible o no se vende.</h2>
+    <div class="svc-grid">
+      <div class="svc">
+        <div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h4 data-i18n="svc.1.h">Automatización</h4>
+        <p data-i18n="svc.1.p">Convierto procesos manuales (Excel → Excel → email) en flujos que se ejecutan solos. Power Automate, n8n, scripts SQL.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+        <h4 data-i18n="svc.2.h">IA aplicada</h4>
+        <p data-i18n="svc.2.p">Clasificación de licencias médicas, lectura de contratos, extracción de datos de PDFs. No es chatbot — es eliminar trabajo.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+        <h4 data-i18n="svc.3.h">Aplicaciones web</h4>
+        <p data-i18n="svc.3.p">Dashboards, calculadoras de liquidación, portales de funcionarios. Conectados a tu HRIS o SQL Server, sin tocar producción.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <h4 data-i18n="svc.4.h">Cursos in-house</h4>
+        <p data-i18n="svc.4.p">Capacitación a tu equipo de RR.HH. para que mantenga lo que construimos. Excel, Power BI, automatización con IA.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="courses" id="cursos">
+  <div class="wrap">
+    <div class="sec-eyebrow" data-i18n="course.eyebrow">04 · Cursos de Excel & IA para RR.HH.</div>
+    <h2 class="sec-h" data-i18n="course.h">Tu equipo aprende con datos de verdad. No con tutoriales genéricos.</h2>
+    <p class="sec-sub" data-i18n="course.sub">Módulos gratuitos para empezar y programas pagados con certificación. Diseñados específicamente para personas de RR.HH., no para ingenieros.</p>
+    <div class="course-grid">
+      <div class="course">
+        <div class="course-img">
+          <span class="course-tag free" data-i18n="course.free">Gratis</span>
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Excel" loading="lazy"/>
+        </div>
+        <div class="course-body">
+          <h4 data-i18n="course.1.h">Excel para nómina · Nivel 1</h4>
+          <p data-i18n="course.1.p">Tablas dinámicas, BUSCARV, validación de datos y errores comunes en planillas. 4 módulos con ejercicios reales de RR.HH.</p>
+          <div class="course-meta"><span data-i18n="course.1.dur">3,5 horas · 4 módulos</span><strong data-i18n="course.free2">Gratis</strong></div>
+        </div>
+      </div>
+      <div class="course">
+        <div class="course-img">
+          <span class="course-tag paid" data-i18n="course.paid">Pago</span>
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Power BI dashboards" loading="lazy"/>
+        </div>
+        <div class="course-body">
+          <h4 data-i18n="course.2.h">Excel avanzado · KPIs de RR.HH.</h4>
+          <p data-i18n="course.2.p">Power Query, Power Pivot, dashboards de rotación, ausentismo y costo laboral. Incluye plantillas reusables y certificación.</p>
+          <div class="course-meta"><span data-i18n="course.2.dur">12 horas · 8 módulos · Cert.</span><strong>$149.000 CLP</strong></div>
+        </div>
+      </div>
+      <div class="course">
+        <div class="course-img">
+          <span class="course-tag paid" data-i18n="course.paid2">Pago · Premium</span>
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80" alt="IA aplicada" loading="lazy"/>
+        </div>
+        <div class="course-body">
+          <h4 data-i18n="course.3.h">IA aplicada para RR.HH.</h4>
+          <p data-i18n="course.3.p">Construye tu primer asistente, clasifica licencias médicas y automatiza informes. Sin programar — con herramientas no-code.</p>
+          <div class="course-meta"><span data-i18n="course.3.dur">20 horas · 10 módulos · Cert.</span><strong>$289.000 CLP</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="wrap">
+    <div class="sec-eyebrow" data-i18n="proc.eyebrow">05 · Proceso</div>
+    <h2 class="sec-h" data-i18n="proc.h">Cuatro pasos, semanas — no meses.</h2>
+    <p class="sec-sub" data-i18n="proc.sub">Las consultoras venden roadmaps de 12 meses. Yo entrego automatizaciones funcionando en 4–6 semanas.</p>
+    <div class="proc-grid">
+      <div class="step"><h4 data-i18n="proc.1.h">Diagnóstico</h4><p data-i18n="proc.1.p">Llamada de 30 min. Mapeamos los procesos que queman horas. Si no hay caso medible, te lo digo.</p></div>
+      <div class="step"><h4 data-i18n="proc.2.h">Propuesta</h4><p data-i18n="proc.2.p">Documento concreto: qué automatizamos, cuántas horas se liberan, cuánto cuesta, en cuánto tiempo.</p></div>
+      <div class="step"><h4 data-i18n="proc.3.h">Construcción</h4><p data-i18n="proc.3.p">Desarrollo, prueba con datos reales, validación con tu equipo. Iteramos sin fricción.</p></div>
+      <div class="step"><h4 data-i18n="proc.4.h">Transferencia</h4><p data-i18n="proc.4.p">Documentación, capacitación y código entregados. Tu equipo lo opera. Yo me retiro o quedo de soporte.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="founder" id="founder">
+  <div class="wrap">
+    <div class="sec-eyebrow" data-i18n="about.eyebrow">06 · Quién soy</div>
+    <div class="founder-grid">
+      <div class="founder-photo">
+        <img src="../assets/founder-photo.jpg" alt="Francisco Moreno" loading="lazy"/>
+      </div>
+      <div>
+        <p class="founder-quote" data-i18n="about.quote">"Recursos Humanos sigue trabajando como en 2010: el 80% del tiempo del equipo se va en copiar datos entre Excels. Aethon cambia eso. Construyo automatización e IA exclusivamente para RR.HH. en México y Chile — incluyendo la única solución integral en el mercado para Ley 19.378 — para que los equipos de personas dejen de operar planillas y vuelvan a trabajar en personas."</p>
+        <div class="founder-name">Francisco Moreno</div>
+        <div class="founder-role" data-i18n="about.role">Fundador · Aethon</div>
+        <div class="founder-creds">
+          <span class="cred"><span class="dot"></span><span data-i18n="about.c1">Experiencia directa Ley 19.378</span></span>
+          <span class="cred"><span class="dot"></span><span data-i18n="about.c2">Corporaciones municipales de salud</span></span>
+          <span class="cred"><span class="dot"></span><span data-i18n="about.c3">HRIS de gran escala</span></span>
+          <span class="cred"><span class="dot"></span><span data-i18n="about.c4">Nómina IMSS</span></span>
+        </div>
+        <div class="linkedin-row">
+          <a href="https://linkedin.com/in/francisco-moreno" target="_blank" rel="noopener" class="li-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 12.27h-3v-5.6c0-3.37-4-3.11-4 0v5.6h-3v-11h3v1.76c1.4-2.59 7-2.78 7 2.48v6.76z"/></svg>
+            <span data-i18n="about.li1">LinkedIn personal</span>
+          </a>
+          <a href="https://linkedin.com/company/aethon" target="_blank" rel="noopener" class="li-btn alt">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 12.27h-3v-5.6c0-3.37-4-3.11-4 0v5.6h-3v-11h3v1.76c1.4-2.59 7-2.78 7 2.48v6.76z"/></svg>
+            <span data-i18n="about.li2">Aethon en LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="contacto">
+  <div class="wrap">
+    <div class="cta-grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span><span data-i18n="cta.eyebrow">Diagnóstico gratuito · 30 min</span></div>
+        <h2 data-i18n="cta.h" style="margin-top:18px;">Si tu equipo pierde 10+ horas a la semana copiando datos entre planillas, te muestro cómo <span class="accent">eliminar ese trabajo</span>.</h2>
+        <p data-i18n="cta.p">Conversación honesta. Salimos con una idea clara de si tiene sentido seguir — o si tu caso ya está resuelto y no me necesitas.</p>
+        <div class="cta-checks">
+          <div class="cta-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="cta.k1">Sin compromiso ni costo</span></div>
+          <div class="cta-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="cta.k2">Diagnóstico concreto, no genérico</span></div>
+          <div class="cta-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="cta.k3">Te digo si NO tiene sentido contratarme</span></div>
+        </div>
+        <div class="cta-row">
+          <a href="https://wa.me/56900000000" target="_blank" rel="noopener" class="btn btn-gold" style="font-size:13.5px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.5-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.4 1.1 2.8 1.2 3 .1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4 0-.1-.2-.2-.5-.3zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.1 1.6 5.9L0 24l6.3-1.6c1.7.9 3.7 1.5 5.7 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0zm0 22c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-3.7.9.9-3.6-.2-.4C2.4 15.7 2 13.9 2 12 2 6.5 6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/></svg>
+            WhatsApp
+          </a>
+          <a href="mailto:francisco@aethon.cl" class="btn btn-ghost-light" style="font-size:13.5px;">francisco@aethon.cl</a>
+          <a href="https://linkedin.com/in/francisco-moreno" target="_blank" rel="noopener" class="btn btn-ghost-light" style="font-size:13.5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 12.27h-3v-5.6c0-3.37-4-3.11-4 0v5.6h-3v-11h3v1.76c1.4-2.59 7-2.78 7 2.48v6.76z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <form class="cta-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='✓ Mensaje enviado';this.querySelector('button').style.background='#10B981';this.querySelector('button').style.color='#fff';">
+        <div class="cta-form-title" data-i18n="form.title">Reservar diagnóstico</div>
+        <h3 data-i18n="form.h">Cuéntame de tu equipo</h3>
+        <div class="field-row">
+          <div class="field"><label data-i18n="form.name">Nombre</label><input type="text" required placeholder="Carolina Pérez"/></div>
+          <div class="field"><label data-i18n="form.role">Cargo</label><input type="text" required placeholder="Jefa de RR.HH."/></div>
+        </div>
+        <div class="field"><label data-i18n="form.org">Organización</label><input type="text" required placeholder="Corporación Municipal de…"/></div>
+        <div class="field"><label data-i18n="form.email">Correo electrónico</label><input type="email" required placeholder="carolina.perez@ejemplo.cl"/></div>
+        <div class="field-row">
+          <div class="field"><label data-i18n="form.country">País</label>
+            <select><option>🇨🇱 Chile</option><option>🇲🇽 México</option></select>
+          </div>
+          <div class="field"><label data-i18n="form.size">Personas</label>
+            <select><option>1–50</option><option>51–200</option><option>201–800</option><option>800+</option></select>
+          </div>
+        </div>
+        <div class="field"><label data-i18n="form.msg">¿Qué proceso te quema más horas?</label><textarea rows="2" placeholder="Cálculo de liquidaciones APS cada mes…"></textarea></div>
+        <button type="submit" data-i18n="form.send">Reservar 30 min →</button>
+        <div class="cta-form-note" data-i18n="form.note">Te respondo en menos de 24 hrs hábiles.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div data-i18n="foot.copy">© 2026 Aethon · Automatización · IA · Aplicaciones · Cursos</div>
+    <div class="foot-links">
+      <a href="mailto:francisco@aethon.cl">francisco@aethon.cl</a>
+      <a href="https://linkedin.com/in/francisco-moreno" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://linkedin.com/company/aethon" target="_blank" rel="noopener">Aethon</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const I18N = {
+  es: {
+    "nav.markets":"Mercados","nav.assistant":"Asistente","nav.courses":"Cursos","nav.about":"Quién soy","nav.cta":"Agendar →",
+    "hero.eyebrow":"México &nbsp;·&nbsp; Chile &nbsp;·&nbsp; Ley 19.378","hero.h1":"El RH del futuro, |disponible hoy|.",
+    "hero.lede":"Automatización, IA y aplicaciones web hechas exclusivamente para Recursos Humanos en México y Chile — incluyendo la única solución integral para Ley 19.378 en salud pública.",
+    "hero.cta1":"Agendar diagnóstico de 30 min →","hero.cta2":"Probar el asistente",
+    "hero.stat1":"Margen de error en nómina","hero.stat2":"Liberadas en RR.HH. operativo","hero.stat3":"MX + Chile (privado y APS)",
+    "hero.statUnit":"hrs/sem","hero.statUnit2":"países",
+    "chat.name":"Aethon · Asistente RH","chat.live":"En línea · responde en segundos","chat.placeholder":"Escribe tu pregunta...",
+    "markets.eyebrow":"01 · Mercados","markets.h":"Especialización por mercado, no asesoría genérica.",
+    "markets.sub":"Trabajo con tres realidades distintas. Cada una tiene su régimen legal, sus planillas, sus dolores.",
+    "markets.tab.mx":"México · Privado","markets.tab.cl":"Chile · Privado","markets.tab.aps":"Chile · Salud Pública (Ley 19.378)",
+    "show.eyebrow":"02 · Asistente personalizado","show.h":"Un funcionario pregunta. El asistente responde con sus datos reales.",
+    "show.sub":"Sin tickets, sin esperar al área de RR.HH., sin abrir Excel. Tu equipo accede a su ficha, beneficios, carrera funcionaria y documentos las 24 horas — con la voz y los datos de tu organización.",
+    "show.tag.label":"Funcionarios APS","show.tag.name":"Atendidos en su contexto, no como tickets.",
+    "show.f1.h":"Carrera funcionaria · Ley 19.378","show.f1.p":"\"¿Cuándo cambio de nivel?\" El asistente calcula bienios, capacitación pertinente y mérito acumulado, y te dice exactamente la fecha — o qué te falta.",
+    "show.f2.h":"Ficha funcionaria descargable","show.f2.p":"Liquidaciones, certificados de antigüedad, ficha de salud y contrato — generados al vuelo en PDF firmado, sin pasar por RR.HH.",
+    "show.f3.h":"Bienestar y beneficios","show.f3.p":"\"¿Qué cubre Bienestar de Salud?\", \"¿Hay convenio dental?\" El asistente responde con tu reglamento real, contactos directos, correos y direcciones.",
+    "show.f4.h":"Disponible 24/7","show.f4.p":"Por WhatsApp, web o portal funcionario. Tu equipo de RR.HH. deja de responder las mismas 30 preguntas todos los días.",
+    "show.chat.name":"Asistente Aethon","show.chat.sub":"Pruébalo: elige una pregunta","show.chat.user":"Patricia · Enfermera CESFAM","show.chat.try":"Elige una pregunta","show.chat.reset":"↺ Reiniciar conversación",
+    "svc.eyebrow":"03 · Servicios","svc.h":"Cuatro líneas, un mismo principio: medible o no se vende.",
+    "svc.1.h":"Automatización","svc.1.p":"Convierto procesos manuales (Excel → Excel → email) en flujos que se ejecutan solos. Power Automate, n8n, scripts SQL.",
+    "svc.2.h":"IA aplicada","svc.2.p":"Clasificación de licencias médicas, lectura de contratos, extracción de datos de PDFs. No es chatbot — es eliminar trabajo.",
+    "svc.3.h":"Aplicaciones web","svc.3.p":"Dashboards, calculadoras de liquidación, portales de funcionarios. Conectados a tu HRIS o SQL Server, sin tocar producción.",
+    "svc.4.h":"Cursos in-house","svc.4.p":"Capacitación a tu equipo de RR.HH. para que mantenga lo que construimos. Excel, Power BI, automatización con IA.",
+    "course.eyebrow":"04 · Cursos de Excel & IA para RR.HH.","course.h":"Tu equipo aprende con datos de verdad. No con tutoriales genéricos.",
+    "course.sub":"Módulos gratuitos para empezar y programas pagados con certificación. Diseñados para personas de RR.HH., no para ingenieros.",
+    "course.free":"Gratis","course.paid":"Pago","course.paid2":"Pago · Premium","course.free2":"Gratis",
+    "course.1.h":"Excel para nómina · Nivel 1","course.1.p":"Tablas dinámicas, BUSCARV, validación de datos y errores comunes en planillas. 4 módulos con ejercicios reales de RR.HH.","course.1.dur":"3,5 horas · 4 módulos",
+    "course.2.h":"Excel avanzado · KPIs de RR.HH.","course.2.p":"Power Query, Power Pivot, dashboards de rotación, ausentismo y costo laboral. Incluye plantillas y certificación.","course.2.dur":"12 horas · 8 módulos · Cert.",
+    "course.3.h":"IA aplicada para RR.HH.","course.3.p":"Construye tu primer asistente, clasifica licencias médicas y automatiza informes. Sin programar — con herramientas no-code.","course.3.dur":"20 horas · 10 módulos · Cert.",
+    "proc.eyebrow":"05 · Proceso","proc.h":"Cuatro pasos, semanas — no meses.","proc.sub":"Las consultoras venden roadmaps de 12 meses. Yo entrego automatizaciones funcionando en 4–6 semanas.",
+    "proc.1.h":"Diagnóstico","proc.1.p":"Llamada de 30 min. Mapeamos los procesos que queman horas. Si no hay caso medible, te lo digo.",
+    "proc.2.h":"Propuesta","proc.2.p":"Documento concreto: qué automatizamos, cuántas horas se liberan, cuánto cuesta, en cuánto tiempo.",
+    "proc.3.h":"Construcción","proc.3.p":"Desarrollo, prueba con datos reales, validación con tu equipo. Iteramos sin fricción.",
+    "proc.4.h":"Transferencia","proc.4.p":"Documentación, capacitación y código entregados. Tu equipo lo opera. Yo me retiro o quedo de soporte.",
+    "about.eyebrow":"06 · Quién soy","about.quote":"\"Recursos Humanos sigue trabajando como en 2010: el 80% del tiempo del equipo se va en copiar datos entre Excels. Aethon cambia eso. Construyo automatización e IA exclusivamente para RR.HH. en México y Chile — incluyendo la única solución integral en el mercado para Ley 19.378 — para que los equipos de personas dejen de operar planillas y vuelvan a trabajar en personas.\"",
+    "about.role":"Fundador · Aethon","about.c1":"Experiencia directa Ley 19.378","about.c2":"Corporaciones municipales de salud","about.c3":"HRIS de gran escala","about.c4":"Nómina IMSS",
+    "about.li1":"LinkedIn personal","about.li2":"Aethon en LinkedIn",
+    "cta.eyebrow":"Diagnóstico gratuito · 30 min","cta.h":"Si tu equipo pierde 10+ horas a la semana copiando datos entre planillas, te muestro cómo |eliminar ese trabajo|.",
+    "cta.p":"Conversación honesta. Salimos con una idea clara de si tiene sentido seguir — o si tu caso ya está resuelto.",
+    "cta.k1":"Sin compromiso ni costo","cta.k2":"Diagnóstico concreto, no genérico","cta.k3":"Te digo si NO tiene sentido contratarme",
+    "form.title":"Reservar diagnóstico","form.h":"Cuéntame de tu equipo","form.name":"Nombre","form.role":"Cargo","form.org":"Organización","form.email":"Correo electrónico","form.country":"País","form.size":"Personas","form.msg":"¿Qué proceso te quema más horas?","form.send":"Reservar 30 min →","form.note":"Te respondo en menos de 24 hrs hábiles.",
+    "foot.copy":"© 2026 Aethon · Automatización · IA · Aplicaciones · Cursos"
+  },
+  en: {
+    "nav.markets":"Markets","nav.assistant":"Assistant","nav.courses":"Courses","nav.about":"About","nav.cta":"Book a call →",
+    "hero.eyebrow":"Mexico &nbsp;·&nbsp; Chile &nbsp;·&nbsp; Law 19.378","hero.h1":"The HR of tomorrow, |available today|.",
+    "hero.lede":"Automation, AI, and web apps built exclusively for HR teams in Mexico and Chile — including the only end-to-end solution for Chile's Law 19.378 in public health.",
+    "hero.cta1":"Book a 30-min diagnostic →","hero.cta2":"Try the assistant",
+    "hero.stat1":"Payroll error margin","hero.stat2":"Freed up in HR ops","hero.stat3":"MX + Chile (private & APS)",
+    "hero.statUnit":"hrs/wk","hero.statUnit2":"countries",
+    "chat.name":"Aethon · HR Assistant","chat.live":"Online · replies in seconds","chat.placeholder":"Type your question...",
+    "markets.eyebrow":"01 · Markets","markets.h":"Specialized by market, not generic consulting.",
+    "markets.sub":"I work with three distinct realities. Each has its own legal regime, its own spreadsheets, its own pains.",
+    "markets.tab.mx":"Mexico · Private","markets.tab.cl":"Chile · Private","markets.tab.aps":"Chile · Public Health (Law 19.378)",
+    "show.eyebrow":"02 · Personalized assistant","show.h":"An employee asks. The assistant answers with their actual data.",
+    "show.sub":"No tickets, no waiting on HR, no opening Excel. Your team gets to their record, benefits, career path and documents 24/7 — speaking your organization's voice with real data.",
+    "show.tag.label":"APS workforce","show.tag.name":"Helped in context, not as tickets.",
+    "show.f1.h":"Career path · Law 19.378","show.f1.p":"\"When do I move up a level?\" The assistant calculates biennials, training credit and merit, and gives you the exact date — or what's still missing.",
+    "show.f2.h":"Self-service records","show.f2.p":"Pay slips, seniority certificates, health record and contract — generated on the fly as signed PDFs, no HR ticket needed.",
+    "show.f3.h":"Wellness & benefits","show.f3.p":"\"What does Health Wellness cover?\", \"Is there a dental partner?\" The assistant answers using your actual policy, with direct contacts, emails and addresses.",
+    "show.f4.h":"Available 24/7","show.f4.p":"Via WhatsApp, web or employee portal. Your HR team stops answering the same 30 questions every day.",
+    "show.chat.name":"Aethon Assistant","show.chat.sub":"Try it: pick a question","show.chat.user":"Patricia · CESFAM Nurse","show.chat.try":"Pick a question","show.chat.reset":"↺ Reset conversation",
+    "svc.eyebrow":"03 · Services","svc.h":"Four lines, one principle: measurable or we don't sell it.",
+    "svc.1.h":"Automation","svc.1.p":"I turn manual processes (Excel → Excel → email) into flows that run themselves. Power Automate, n8n, SQL scripts.",
+    "svc.2.h":"Applied AI","svc.2.p":"Medical leave classification, contract reading, PDF data extraction. Not a chatbot — it eliminates work.",
+    "svc.3.h":"Web apps","svc.3.p":"Dashboards, payroll calculators, employee portals. Connected to your HRIS or SQL Server without touching production.",
+    "svc.4.h":"In-house training","svc.4.p":"Training for your HR team to maintain what we build. Excel, Power BI, AI-powered automation.",
+    "course.eyebrow":"04 · Excel & AI courses for HR","course.h":"Your team learns with real data. No generic tutorials.",
+    "course.sub":"Free starter modules and paid programs with certification. Designed for HR people, not engineers.",
+    "course.free":"Free","course.paid":"Paid","course.paid2":"Paid · Premium","course.free2":"Free",
+    "course.1.h":"Excel for payroll · Level 1","course.1.p":"Pivot tables, VLOOKUP, data validation and common spreadsheet errors. 4 modules with real HR exercises.","course.1.dur":"3.5 hours · 4 modules",
+    "course.2.h":"Advanced Excel · HR KPIs","course.2.p":"Power Query, Power Pivot, dashboards for turnover, absenteeism and labor cost. Templates + certification.","course.2.dur":"12 hours · 8 modules · Cert.",
+    "course.3.h":"Applied AI for HR","course.3.p":"Build your first assistant, classify medical leaves and automate reports. No coding — using no-code tools.","course.3.dur":"20 hours · 10 modules · Cert.",
+    "proc.eyebrow":"05 · Process","proc.h":"Four steps, weeks — not months.","proc.sub":"Big consultancies sell 12-month roadmaps. I deliver working automations in 4–6 weeks.",
+    "proc.1.h":"Diagnostic","proc.1.p":"30-min call. We map the processes burning your hours. If there's no measurable case, I tell you.",
+    "proc.2.h":"Proposal","proc.2.p":"Concrete document: what we automate, how many hours freed, what it costs, how long it takes.",
+    "proc.3.h":"Build","proc.3.p":"Development, testing with real data, validation with your team. We iterate without friction.",
+    "proc.4.h":"Handover","proc.4.p":"Docs, training and code delivered. Your team owns it. I step out or stay on as support.",
+    "about.eyebrow":"06 · About","about.quote":"\"HR still works like it's 2010: 80% of the team's time is spent copying data between spreadsheets. Aethon changes that. I build automation and AI exclusively for HR in Mexico and Chile — including the only end-to-end solution in the market for Chile's Law 19.378 — so people teams stop operating spreadsheets and get back to working on people.\"",
+    "about.role":"Founder · Aethon","about.c1":"Direct Law 19.378 experience","about.c2":"Municipal health corporations","about.c3":"Enterprise HRIS","about.c4":"IMSS payroll (Mexico)",
+    "about.li1":"Personal LinkedIn","about.li2":"Aethon on LinkedIn",
+    "cta.eyebrow":"Free diagnostic · 30 min","cta.h":"If your team loses 10+ hours a week copying data between spreadsheets, I'll show you how to |eliminate that work|.",
+    "cta.p":"Honest conversation. We leave with a clear sense of whether it makes sense to continue — or if your case is already solved.",
+    "cta.k1":"No commitment, no cost","cta.k2":"Concrete diagnostic, not generic","cta.k3":"I'll tell you if hiring me makes NO sense",
+    "form.title":"Book a diagnostic","form.h":"Tell me about your team","form.name":"Name","form.role":"Role","form.org":"Organization","form.email":"Email","form.country":"Country","form.size":"Headcount","form.msg":"Which process burns the most hours?","form.send":"Book 30 min →","form.note":"I reply within 24 business hours.",
+    "foot.copy":"© 2026 Aethon · Automation · AI · Apps · Courses"
+  }
+};
+
+const MARKETS = {
+  es: {
+    mx: {title:"México · Sector Privado",tagline:"PyMEs y medianas con nómina IMSS",
+      items:[["Cálculo automatizado de","nómina semanal/quincenal/mensual con IMSS, ISR y subsidios."],["Conciliación bancaria","de pagos y dispersión electrónica vía API bancaria."],["Onboarding digital","de nuevos colaboradores: contrato, IDSE, expediente, alta IMSS."],["Reportes para","Compliance, SAT y autoridad laboral, generados automáticamente."],["<strong>Y cualquier otra idea</strong>","esto es un punto de partida, no una lista cerrada. Se automatiza lo que tu equipo necesite — lo evaluamos juntos, caso por caso."]],
+      aside:{eyebrow:"Caso típico",title:"Empresa de 80 colaboradores",p:"De 12 horas semanales en planillas a 90 minutos. Errores en cálculo de ISR cayeron a cero.",stats:[["Tiempo liberado","~10h/sem"],["Error nómina","0,2%"],["Implementación","5 semanas"]]}},
+    cl: {title:"Chile · Sector Privado",tagline:"Empresas bajo Código del Trabajo",
+      items:[["Liquidaciones automáticas","con AFP, salud, impuesto único, gratificaciones legales y voluntarias."],["Control de","vacaciones, licencias médicas, asistencia y descuentos."],["Integración con","Previred, DT, SII y bancos chilenos vía conectores."],["Dashboards de gerencia","con costo laboral por área, rotación, headcount."],["<strong>Y cualquier otra idea</strong>","esto es un punto de partida, no una lista cerrada. Se automatiza lo que tu equipo necesite — lo evaluamos juntos, caso por caso."]],
+      aside:{eyebrow:"Caso típico",title:"Holding de 350 personas",p:"Reemplazamos 4 planillas críticas con un sistema único conectado a SQL Server. Liquidaciones en 8 minutos.",stats:[["Tiempo liberado","~22h/sem"],["Liquidaciones","350 en 8 min"],["ROI primer año","6,4×"]]}},
+    aps: {title:"Chile · Salud Pública (Ley 19.378)",tagline:"Corporaciones municipales y CESFAM · Estatuto APS",
+      items:[["Cálculo de remuneraciones","bajo Ley 19.378: nivel, categoría, asignaciones, bonificación legal."],["Reportes obligatorios","para SUSESO, MINSAL, Contraloría y la propia corporación."],["Gestión de","feriados legales, cometidos funcionarios, capacitaciones acreditadas."],["<strong>Especialización exclusiva</strong>","el único asesor en Chile que cubre integralmente Ley 19.378 + automatización + IA."],["<strong>Y cualquier otra idea</strong>","esto es un punto de partida, no una lista cerrada. Se automatiza lo que tu corporación necesite — lo evaluamos juntos, caso por caso."]],
+      aside:{eyebrow:"Especialización exclusiva",title:"La única solución integral en Chile",p:"Conozco la Ley 19.378 desde adentro. Trabajo con corporaciones municipales que han dejado de pasar noches enteras cuadrando planillas APS.",stats:[["Funcionarios atendidos","800+"],["Cumplimiento normativo","100%"],["Reportes Contraloría","Automáticos"]]}}
+  },
+  en: {
+    mx: {title:"Mexico · Private Sector",tagline:"SMEs and mid-sized firms on IMSS payroll",
+      items:[["Automated calculation","of weekly / biweekly / monthly payroll with IMSS, ISR, and subsidies."],["Bank reconciliation","for payments and electronic dispersal via banking APIs."],["Digital onboarding","new hires: contract, IDSE, file, IMSS registration."],["Automated reporting","for Compliance, SAT, and labor authority."],["<strong>And any other idea</strong>","this is a starting point, not a closed list. We automate whatever your team needs — assessed together, case by case."]],
+      aside:{eyebrow:"Typical case",title:"80-person company",p:"From 12 weekly spreadsheet hours to 90 minutes. ISR calculation errors dropped to zero.",stats:[["Time freed","~10h/wk"],["Payroll error","0.2%"],["Implementation","5 weeks"]]}},
+    cl: {title:"Chile · Private Sector",tagline:"Companies under the Labor Code",
+      items:[["Automated payslips","with AFP, health, income tax, legal and voluntary bonuses."],["Control of","vacations, medical leave, attendance, and deductions."],["Integration with","Previred, DT, SII, and Chilean banks via connectors."],["Management dashboards","with labor cost by area, turnover, headcount."],["<strong>And any other idea</strong>","this is a starting point, not a closed list. We automate whatever your team needs — assessed together, case by case."]],
+      aside:{eyebrow:"Typical case",title:"350-person holding",p:"We replaced 4 critical spreadsheets with one system on SQL Server. Payslips in 8 minutes.",stats:[["Time freed","~22h/wk"],["Payslips","350 in 8 min"],["First-year ROI","6.4×"]]}},
+    aps: {title:"Chile · Public Health (Law 19.378)",tagline:"Municipal corporations & CESFAM · APS Statute",
+      items:[["Payroll calculation","under Law 19.378: level, category, allowances, legal bonus."],["Mandatory reporting","for SUSESO, MINSAL, Comptroller, and the corporation itself."],["Management of","statutory leave, official assignments, accredited training."],["<strong>Exclusive specialization</strong>","the only advisor in Chile covering Law 19.378 + automation + AI end-to-end."],["<strong>And any other idea</strong>","this is a starting point, not a closed list. We automate whatever your corporation needs — assessed together, case by case."]],
+      aside:{eyebrow:"Exclusive specialization",title:"The only end-to-end solution in Chile",p:"I know Law 19.378 from the inside. I work with municipal corporations that no longer spend nights reconciling APS payroll.",stats:[["Workers served","800+"],["Compliance","100%"],["Comptroller reports","Automated"]]}}
+  }
+};
+
+// Animated chat conversation
+const CONVERSATION = {
+  es: [
+    {who:"user",text:"Hola, soy Patricia, enfermera del CESFAM. ¿Cuándo cambio de nivel?"},
+    {who:"bot",text:"Hola Patricia 👋 Reviso tu carrera funcionaria bajo <strong>Ley 19.378</strong>...<br/><br/>Estás en <strong>nivel 8 categoría D</strong> desde el 12 de marzo de 2024. Tu próximo cambio se proyecta para el <strong>12 de marzo de 2026</strong>, cuando completes el bienio.<br/><br/>Te falta acreditar <strong>16 horas de capacitación pertinente</strong> antes de esa fecha."},
+    {who:"user",text:"¿Puedo descargar mi ficha funcionaria?"},
+    {who:"bot",text:"Por supuesto. Tu ficha al día de hoy:",card:"📄 Ficha_Funcionaria_PGomez.pdf · 4 págs"},
+    {who:"user",text:"¿Qué cubre Bienestar de Salud?"},
+    {who:"bot",text:"Tu plan de Bienestar incluye:<br/>• Bono dental anual: <strong>$120.000</strong><br/>• Reembolso óptica: <strong>$80.000</strong><br/>• Convenios farmacia con 25% dcto.<br/><br/>Contacto directo: <strong>bienestar@corpmunicipal.cl</strong> · Anexo 4421"}
+  ],
+  en: [
+    {who:"user",text:"Hi, I'm Patricia, a nurse at CESFAM. When do I move up a level?"},
+    {who:"bot",text:"Hi Patricia 👋 Reviewing your career path under <strong>Law 19.378</strong>...<br/><br/>You're at <strong>level 8, category D</strong> since March 12, 2024. Your next promotion is projected for <strong>March 12, 2026</strong>, when you complete the biennium.<br/><br/>You still need to accredit <strong>16 hours of relevant training</strong> before that date."},
+    {who:"user",text:"Can I download my employee record?"},
+    {who:"bot",text:"Of course. Your record as of today:",card:"📄 Employee_Record_PGomez.pdf · 4 pages"},
+    {who:"user",text:"What does Health Wellness cover?"},
+    {who:"bot",text:"Your Wellness plan includes:<br/>• Annual dental bonus: <strong>$120,000 CLP</strong><br/>• Optical reimbursement: <strong>$80,000 CLP</strong><br/>• Pharmacy partnerships, 25% off<br/><br/>Direct contact: <strong>wellness@municipalcorp.cl</strong> · Ext. 4421"}
+  ]
+};
+
+const SUGGESTIONS = {
+  es: ["¿Cuándo cambio de nivel?","Descargar ficha","Beneficios Bienestar","Mis vacaciones"],
+  en: ["When do I move up?","Download record","Wellness benefits","My time off"]
+};
+
+// Interactive Q&A for showcase section
+const IV_QA = {
+  es: [
+    {
+      q:"¿Cuándo cambio de nivel?",
+      icon:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
+      a:`Hola Patricia 👋 Reviso tu carrera funcionaria bajo <strong>Ley 19.378</strong>:
+        <div class="iv-data-card">
+          <div class="iv-data-row"><span>Nivel actual</span><b>Nivel 8 · Categoría D</b></div>
+          <div class="iv-data-row"><span>En el nivel desde</span><b>12 marzo 2024</b></div>
+          <div class="iv-data-row"><span>Próximo cambio</span><b>12 marzo 2026</b></div>
+          <div class="iv-data-row"><span>Capacitación pendiente</span><b>16 hrs</b></div>
+        </div>
+        Cuando completes el bienio + las 16 hrs de capacitación pertinente, subes automáticamente a <strong>Nivel 9</strong>.`
+    },
+    {
+      q:"¿Qué cubre Bienestar de Salud este año?",
+      icon:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
+      a:`Tu plan de Bienestar 2026 (Corp. Municipal) incluye:
+        <ul>
+          <li>Bono dental anual: <strong>$120.000</strong></li>
+          <li>Reembolso óptica: <strong>$80.000</strong></li>
+          <li>Convenios farmacia: <strong>25% dcto.</strong></li>
+          <li>Bono escolaridad por hijo: <strong>$95.000</strong></li>
+        </ul>
+        Contacto directo: <strong>bienestar@corpmunicipal.cl</strong> · Anexo 4421`
+    },
+    {
+      q:"Descargar mi ficha funcionaria",
+      icon:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+      a:`Generando tu ficha al día de hoy con datos de SQL Server...
+        <div class="iv-data-card">
+          <div class="iv-data-row"><span>📄 Ficha_Funcionaria_PGomez.pdf</span><b>4 págs · Listo</b></div>
+        </div>
+        Incluye contrato vigente, antigüedad acreditada, capacitaciones y última liquidación. Firmado digitalmente por la Corporación.`
+    },
+    {
+      q:"¿Cuántos días de feriado legal me quedan?",
+      icon:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+      a:`Tu saldo de feriado legal a hoy:
+        <div class="iv-data-card">
+          <div class="iv-data-row"><span>Días legales 2026</span><b>20 días</b></div>
+          <div class="iv-data-row"><span>Días progresivos</span><b>+3 días</b></div>
+          <div class="iv-data-row"><span>Tomados este año</span><b>8 días</b></div>
+          <div class="iv-data-row"><span>Disponibles</span><b>15 días</b></div>
+        </div>
+        ¿Quieres que te genere la solicitud para tu jefatura directa?`
+    }
+  ],
+  en: [
+    {
+      q:"When do I move up a level?",
+      icon:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
+      a:`Hi Patricia 👋 Reviewing your career path under <strong>Law 19.378</strong>:
+        <div class="iv-data-card">
+          <div class="iv-data-row"><span>Current level</span><b>Level 8 · Category D</b></div>
+          <div class="iv-data-row"><span>At this level since</span><b>March 12, 2024</b></div>
+          <div class="iv-data-row"><span>Next promotion</span><b>March 12, 2026</b></div>
+          <div class="iv-data-row"><span>Training pending</span><b>16 hrs</b></div>
+        </div>
+        Once you complete the biennium + 16 hrs of relevant training, you'll auto-promote to <strong>Level 9</strong>.`
+    },
+    {
+      q:"What does Health Wellness cover this year?",
+      icon:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
+      a:`Your 2026 Wellness plan (Municipal Corp.) includes:
+        <ul>
+          <li>Annual dental bonus: <strong>$120,000 CLP</strong></li>
+          <li>Optical reimbursement: <strong>$80,000 CLP</strong></li>
+          <li>Pharmacy partnerships: <strong>25% off</strong></li>
+          <li>Per-child school bonus: <strong>$95,000 CLP</strong></li>
+        </ul>
+        Direct contact: <strong>wellness@municipalcorp.cl</strong> · Ext. 4421`
+    },
+    {
+      q:"Download my employee record",
+      icon:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+      a:`Generating your record as of today from SQL Server...
+        <div class="iv-data-card">
+          <div class="iv-data-row"><span>📄 Employee_Record_PGomez.pdf</span><b>4 pages · Ready</b></div>
+        </div>
+        Includes active contract, accredited seniority, training and latest pay slip. Digitally signed by the Corporation.`
+    },
+    {
+      q:"How many statutory leave days do I have left?",
+      icon:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+      a:`Your statutory leave balance today:
+        <div class="iv-data-card">
+          <div class="iv-data-row"><span>Legal days 2026</span><b>20 days</b></div>
+          <div class="iv-data-row"><span>Progressive days</span><b>+3 days</b></div>
+          <div class="iv-data-row"><span>Taken this year</span><b>8 days</b></div>
+          <div class="iv-data-row"><span>Available</span><b>15 days</b></div>
+        </div>
+        Want me to generate the request for your direct supervisor?`
+    }
+  ]
+};
+
+let currentLang = 'es';
+let chatTimer;
+
+function applyI18n(lang) {
+  const dict = I18N[lang];
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (dict[k]) el.innerHTML = dict[k];
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    const [attr, key] = el.dataset.i18nAttr.split('|');
+    if (dict[key]) el.setAttribute(attr, dict[key].replace(/<[^>]+>/g,''));
+  });
+  // hero h1 with animated words and accent split
+  const h1raw = dict["hero.h1"];
+  const parts = h1raw.split('|');
+  const h1 = document.getElementById('h1-text');
+  h1.innerHTML = '';
+  let wordIdx = 0;
+  parts.forEach((seg,i) => {
+    const span = document.createElement('span');
+    span.className = i % 2 === 1 ? 'accent word' : 'word';
+    span.style.animationDelay = (.05 + wordIdx * .08) + 's';
+    span.innerHTML = seg;
+    h1.appendChild(span);
+    wordIdx++;
+  });
+  renderMarket(document.querySelector('.market-tab.active').dataset.m);
+  renderSuggestions();
+  startChat();
+  renderInteractiveChat();
+}
+
+function renderMarket(m) {
+  const d = MARKETS[currentLang][m];
+  document.getElementById('market-content').innerHTML = `
+    <div class="market-card">
+      <h3>${d.title}</h3>
+      <div class="market-tagline">${d.tagline}</div>
+      <div class="market-list">
+        ${d.items.map(([k,v]) => `<div class="market-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><div><strong>${k}</strong> ${v}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="market-aside">
+      <div class="market-aside-eyebrow">${d.aside.eyebrow}</div>
+      <h4>${d.aside.title}</h4>
+      <p>${d.aside.p}</p>
+      ${d.aside.stats.map(([k,v]) => `<div class="stat"><span>${k}</span><span class="stat-v">${v}</span></div>`).join('')}
+    </div>`;
+}
+
+function renderSuggestions() {
+  document.getElementById('chat-suggestions').innerHTML =
+    SUGGESTIONS[currentLang].map(s => `<button class="chip">${s}</button>`).join('');
+}
+
+// Interactive Q&A chat
+let ivAnswered = new Set();
+let ivAnswering = false;
+
+function renderInteractiveChat() {
+  ivAnswered = new Set();
+  ivAnswering = false;
+  const body = document.getElementById('iv-body');
+  const intro = currentLang === 'es'
+    ? `Hola, soy el asistente de RR.HH. de tu corporación. Tengo acceso seguro a tu ficha funcionaria, beneficios y normativa. <strong>Elige una pregunta abajo</strong> para ver cómo respondo con tus datos reales.`
+    : `Hi, I'm your corporation's HR assistant. I have secure access to your employee record, benefits and regulations. <strong>Pick a question below</strong> to see how I answer with your real data.`;
+  body.innerHTML = `<div class="iv-msg iv-msg-bot">${intro}</div>`;
+  renderIvQuestions();
+}
+
+function renderIvQuestions() {
+  const list = document.getElementById('iv-questions');
+  const arrow = '<svg class="iv-q-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+  list.innerHTML = IV_QA[currentLang].map((qa, i) => {
+    const done = ivAnswered.has(i);
+    return `<button class="iv-q" data-iv="${i}" ${done ? 'disabled' : ''}>
+      <span class="iv-q-icon">${qa.icon}</span>
+      <span>${qa.q}</span>
+      ${done ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' : arrow}
+    </button>`;
+  }).join('');
+  list.querySelectorAll('.iv-q').forEach(b => b.addEventListener('click', () => askIv(parseInt(b.dataset.iv,10))));
+}
+
+function askIv(idx) {
+  if (ivAnswering || ivAnswered.has(idx)) return;
+  ivAnswering = true;
+  const qa = IV_QA[currentLang][idx];
+  const body = document.getElementById('iv-body');
+  const userMsg = document.createElement('div');
+  userMsg.className = 'iv-msg iv-msg-user';
+  userMsg.textContent = qa.q;
+  body.appendChild(userMsg);
+  body.scrollTop = body.scrollHeight;
+
+  const typing = document.createElement('div');
+  typing.className = 'iv-typing';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  setTimeout(() => {
+    body.appendChild(typing);
+    body.scrollTop = body.scrollHeight;
+  }, 320);
+
+  setTimeout(() => {
+    typing.remove();
+    const botMsg = document.createElement('div');
+    botMsg.className = 'iv-msg iv-msg-bot';
+    botMsg.innerHTML = qa.a;
+    body.appendChild(botMsg);
+    body.scrollTop = body.scrollHeight;
+    ivAnswered.add(idx);
+    ivAnswering = false;
+    renderIvQuestions();
+  }, 1500);
+}
+
+function startChat() {
+  clearTimeout(chatTimer);
+  const body = document.getElementById('chat-body');
+  body.innerHTML = '';
+  let i = 0;
+  const conv = CONVERSATION[currentLang];
+  const step = () => {
+    if (i >= conv.length) {
+      // restart loop after pause
+      chatTimer = setTimeout(() => { startChat(); }, 5000);
+      return;
+    }
+    const m = conv[i];
+    if (m.who === 'bot' && i > 0) {
+      const t = document.createElement('div');
+      t.className = 'msg msg-bot typing-wrap';
+      t.innerHTML = '<span class="typing"><span></span><span></span><span></span></span>';
+      body.appendChild(t);
+      body.scrollTop = body.scrollHeight;
+      chatTimer = setTimeout(() => {
+        t.remove();
+        addMsg(m);
+        i++;
+        chatTimer = setTimeout(step, 700);
+      }, 1100);
+    } else {
+      addMsg(m);
+      i++;
+      chatTimer = setTimeout(step, m.who === 'user' ? 900 : 1600);
+    }
+  };
+  function addMsg(m) {
+    const el = document.createElement('div');
+    el.className = 'msg msg-' + m.who;
+    el.innerHTML = m.text;
+    if (m.card) {
+      el.innerHTML += `<div class="msg-card"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>${m.card}</div>`;
+    }
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+  }
+  step();
+}
+
+document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  currentLang = b.dataset.lang;
+  applyI18n(currentLang);
+}));
+
+document.querySelectorAll('.market-tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.market-tab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  renderMarket(t.dataset.m);
+}));
+
+document.addEventListener('click', (e) => {
+  if (e.target.id === 'iv-reset' || e.target.closest('#iv-reset')) {
+    renderInteractiveChat();
+  }
+});
+
+applyI18n('es');
+</script>
+</body>
+</html>

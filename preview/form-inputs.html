@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<title>Form Inputs</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body{margin:0;background:#fff;padding:26px 30px;font-family:var(--font-sans);}
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    column-gap:36px;
+    row-gap:20px;
+  }
+  .field{display:flex;flex-direction:column;position:relative;}
+  .lab{
+    font-size:10.5px;font-weight:700;color:var(--fg4);
+    text-transform:uppercase;letter-spacing:.1em;
+    margin-bottom:8px;display:block;
+  }
+  .inp{
+    width:100%;
+    padding:10px 14px;
+    border:1.5px solid var(--border);
+    border-radius:8px;
+    font-size:13.5px;font-family:var(--font-sans);
+    color:var(--fg1);outline:none;background:#fff;
+    transition:border-color .14s ease-out, box-shadow .14s ease-out;
+  }
+  .inp:focus,.focused{border-color:var(--aethon-500);box-shadow:var(--focus-ring);}
+  .hint{font-size:11px;color:#94A3B8;margin-top:6px;font-family:'JetBrains Mono',monospace;letter-spacing:.02em;}
+
+  /* ── Custom select (UX-driven, replaces native dropdown) ── */
+  .select{
+    width:100%;
+    padding:10px 36px 10px 14px;
+    border:1.5px solid var(--border);
+    border-radius:8px;
+    font-size:13.5px;font-family:var(--font-sans);font-weight:500;
+    color:var(--fg1);background:#fff;cursor:pointer;
+    text-align:left;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    transition:border-color .14s ease-out, box-shadow .14s ease-out;
+  }
+  .select:hover{border-color:#94A3B8;}
+  .select.open{border-color:var(--aethon-500);box-shadow:var(--focus-ring);}
+  .select-value{display:flex;align-items:center;gap:8px;flex:1;min-width:0;}
+  .select-tag{
+    display:inline-flex;align-items:center;gap:5px;
+    padding:2px 7px 2px 5px;
+    background:#0A1628;color:#F0A026;
+    border-radius:4px;
+    font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    flex-shrink:0;
+  }
+  .select-tag .dot{width:5px;height:5px;border-radius:9999px;background:currentColor;}
+  .select-text{font-size:13px;color:var(--fg1);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .chev{
+    width:16px;height:16px;flex-shrink:0;color:#94A3B8;
+    transition:transform .18s ease-out, color .14s ease-out;
+  }
+  .select.open .chev{transform:rotate(180deg);color:var(--aethon-500);}
+
+  .menu{
+    position:absolute;top:calc(100% + 6px);left:0;right:0;
+    background:#fff;border:1.5px solid #E2E8F0;border-radius:10px;
+    box-shadow:0 10px 24px rgba(10,22,40,.10), 0 2px 6px rgba(10,22,40,.06);
+    padding:6px;z-index:10;
+    opacity:0;transform:translateY(-4px);pointer-events:none;
+    transition:opacity .14s ease-out, transform .14s ease-out;
+  }
+  .menu.open{opacity:1;transform:translateY(0);pointer-events:auto;}
+  .opt{
+    display:flex;align-items:center;gap:10px;
+    padding:9px 10px;border-radius:6px;cursor:pointer;
+    font-size:13px;color:var(--fg1);
+    transition:background .1s ease-out;
+  }
+  .opt:hover{background:#F8FAFC;}
+  .opt.sel{background:#EFF6FF;}
+  .opt-tag{
+    display:inline-flex;align-items:center;gap:5px;
+    padding:2px 7px 2px 5px;
+    border-radius:4px;
+    font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    flex-shrink:0;
+  }
+  .opt-tag .dot{width:5px;height:5px;border-radius:9999px;background:currentColor;flex-shrink:0;}
+  .tag-aps{background:#0A1628;color:#F0A026;}
+  .tag-trab{background:#fff;color:#0A1628;border:1.5px solid #0A1628;padding:1px 6px 1px 4px;}
+  .tag-hon{background:#F1F5F9;color:#334155;border:1.5px solid #E2E8F0;padding:1px 6px 1px 4px;}
+  .opt-meta{font-size:11px;color:#94A3B8;margin-left:auto;font-family:'JetBrains Mono',monospace;}
+  .opt-check{
+    width:14px;height:14px;color:var(--aethon-500);
+    margin-left:auto;opacity:0;
+  }
+  .opt.sel .opt-check{opacity:1;}
+  .opt.sel .opt-meta{display:none;}
+</style></head>
+<body>
+
+<div class="grid">
+
+  <div class="field">
+    <label class="lab">RUT Funcionario</label>
+    <input class="inp" type="text" value="9.583.637-2"/>
+    <span class="hint">Formato 12.345.678-9</span>
+  </div>
+
+  <div class="field">
+    <label class="lab">Período</label>
+    <input class="inp focused" type="text" value="202605"/>
+    <span class="hint">YYYYMM</span>
+  </div>
+
+  <div class="field">
+    <label class="lab">Régimen</label>
+    <button type="button" class="select open" id="sel">
+      <span class="select-value">
+        <span class="select-tag"><i class="dot"></i>Ley 19.378</span>
+        <span class="select-text">APS · Salud pública</span>
+      </span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+
+    <div class="menu open" id="menu">
+      <div class="opt sel">
+        <span class="opt-tag tag-aps"><i class="dot"></i>Ley 19.378</span>
+        <span>APS · Salud pública</span>
+        <svg class="opt-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="opt">
+        <span class="opt-tag tag-trab"><i class="dot"></i>Cód. Trabajo</span>
+        <span>Sector privado</span>
+        <span class="opt-meta">⌘ T</span>
+      </div>
+      <div class="opt">
+        <span class="opt-tag tag-hon">Honorarios</span>
+        <span>Boleta de servicios</span>
+        <span class="opt-meta">⌘ H</span>
+      </div>
+    </div>
+
+    <span class="hint" style="margin-top:8px;">Aplica al cálculo de haberes</span>
+  </div>
+
+</div>
+</body></html>

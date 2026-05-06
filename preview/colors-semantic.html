@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<title>Semantic Colors</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body{margin:0;background:#fff;padding:24px 28px;}
+  .row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  .swatch{border-radius:10px;overflow:hidden;border:1.5px solid rgba(0,0,0,.06);}
+  .chip{height:64px;}
+  .info{padding:10px 12px;background:#fff;}
+  .name{font-size:12px;font-weight:700;color:var(--fg1);}
+  .hex{font-family:var(--font-mono);font-size:10.5px;color:var(--fg4);margin-top:1px;}
+  .use{font-size:10px;color:var(--fg3);margin-top:2px;}
+</style></head>
+<body>
+<div class="row">
+  <div class="swatch"><div class="chip" style="background:#059669"></div><div class="info"><div class="name">success</div><div class="hex">#059669</div><div class="use">Pagado · activo</div></div></div>
+  <div class="swatch"><div class="chip" style="background:#DC2626"></div><div class="info"><div class="name">danger</div><div class="hex">#DC2626</div><div class="use">Error · borrar</div></div></div>
+  <div class="swatch"><div class="chip" style="background:#D97706"></div><div class="info"><div class="name">warning</div><div class="hex">#D97706</div><div class="use">Advertencia</div></div></div>
+  <div class="swatch"><div class="chip" style="background:#7C3AED"></div><div class="info"><div class="name">purple</div><div class="hex">#7C3AED</div><div class="use">Ley 19.378</div></div></div>
+</div>
+</body></html>

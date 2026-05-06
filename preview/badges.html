@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<title>Badges</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body{margin:0;background:#fff;padding:24px 26px;display:flex;flex-direction:column;gap:14px;font-family:var(--font-sans);}
+  .label{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#94A3B8;}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+
+  /* ── Single badge identity ──
+     squared 4px corners · 1.5px border · uppercase 10.5px · letter-spacing
+     Color comes from the Aethon palette only — navy, blue, gold, slate.
+     Status (success/warning/danger) uses the SAME shape, just tinted. */
+  .b{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:3px 9px 3px 7px;
+    border-radius:4px;
+    font-size:10.5px;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase;
+    font-family:var(--font-sans);
+    border:1.5px solid transparent;
+    line-height:1.4;
+  }
+  .dot{width:6px;height:6px;border-radius:9999px;background:currentColor;flex-shrink:0;}
+
+  /* ── Régimen (categoría primaria de identidad) ── */
+  .b-aps   { background:#0A1628; color:#F0A026; border-color:#0A1628; }   /* Ley 19.378 — navy + gold = la firma de Aethon */
+  .b-trab  { background:#fff;    color:#0A1628; border-color:#0A1628; }   /* Cód. del Trabajo — navy outline */
+
+  /* ── Estado de pago / ciclo (estados operativos) ── */
+  .b-ok    { background:#fff; color:#0A1628; border-color:#CBD5E1; }      /* Activo / por defecto */
+  .b-paid  { background:#fff; color:#047857; border-color:#A7F3D0; }      /* Pagado */
+  .b-pend  { background:#fff; color:#B45309; border-color:#FCD34D; }      /* Pendiente */
+  .b-late  { background:#fff; color:#B91C1C; border-color:#FCA5A5; }      /* Vencido */
+
+  /* ── Tipo de contrato (sub-categoría secundaria) ── */
+  .b-tag   { background:#F1F5F9; color:#334155; border-color:#E2E8F0; }
+</style></head>
+<body>
+
+<div class="label">Régimen</div>
+<div class="row">
+  <span class="b b-aps"><i class="dot"></i>Ley 19.378</span>
+  <span class="b b-trab"><i class="dot"></i>Cód. del Trabajo</span>
+</div>
+
+<div class="label">Estado</div>
+<div class="row">
+  <span class="b b-ok"><i class="dot"></i>Activo</span>
+  <span class="b b-paid"><i class="dot"></i>Pagado</span>
+  <span class="b b-pend"><i class="dot"></i>Pendiente</span>
+  <span class="b b-late"><i class="dot"></i>Vencido</span>
+</div>
+
+<div class="label">Contrato</div>
+<div class="row">
+  <span class="b b-tag">Indefinido</span>
+  <span class="b b-tag">Plazo Fijo</span>
+  <span class="b b-tag">Honorarios</span>
+</div>
+
+</body></html>
