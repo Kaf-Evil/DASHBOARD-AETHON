@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    { "source": "/", "destination": "https://www.aethon.mx", "permanent": false, "has": [{ "type": "host", "value": "aethon.mx" }] }
+  ],
+  "rewrites": [
+    { "source": "/", "destination": "/landing/index.html" }
+  ]
+}
+

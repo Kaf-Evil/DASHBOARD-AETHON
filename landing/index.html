@@ -260,6 +260,41 @@
   .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;font-size:12.5px;color:#94A3B8;}
   .foot-links{display:flex;gap:22px;}
   .foot-links a:hover{color:#0A1628;}
+
+  /* Mobile */
+  @media(max-width:640px){
+    .nav-links{display:none;}
+    .lang-toggle{display:none;}
+    .nav-cta{padding:7px 13px;font-size:12px;}
+
+    .hero{padding:52px 0 60px;}
+    .h1{font-size:clamp(32px,9vw,44px);}
+    .lede{font-size:15px;}
+    .eyebrow{white-space:normal;font-size:10px;}
+    .hero-stats{gap:20px;}
+    .stat-num{font-size:24px;}
+    .cta-row{flex-direction:column;align-items:stretch;}
+    .cta-row .btn{justify-content:center;}
+
+    section{padding:56px 0;}
+    .sec-h{font-size:clamp(24px,7vw,32px);}
+    .sec-sub{font-size:14px;margin-bottom:32px;}
+
+    .market-tabs{width:100%;}
+    .market-tab{flex:1;justify-content:center;font-size:12px;padding:8px 10px;}
+
+    .svc-grid{grid-template-columns:1fr;}
+    .proc-grid{grid-template-columns:1fr;}
+
+    .founder-photo{max-width:200px;}
+    .founder-quote{font-size:17px;}
+
+    .field-row{grid-template-columns:1fr;}
+    .cta-grid{gap:32px;}
+
+    .foot{flex-direction:column;text-align:center;}
+    .foot-links{flex-wrap:wrap;justify-content:center;gap:14px;}
+  }
 </style>
 </head>
 <body>
@@ -545,24 +580,28 @@
         </div>
       </div>
 
-      <form class="cta-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='✓ Mensaje enviado';this.querySelector('button').style.background='#10B981';this.querySelector('button').style.color='#fff';">
+      <form class="cta-form" action="https://api.web3forms.com/submit" method="POST" id="contact-form">
+        <input type="hidden" name="access_key" value="REEMPLAZAR_CON_TU_KEY"/>
+        <input type="hidden" name="subject" value="Nueva solicitud de diagnóstico — Aethon"/>
+        <input type="hidden" name="from_name" value="Aethon Landing Page"/>
+        <input type="hidden" name="redirect" value="https://www.aethon.mx"/>
         <div class="cta-form-title" data-i18n="form.title">Reservar diagnóstico</div>
         <h3 data-i18n="form.h">Cuéntame de tu equipo</h3>
         <div class="field-row">
-          <div class="field"><label data-i18n="form.name">Nombre</label><input type="text" required placeholder="Carolina Pérez"/></div>
-          <div class="field"><label data-i18n="form.role">Cargo</label><input type="text" required placeholder="Jefa de RR.HH."/></div>
+          <div class="field"><label data-i18n="form.name">Nombre</label><input type="text" name="nombre" required placeholder="Carolina Pérez"/></div>
+          <div class="field"><label data-i18n="form.role">Cargo</label><input type="text" name="cargo" required placeholder="Jefa de RR.HH."/></div>
         </div>
-        <div class="field"><label data-i18n="form.org">Organización</label><input type="text" required placeholder="Corporación Municipal de…"/></div>
-        <div class="field"><label data-i18n="form.email">Correo electrónico</label><input type="email" required placeholder="carolina.perez@ejemplo.cl"/></div>
+        <div class="field"><label data-i18n="form.org">Organización</label><input type="text" name="organizacion" required placeholder="Corporación Municipal de…"/></div>
+        <div class="field"><label data-i18n="form.email">Correo electrónico</label><input type="email" name="email" required placeholder="carolina.perez@ejemplo.cl"/></div>
         <div class="field-row">
           <div class="field"><label data-i18n="form.country">País</label>
-            <select><option>🇨🇱 Chile</option><option>🇲🇽 México</option></select>
+            <select name="pais"><option>🇨🇱 Chile</option><option>🇲🇽 México</option></select>
           </div>
           <div class="field"><label data-i18n="form.size">Personas</label>
-            <select><option>1–50</option><option>51–200</option><option>201–800</option><option>800+</option></select>
+            <select name="tamano"><option>1–50</option><option>51–200</option><option>201–800</option><option>800+</option></select>
           </div>
         </div>
-        <div class="field"><label data-i18n="form.msg">¿Qué proceso te quema más horas?</label><textarea rows="2" placeholder="Cálculo de liquidaciones APS cada mes…"></textarea></div>
+        <div class="field"><label data-i18n="form.msg">¿Qué proceso te quema más horas?</label><textarea name="mensaje" rows="2" placeholder="Cálculo de liquidaciones APS cada mes…"></textarea></div>
         <button type="submit" data-i18n="form.send">Reservar 30 min →</button>
         <div class="cta-form-note" data-i18n="form.note">Te respondo en menos de 24 hrs hábiles.</div>
       </form>
