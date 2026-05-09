@@ -19,6 +19,47 @@
 <meta name="twitter:description" content="Aethon ayuda a empresas en México y Chile a automatizar procesos de RR.HH. con IA y aplicaciones web. Diagnóstico gratuito de 30 minutos."/>
 <meta name="twitter:image" content="https://www.aethon.mx/assets/founder-photo.jpg"/>
 <meta name="google-site-verification" content="Ur25_xkQI9_aQIhOd70MKtBxR2ZP4k01WdTYyOmoqB8"/>
+<link rel="alternate" hreflang="es" href="https://www.aethon.mx"/>
+<link rel="alternate" hreflang="en" href="https://www.aethon.mx"/>
+<link rel="alternate" hreflang="x-default" href="https://www.aethon.mx"/>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"ProfessionalService",
+      "name":"Aethon",
+      "url":"https://www.aethon.mx",
+      "description":"Automatización, IA y aplicaciones web para equipos de RR.HH. en México y Chile.",
+      "founder":{"@type":"Person","name":"Francisco Moreno"},
+      "areaServed":["MX","CL"],
+      "email":"francisco@aethon.mx",
+      "sameAs":["https://www.linkedin.com/company/aethon","https://www.linkedin.com/in/franciscomorenocpo/"]
+    },
+    {
+      "@type":"Course",
+      "name":"Excel para nómina · Nivel 1",
+      "description":"Tablas dinámicas, BUSCARV, validación de datos y errores comunes en planillas para RR.HH.",
+      "provider":{"@type":"Organization","name":"Aethon","url":"https://www.aethon.mx"},
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"CLP","availability":"https://schema.org/InStock"}
+    },
+    {
+      "@type":"Course",
+      "name":"Excel avanzado · KPIs de RR.HH.",
+      "description":"Power Query, Power Pivot, dashboards de rotación, ausentismo y costo laboral con certificación.",
+      "provider":{"@type":"Organization","name":"Aethon","url":"https://www.aethon.mx"},
+      "offers":{"@type":"Offer","price":"10000","priceCurrency":"CLP","availability":"https://schema.org/InStock"}
+    },
+    {
+      "@type":"Course",
+      "name":"IA aplicada para RR.HH.",
+      "description":"Construye asistentes, clasifica licencias médicas y automatiza informes sin programar.",
+      "provider":{"@type":"Organization","name":"Aethon","url":"https://www.aethon.mx"},
+      "offers":{"@type":"Offer","price":"289000","priceCurrency":"CLP","availability":"https://schema.org/InStock"}
+    }
+  ]
+}
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7GSB5VWKKW"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-7GSB5VWKKW');</script>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
@@ -221,6 +262,9 @@
   .course-body p{font-size:13.5px;color:#475569;line-height:1.55;flex:1;}
   .course-meta{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#64748B;padding-top:14px;border-top:1px solid #F1F5F9;margin-top:8px;}
   .course-meta strong{color:#0A1628;font-weight:700;}
+  .currency-toggle{display:flex;gap:6px;margin-bottom:24px;}
+  .cur-btn{padding:5px 14px;border-radius:9999px;font-size:12px;font-weight:700;border:1.5px solid #E2E8F0;background:#fff;color:#64748B;cursor:pointer;font-family:inherit;transition:all .14s;}
+  .cur-btn.active{background:#0A1628;color:#fff;border-color:#0A1628;}
 
   /* Process */
   .process{background:#fff;}
@@ -491,6 +535,11 @@
     <div class="sec-eyebrow" data-i18n="course.eyebrow">04 · Cursos de Excel & IA para RR.HH.</div>
     <h2 class="sec-h" data-i18n="course.h">Tu equipo aprende con datos de verdad. No con tutoriales genéricos.</h2>
     <p class="sec-sub" data-i18n="course.sub">Módulos gratuitos para empezar y programas pagados con certificación. Diseñados específicamente para personas de RR.HH., no para ingenieros.</p>
+    <div class="currency-toggle">
+      <button class="cur-btn active" data-cur="CLP">CLP</button>
+      <button class="cur-btn" data-cur="USD">USD</button>
+      <button class="cur-btn" data-cur="MXN">MXN</button>
+    </div>
     <div class="course-grid">
       <div class="course">
         <div class="course-img">
@@ -500,7 +549,7 @@
         <div class="course-body">
           <h4 data-i18n="course.1.h">Excel para nómina · Nivel 1</h4>
           <p data-i18n="course.1.p">Tablas dinámicas, BUSCARV, validación de datos y errores comunes en planillas. 4 módulos con ejercicios reales de RR.HH.</p>
-          <div class="course-meta"><span data-i18n="course.1.dur">3,5 horas · 4 módulos</span><strong data-i18n="course.free2">Gratis</strong></div>
+          <div class="course-meta"><span data-i18n="course.1.dur">3,5 horas · 4 módulos</span><strong class="course-price" data-clp="Gratis" data-usd="Free" data-mxn="Gratis">Gratis</strong></div>
         </div>
       </div>
       <div class="course">
@@ -511,7 +560,7 @@
         <div class="course-body">
           <h4 data-i18n="course.2.h">Excel avanzado · KPIs de RR.HH.</h4>
           <p data-i18n="course.2.p">Power Query, Power Pivot, dashboards de rotación, ausentismo y costo laboral. Incluye plantillas reusables y certificación.</p>
-          <div class="course-meta"><span data-i18n="course.2.dur">12 horas · 8 módulos · Cert.</span><strong>$149.000 CLP</strong></div>
+          <div class="course-meta"><span data-i18n="course.2.dur">12 horas · 8 módulos · Cert.</span><strong class="course-price" data-clp="$10.000 CLP" data-usd="$11 USD" data-mxn="$199 MXN">$10.000 CLP</strong></div>
         </div>
       </div>
       <div class="course">
@@ -522,7 +571,7 @@
         <div class="course-body">
           <h4 data-i18n="course.3.h">IA aplicada para RR.HH.</h4>
           <p data-i18n="course.3.p">Construye tu primer asistente, clasifica licencias médicas y automatiza informes. Sin programar — con herramientas no-code.</p>
-          <div class="course-meta"><span data-i18n="course.3.dur">20 horas · 10 módulos · Cert.</span><strong>$289.000 CLP</strong></div>
+          <div class="course-meta"><span data-i18n="course.3.dur">20 horas · 10 módulos · Cert.</span><strong class="course-price" data-clp="$289.000 CLP" data-usd="$311 USD" data-mxn="$5.900 MXN">$289.000 CLP</strong></div>
         </div>
       </div>
     </div>
@@ -608,11 +657,11 @@
         <div class="cta-form-title" data-i18n="form.title">Reservar diagnóstico</div>
         <h3 data-i18n="form.h">Cuéntame de tu equipo</h3>
         <div class="field-row">
-          <div class="field"><label data-i18n="form.name">Nombre</label><input type="text" name="nombre" required placeholder="Carolina Pérez"/></div>
-          <div class="field"><label data-i18n="form.role">Cargo</label><input type="text" name="cargo" required placeholder="Jefa de RR.HH."/></div>
+          <div class="field"><label data-i18n="form.name">Nombre</label><input type="text" name="nombre" required placeholder="Tu nombre completo"/></div>
+          <div class="field"><label data-i18n="form.role">Cargo</label><input type="text" name="cargo" required placeholder="Ej: Jefa de RR.HH."/></div>
         </div>
-        <div class="field"><label data-i18n="form.org">Organización</label><input type="text" name="organizacion" required placeholder="Corporación Municipal de…"/></div>
-        <div class="field"><label data-i18n="form.email">Correo electrónico</label><input type="email" name="email" required placeholder="carolina.perez@ejemplo.cl"/></div>
+        <div class="field"><label data-i18n="form.org">Organización</label><input type="text" name="organizacion" required placeholder="Nombre de tu empresa u organización"/></div>
+        <div class="field"><label data-i18n="form.email">Correo electrónico</label><input type="email" name="email" required placeholder="tucorreo@empresa.com"/></div>
         <div class="field-row">
           <div class="field"><label data-i18n="form.country">País</label>
             <select name="pais"><option>🇨🇱 Chile</option><option>🇲🇽 México</option></select>
@@ -1062,6 +1111,17 @@ document.addEventListener('click', (e) => {
 });
 
 applyI18n('es');
+
+document.querySelectorAll('.cur-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cur-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cur = btn.dataset.cur.toLowerCase();
+    document.querySelectorAll('.course-price').forEach(el => {
+      el.textContent = el.dataset[cur];
+    });
+  });
+});
 
 document.getElementById('contact-form').addEventListener('submit', () => {
   gtag('event', 'generate_lead', {event_category: 'form', event_label: 'diagnostico_30min'});
