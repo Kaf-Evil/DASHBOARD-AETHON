@@ -324,13 +324,15 @@
   .cta-form-note{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:12px;text-align:center;}
 
   /* Widget companion pill */
-  #aethon-pill{position:fixed;bottom:34px;right:92px;display:flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9999px;background:#1960A6;color:#fff;font-size:13px;font-weight:700;font-family:'Inter',system-ui,sans-serif;cursor:pointer;z-index:9998;border:none;box-shadow:0 4px 16px rgba(15,23,42,.22);transition:background .18s,transform .18s,opacity .22s;white-space:nowrap;user-select:none;letter-spacing:-.01em;opacity:0;pointer-events:none;}
+  #aethon-pill{position:fixed;bottom:34px;right:92px;display:flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9999px;background:#1960A6;color:#fff;font-size:13px;font-weight:700;font-family:'Inter',system-ui,sans-serif;cursor:pointer;z-index:9998;border:2px solid transparent;box-shadow:0 4px 16px rgba(15,23,42,.22);transition:all .2s ease;white-space:nowrap;user-select:none;letter-spacing:-.01em;opacity:0;pointer-events:none;}
   #aethon-pill.visible{opacity:1;pointer-events:auto;}
-  #aethon-pill:hover{background:#0F4880;transform:translateY(-2px);}
-  #aethon-pill.is-open{background:#334155;}
-  #aethon-pill.is-open:hover{background:#1E293B;}
+  #aethon-pill:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(15,23,42,.28);}
+  #aethon-pill:not(.is-open):hover{background:#0F4880;}
+  /* Minimizar state — fondo blanco para contrastar con el overlay oscuro */
+  #aethon-pill.is-open{background:#fff;color:#0A1628;border-color:#E2E8F0;box-shadow:0 8px 28px rgba(15,23,42,.35);}
+  #aethon-pill.is-open:hover{background:#F1F5F9;transform:translateY(-2px);}
   #aethon-pill svg{flex-shrink:0;}
-  @media(max-width:640px){#aethon-pill{bottom:24px;right:80px;font-size:12px;padding:8px 14px;}}
+  @media(max-width:640px){#aethon-pill{bottom:24px;right:80px;font-size:12px;padding:9px 14px;}}
 
   /* Footer */
   footer{padding:48px 0 60px;border-top:1px solid #E2E8F0;background:#fff;}
@@ -1215,11 +1217,11 @@ document.querySelector('a[href*="wa.me"]').addEventListener('click', () => {
 <script>
 (function() {
   const LABELS = {
-    es: { closed: 'Asistente RH', open: 'Minimizar ↙' },
-    en: { closed: 'HR Assistant', open: 'Minimize ↙' }
+    es: { closed: 'Asistente RH', open: 'Minimizar' },
+    en: { closed: 'HR Assistant', open: 'Minimize' }
   };
   const iconChat = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>';
-  const iconMin  = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
+  const iconMin  = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
 
   function getLang() {
     return document.documentElement.lang === 'en' ? 'en' : 'es';
