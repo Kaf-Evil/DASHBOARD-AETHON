@@ -323,6 +323,15 @@
   .cta-form button:hover{background:#D78A14;}
   .cta-form-note{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:12px;text-align:center;}
 
+  /* Widget companion pill */
+  #aethon-pill{position:fixed;bottom:34px;right:92px;display:flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9999px;background:#1960A6;color:#fff;font-size:13px;font-weight:700;font-family:'Inter',system-ui,sans-serif;cursor:pointer;z-index:9998;border:none;box-shadow:0 4px 16px rgba(15,23,42,.22);transition:background .18s,transform .18s,opacity .22s;white-space:nowrap;user-select:none;letter-spacing:-.01em;opacity:0;pointer-events:none;}
+  #aethon-pill.visible{opacity:1;pointer-events:auto;}
+  #aethon-pill:hover{background:#0F4880;transform:translateY(-2px);}
+  #aethon-pill.is-open{background:#334155;}
+  #aethon-pill.is-open:hover{background:#1E293B;}
+  #aethon-pill svg{flex-shrink:0;}
+  @media(max-width:640px){#aethon-pill{bottom:24px;right:80px;font-size:12px;padding:8px 14px;}}
+
   /* Footer */
   footer{padding:48px 0 60px;border-top:1px solid #E2E8F0;background:#fff;}
   .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;font-size:12.5px;color:#94A3B8;}
@@ -1200,6 +1209,69 @@ document.getElementById('contact-form').addEventListener('submit', () => {
 document.querySelector('a[href*="wa.me"]').addEventListener('click', () => {
   gtag('event', 'contact', {event_category: 'whatsapp', event_label: 'whatsapp_click'});
 });
+</script>
+
+<!-- Widget companion pill (label + minimize button) -->
+<script>
+(function() {
+  const LABELS = {
+    es: { closed: 'Asistente RH', open: 'Minimizar ↙' },
+    en: { closed: 'HR Assistant', open: 'Minimize ↙' }
+  };
+  const iconChat = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>';
+  const iconMin  = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
+
+  function getLang() {
+    return document.documentElement.lang === 'en' ? 'en' : 'es';
+  }
+
+  function initPill() {
+    const bubble = document.getElementById('aethon-bubble');
+    if (!bubble) { setTimeout(initPill, 350); return; }
+
+    // Create pill
+    const pill = document.createElement('button');
+    pill.id = 'aethon-pill';
+    pill.setAttribute('aria-label', 'Abrir o cerrar asistente');
+    document.body.appendChild(pill);
+
+    function syncPill() {
+      const isOpen = bubble.classList.contains('open');
+      const lang = getLang();
+      pill.innerHTML = isOpen
+        ? iconMin  + LABELS[lang].open
+        : iconChat + LABELS[lang].closed;
+      pill.classList.toggle('is-open', isOpen);
+      pill.classList.add('visible');
+    }
+
+    // React to bubble class changes (open/close)
+    new MutationObserver(syncPill).observe(bubble, { attributes: true, attributeFilter: ['class'] });
+
+    // React to language toggle
+    document.querySelectorAll('.lang-btn').forEach(b =>
+      b.addEventListener('click', () => setTimeout(syncPill, 50))
+    );
+
+    // Click: toggle chat
+    pill.addEventListener('click', () => {
+      if (bubble.classList.contains('open')) {
+        window.Aethon?.close?.();
+      } else {
+        window.Aethon?.open?.();
+      }
+    });
+
+    syncPill();
+  }
+
+  // Start after load so embed.js (defer) has had time to inject the bubble
+  if (document.readyState === 'complete') {
+    setTimeout(initPill, 400);
+  } else {
+    window.addEventListener('load', () => setTimeout(initPill, 400));
+  }
+})();
 </script>
 
 <!-- Aethon Chat Widget -->
