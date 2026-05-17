@@ -3,26 +3,28 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Aethon — Automatización, IA y aplicaciones para RH</title>
-<meta name="description" content="Aethon ayuda a empresas en México y Chile a automatizar procesos de RR.HH. con IA y aplicaciones web. Diagnóstico gratuito de 30 minutos."/>
+<title>Aethon — Automatización RR.HH. con IA · México y Chile</title>
+<meta name="description" content="Automatización, IA y apps web exclusivas para RR.HH. en México y Chile. Única solución integral para Ley 19.378 en salud pública. Diagnóstico gratuito de 30 min — sin compromiso."/>
 <link rel="canonical" href="https://www.aethon.mx"/>
 <!-- Open Graph -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://www.aethon.mx"/>
-<meta property="og:title" content="Aethon — Automatización, IA y aplicaciones para RH"/>
-<meta property="og:description" content="Aethon ayuda a empresas en México y Chile a automatizar procesos de RR.HH. con IA y aplicaciones web. Diagnóstico gratuito de 30 minutos."/>
+<meta property="og:title" content="Aethon — Automatización RR.HH. con IA · México y Chile"/>
+<meta property="og:description" content="Automatización, IA y apps web exclusivas para RR.HH. en México y Chile. Única solución integral para Ley 19.378 en salud pública. Diagnóstico gratuito de 30 min."/>
 <meta property="og:image" content="https://www.aethon.mx/assets/og-image.jpg"/>
 <meta property="og:locale" content="es_MX"/>
+<meta property="og:locale:alternate" content="es_CL"/>
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Aethon — Automatización, IA y aplicaciones para RH"/>
-<meta name="twitter:description" content="Aethon ayuda a empresas en México y Chile a automatizar procesos de RR.HH. con IA y aplicaciones web. Diagnóstico gratuito de 30 minutos."/>
+<meta name="twitter:title" content="Aethon — Automatización RR.HH. con IA · México y Chile"/>
+<meta name="twitter:description" content="Automatización, IA y apps web exclusivas para RR.HH. en México y Chile. Única solución integral para Ley 19.378 en salud pública. Diagnóstico gratuito de 30 min."/>
 <meta name="twitter:image" content="https://www.aethon.mx/assets/og-image.jpg"/>
 <meta name="google-site-verification" content="Ur25_xkQI9_aQIhOd70MKtBxR2ZP4k01WdTYyOmoqB8"/>
 <link rel="preconnect" href="https://assets.calendly.com"/>
 <link rel="preconnect" href="https://www.googletagmanager.com"/>
 <link rel="alternate" hreflang="es" href="https://www.aethon.mx"/>
-<link rel="alternate" hreflang="en" href="https://www.aethon.mx"/>
+<link rel="alternate" hreflang="es-MX" href="https://www.aethon.mx"/>
+<link rel="alternate" hreflang="es-CL" href="https://www.aethon.mx"/>
 <link rel="alternate" hreflang="x-default" href="https://www.aethon.mx"/>
 <script type="application/ld+json">
 {
@@ -30,20 +32,86 @@
   "@graph":[
     {
       "@type":"ProfessionalService",
+      "@id":"https://www.aethon.mx/#organization",
       "name":"Aethon",
       "url":"https://www.aethon.mx",
-      "description":"Automatización, IA y aplicaciones web para equipos de RR.HH. en México y Chile.",
-      "founder":{"@type":"Person","name":"Francisco Moreno"},
-      "areaServed":["MX","CL"],
+      "logo":"https://www.aethon.mx/assets/aethon-logo.svg",
+      "description":"Automatización, IA y aplicaciones web para equipos de RR.HH. en México y Chile. Única solución integral para Ley 19.378 en salud pública.",
+      "serviceType":["Automatización de RR.HH.","IA aplicada a Recursos Humanos","Desarrollo de aplicaciones web","Capacitación Excel y Power BI para RR.HH."],
+      "knowsAbout":["Ley 19.378","Nómina IMSS","CESFAM","Corporaciones municipales de salud","Power Automate","n8n","SQL Server","Power BI"],
+      "founder":{"@id":"https://www.aethon.mx/#founder"},
+      "employee":{"@id":"https://www.aethon.mx/#founder"},
+      "areaServed":[{"@type":"Country","name":"México"},{"@type":"Country","name":"Chile"}],
       "email":"francisco@aethon.mx",
+      "priceRange":"$$",
+      "currenciesAccepted":"MXN, CLP, USD",
       "sameAs":["https://www.linkedin.com/company/aethon","https://www.linkedin.com/in/franciscomorenocpo/"]
+    },
+    {
+      "@type":"Person",
+      "@id":"https://www.aethon.mx/#founder",
+      "name":"Francisco Moreno",
+      "jobTitle":"Fundador y consultor de automatización RR.HH.",
+      "url":"https://www.linkedin.com/in/franciscomorenocpo/",
+      "image":"https://www.aethon.mx/assets/founder-photo.jpg",
+      "email":"francisco@aethon.mx",
+      "knowsAbout":["Ley 19.378","Nómina IMSS","Automatización RR.HH.","Power Automate","n8n","Inteligencia Artificial aplicada","HRIS","Corporaciones municipales de salud Chile"],
+      "worksFor":{"@id":"https://www.aethon.mx/#organization"},
+      "sameAs":["https://www.linkedin.com/in/franciscomorenocpo/"]
+    },
+    {
+      "@type":"WebSite",
+      "@id":"https://www.aethon.mx/#website",
+      "url":"https://www.aethon.mx",
+      "name":"Aethon",
+      "description":"Automatización, IA y aplicaciones web para RR.HH. en México y Chile.",
+      "publisher":{"@id":"https://www.aethon.mx/#organization"},
+      "inLanguage":["es-MX","es-CL"]
+    },
+    {
+      "@type":"FAQPage",
+      "@id":"https://www.aethon.mx/#faq",
+      "mainEntity":[
+        {
+          "@type":"Question",
+          "name":"¿Qué es la Ley 19.378 y cómo automatiza Aethon su aplicación?",
+          "acceptedAnswer":{"@type":"Answer","text":"La Ley 19.378 es el Estatuto de Atención Primaria de Salud Municipal de Chile, que regula la carrera funcionaria, remuneraciones, bienios y capacitaciones de trabajadores de CESFAM y corporaciones municipales. Aethon es la única consultora que automatiza integralmente el cálculo de nómina, reportes para SUSESO, MINSAL y Contraloría, y la gestión de carrera funcionaria bajo este estatuto."}
+        },
+        {
+          "@type":"Question",
+          "name":"¿Cuánto cuesta automatizar los procesos de RR.HH. en mi empresa?",
+          "acceptedAnswer":{"@type":"Answer","text":"El costo depende del alcance y complejidad de los procesos a automatizar. Aethon ofrece un diagnóstico gratuito de 30 minutos donde evaluamos tu caso específico y entregamos una propuesta concreta con precio, horas liberadas y tiempo de implementación. Si no hay un caso de negocio medible, te lo decimos honestamente."}
+        },
+        {
+          "@type":"Question",
+          "name":"¿En cuánto tiempo se implementa una automatización de RR.HH.?",
+          "acceptedAnswer":{"@type":"Answer","text":"El proceso típico de Aethon toma 4 a 6 semanas: diagnóstico, propuesta, construcción y transferencia. A diferencia de las consultoras grandes que venden roadmaps de 12 meses, entregamos automatizaciones funcionando en semanas."}
+        },
+        {
+          "@type":"Question",
+          "name":"¿Qué procesos de RR.HH. se pueden automatizar?",
+          "acceptedAnswer":{"@type":"Answer","text":"Los procesos más comunes incluyen: cálculo de nómina (IMSS en México, AFP y liquidaciones en Chile), conciliación bancaria, onboarding digital, reportes para autoridades laborales, control de vacaciones y licencias médicas, dashboards de KPIs de RR.HH., y clasificación automática de documentos con IA."}
+        },
+        {
+          "@type":"Question",
+          "name":"¿Aethon trabaja con empresas pequeñas o solo con grandes corporaciones?",
+          "acceptedAnswer":{"@type":"Answer","text":"Aethon trabaja principalmente con PyMEs y empresas medianas de 50 a 800 colaboradores en México, y con corporaciones municipales de salud en Chile (CESFAM y servicios APS). La etapa temprana de Aethon permite ofrecer atención directa del fundador y precios accesibles para organizaciones que no pueden pagar grandes consultoras."}
+        },
+        {
+          "@type":"Question",
+          "name":"¿Qué herramientas usa Aethon para automatizar RR.HH.?",
+          "acceptedAnswer":{"@type":"Answer","text":"Las herramientas dependen del caso: Power Automate y n8n para flujos de automatización, scripts SQL para integración con bases de datos, Python para procesamiento de documentos con IA, y Power BI para dashboards. El código y la documentación siempre se entregan al cliente."}
+        }
+      ]
     },
     {
       "@type":"Course",
       "name":"Excel para nómina · Nivel 1",
       "url":"https://www.aethon.mx/#cursos",
       "description":"Tablas dinámicas, BUSCARV, validación de datos y errores comunes en planillas para RR.HH.",
-      "provider":{"@type":"Organization","name":"Aethon","url":"https://www.aethon.mx"},
+      "provider":{"@id":"https://www.aethon.mx/#organization"},
+      "educationalLevel":"Principiante",
+      "timeRequired":"PT3H30M",
       "offers":{"@type":"Offer","price":"0","priceCurrency":"CLP","availability":"https://schema.org/InStock"}
     },
     {
@@ -51,7 +119,10 @@
       "name":"Excel avanzado · KPIs de RR.HH.",
       "url":"https://www.aethon.mx/#cursos",
       "description":"Power Query, Power Pivot, dashboards de rotación, ausentismo y costo laboral con certificación.",
-      "provider":{"@type":"Organization","name":"Aethon","url":"https://www.aethon.mx"},
+      "provider":{"@id":"https://www.aethon.mx/#organization"},
+      "educationalLevel":"Intermedio",
+      "timeRequired":"PT12H",
+      "hasCourseInstance":{"@type":"CourseInstance","courseMode":"online"},
       "offers":{"@type":"Offer","price":"10000","priceCurrency":"CLP","availability":"https://schema.org/InStock"}
     },
     {
@@ -59,7 +130,10 @@
       "name":"IA aplicada para RR.HH.",
       "url":"https://www.aethon.mx/#cursos",
       "description":"Construye asistentes, clasifica licencias médicas y automatiza informes sin programar.",
-      "provider":{"@type":"Organization","name":"Aethon","url":"https://www.aethon.mx"},
+      "provider":{"@id":"https://www.aethon.mx/#organization"},
+      "educationalLevel":"Intermedio",
+      "timeRequired":"PT20H",
+      "hasCourseInstance":{"@type":"CourseInstance","courseMode":"online"},
       "offers":{"@type":"Offer","price":"15000","priceCurrency":"CLP","availability":"https://schema.org/InStock"}
     }
   ]
@@ -324,15 +398,18 @@
   .cta-form-note{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:12px;text-align:center;}
 
   /* Widget companion pill */
-  #aethon-pill{position:fixed;bottom:34px;right:92px;display:flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9999px;background:#1960A6;color:#fff;font-size:13px;font-weight:700;font-family:'Inter',system-ui,sans-serif;cursor:pointer;z-index:9998;border:2px solid transparent;box-shadow:0 4px 16px rgba(15,23,42,.22);transition:all .2s ease;white-space:nowrap;user-select:none;letter-spacing:-.01em;opacity:0;pointer-events:none;}
+  #aethon-pill{position:fixed;bottom:34px;right:92px;display:flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9999px;background:#1960A6;color:#fff;font-size:13px;font-weight:700;font-family:'Inter',system-ui,sans-serif;cursor:pointer;z-index:99999;border:2px solid transparent;box-shadow:0 4px 16px rgba(15,23,42,.22);transition:bottom .2s ease,right .2s ease,background .2s,transform .18s,box-shadow .18s,opacity .22s;white-space:nowrap;user-select:none;letter-spacing:-.01em;opacity:0;pointer-events:none;}
   #aethon-pill.visible{opacity:1;pointer-events:auto;}
   #aethon-pill:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(15,23,42,.28);}
   #aethon-pill:not(.is-open):hover{background:#0F4880;}
-  /* Minimizar state — fondo blanco para contrastar con el overlay oscuro */
-  #aethon-pill.is-open{background:#fff;color:#0A1628;border-color:#E2E8F0;box-shadow:0 8px 28px rgba(15,23,42,.35);}
+  /* Minimizar: sube sobre el botón burbuja para no quedar tapado por el panel */
+  #aethon-pill.is-open{bottom:92px;right:16px;background:#fff;color:#0A1628;border-color:#CBD5E1;box-shadow:0 8px 28px rgba(15,23,42,.32);}
   #aethon-pill.is-open:hover{background:#F1F5F9;transform:translateY(-2px);}
   #aethon-pill svg{flex-shrink:0;}
-  @media(max-width:640px){#aethon-pill{bottom:24px;right:80px;font-size:12px;padding:9px 14px;}}
+  @media(max-width:640px){
+    #aethon-pill{bottom:24px;right:80px;font-size:12px;padding:9px 14px;}
+    #aethon-pill.is-open{bottom:88px;right:12px;}
+  }
 
   /* Footer */
   footer{padding:48px 0 60px;border-top:1px solid #E2E8F0;background:#fff;}
