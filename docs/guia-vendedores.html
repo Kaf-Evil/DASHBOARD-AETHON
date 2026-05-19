@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aethon — Guía del Vendedor</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+  :root {
+    --accent: #1AAB68;
+    --blue:   #1A73E8;
+    --dark:   #0D1117;
+    --mid:    #4A5568;
+    --light:  #F0FDF7;
+    --light2: #F4F7FB;
+    --orange: #F59E0B;
+    --white:  #ffffff;
+    --border: #CBD5E0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #E8EDF5;
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* ── Barra de descarga ── */
+  .download-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--dark);
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(0,0,0,.3);
+  }
+  .download-bar .brand { color: var(--accent); font-weight: 700; font-size: 1.1rem; letter-spacing: .04em; }
+  .download-bar .doc-name { color: #94A3B8; font-size: .85rem; }
+  .btn-pdf {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: .92rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background .2s, transform .1s;
+  }
+  .btn-pdf:hover { background: #14875A; transform: translateY(-1px); }
+  .btn-pdf:active { transform: translateY(0); }
+  .btn-pdf svg { width: 16px; height: 16px; fill: #fff; }
+
+  /* ── Contenedor ── */
+  .page-wrap {
+    max-width: 860px;
+    margin: 32px auto 64px;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.12);
+    overflow: hidden;
+  }
+
+  /* ── Portada ── */
+  .cover {
+    background: linear-gradient(135deg, #052018 0%, #0D2A1A 100%);
+    padding: 72px 56px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 340px; height: 340px;
+    background: var(--accent);
+    opacity: .07;
+    border-radius: 50%;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 30%;
+    width: 200px; height: 200px;
+    background: var(--blue);
+    opacity: .05;
+    border-radius: 50%;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: rgba(26,171,104,.2);
+    border: 1px solid rgba(26,171,104,.4);
+    color: var(--accent);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .cover-brand { font-size: 3rem; font-weight: 800; color: var(--accent); letter-spacing: .08em; margin-bottom: 6px; }
+  .cover-title  { font-size: 1.65rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .cover-sub    { font-size: 1rem; color: #6EE7B7; margin-bottom: 28px; }
+  .cover-divider { height: 2px; background: var(--accent); opacity: .5; margin-bottom: 20px; }
+  .cover-tagline { font-size: .95rem; color: #94A3B8; font-style: italic; margin-bottom: 40px; }
+
+  /* Caja comisión en portada */
+  .comision-highlight {
+    background: rgba(26,171,104,.15);
+    border: 1px solid rgba(26,171,104,.35);
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+  .comision-pct {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    text-align: center;
+  }
+  .comision-pct small { display: block; font-size: .7rem; font-weight: 600; color: #6EE7B7; margin-top: 2px; }
+  .comision-text { color: #A7F3D0; font-size: .88rem; line-height: 1.6; }
+  .comision-text strong { color: #fff; }
+
+  .cover-date { margin-top: 20px; color: #4B5563; font-size: .8rem; }
+
+  /* ── Body ── */
+  .doc-body { padding: 48px 56px; }
+
+  /* ── Sección ── */
+  .section { margin-bottom: 44px; }
+  .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+  .section-num {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: .75rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: .05em;
+  }
+  .section-title { font-size: 1.35rem; font-weight: 700; color: var(--dark); }
+  .section-divider { height: 1.5px; background: linear-gradient(to right, var(--accent), transparent); margin-bottom: 20px; }
+  .section-intro { color: var(--mid); font-size: .95rem; line-height: 1.7; margin-bottom: 16px; }
+
+  h3 {
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--mid);
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    margin: 20px 0 10px;
+    border-left: 3px solid var(--accent);
+    padding-left: 10px;
+  }
+
+  /* ── Tabla de comisión ejemplo ── */
+  .comision-table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 14px 0; border-radius: 8px; overflow: hidden; }
+  .comision-table thead tr { background: var(--dark); color: #fff; }
+  .comision-table th { padding: 10px 14px; text-align: left; font-size: .82rem; font-weight: 700; }
+  .comision-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+  .comision-table tr:last-child td { border-bottom: none; background: var(--light); }
+  .comision-table tr:nth-child(even) td { background: var(--light2); }
+  .comision-table tr:nth-child(odd) td { background: #fff; }
+  .comision-table .total-row td { font-weight: 700; color: var(--accent); font-size: .95rem; }
+  .comision-table .td-right { text-align: right; font-weight: 600; }
+
+  /* ── Producto card vendedor ── */
+  .venta-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .venta-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .venta-header.blue   { background: #EFF6FF; border-bottom: 3px solid var(--blue); }
+  .venta-header.green  { background: var(--light); border-bottom: 3px solid var(--accent); }
+  .venta-header.orange { background: #FFFBEB; border-bottom: 3px solid var(--orange); }
+  .venta-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1rem; color: #fff;
+    flex-shrink: 0;
+  }
+  .num-blue   { background: var(--blue); }
+  .num-green  { background: var(--accent); }
+  .num-orange { background: var(--orange); }
+  .venta-header-text { flex: 1; }
+  .venta-titulo { font-size: 1.05rem; font-weight: 700; color: var(--dark); }
+  .venta-frase  { font-size: .85rem; color: var(--mid); font-style: italic; margin-top: 2px; }
+  .venta-body { padding: 20px 24px; }
+
+  /* ── Tabla detectar ── */
+  .detectar-box {
+    background: var(--light);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: .88rem;
+    color: var(--dark);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .detectar-box strong { color: var(--accent); }
+
+  /* ── Tabla objeciones ── */
+  table.objeciones {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .87rem;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  table.objeciones thead tr { background: var(--mid); color: #fff; }
+  table.objeciones th { padding: 9px 14px; font-size: .8rem; font-weight: 700; }
+  table.objeciones td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  table.objeciones tr:last-child td { border-bottom: none; }
+  table.objeciones tr:nth-child(even) td { background: var(--light2); }
+  table.objeciones tr:nth-child(odd) td { background: #fff; }
+  table.objeciones td:first-child { font-weight: 600; color: var(--dark); width: 38%; }
+
+  /* ── Pitch box ── */
+  .pitch-box {
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: .9rem;
+    font-style: italic;
+    color: var(--dark);
+    line-height: 1.65;
+    margin-top: 4px;
+    position: relative;
+  }
+  .pitch-box.blue   { background: #EFF6FF; border-left: 4px solid var(--blue); }
+  .pitch-box.green  { background: var(--light); border-left: 4px solid var(--accent); }
+  .pitch-box.orange { background: #FFFBEB; border-left: 4px solid var(--orange); }
+  .pitch-label {
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 6px;
+    font-style: normal;
+  }
+  .pitch-label.blue   { color: var(--blue); }
+  .pitch-label.green  { color: var(--accent); }
+  .pitch-label.orange { color: var(--orange); }
+
+  /* ── Bullet list ── */
+  .bullet-list { list-style: none; }
+  .bullet-list li {
+    padding: 5px 0 5px 18px;
+    position: relative;
+    font-size: .9rem;
+    color: var(--dark);
+    line-height: 1.5;
+  }
+  .bullet-list li::before { content: '•'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+  /* ── Pasos de venta ── */
+  .pasos { display: flex; flex-direction: column; gap: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .paso {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .paso:last-child { border-bottom: none; }
+  .paso-num {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 64px;
+  }
+  .paso-content { padding: 14px 18px; }
+  .paso:nth-child(even) .paso-content { background: var(--light); }
+  .paso:nth-child(odd) .paso-content { background: #fff; }
+  .paso-title { font-weight: 700; font-size: .92rem; color: var(--dark); margin-bottom: 4px; }
+  .paso-desc  { font-size: .87rem; color: var(--mid); line-height: 1.55; }
+  .paso-tip   { margin-top: 6px; font-size: .82rem; color: var(--accent); font-weight: 600; }
+
+  /* ── FAQ ── */
+  .faq-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-weight: 700; font-size: .92rem; color: var(--dark); margin-bottom: 6px; display: flex; gap: 8px; align-items: flex-start; }
+  .faq-q::before { content: 'P:'; color: var(--accent); font-weight: 800; flex-shrink: 0; }
+  .faq-a { font-size: .88rem; color: var(--mid); line-height: 1.6; padding-left: 26px; }
+
+  /* ── Materiales ── */
+  .materiales-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .material-item {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: .87rem;
+    color: var(--dark);
+    line-height: 1.5;
+    border: 1px solid rgba(26,171,104,.2);
+  }
+  .material-icon { color: var(--accent); font-size: 1.1rem; flex-shrink: 0; }
+
+  /* ── CTA final ── */
+  .cta-box {
+    background: linear-gradient(135deg, #052018 0%, #0D2A1A 100%);
+    border-radius: 12px;
+    padding: 36px 40px;
+    color: #fff;
+  }
+  .cta-box h2 { font-size: 1.2rem; color: #fff; margin-bottom: 8px; }
+  .cta-box p  { color: #6EE7B7; font-size: .9rem; line-height: 1.6; margin-bottom: 20px; }
+  .cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cta-item { display: flex; flex-direction: column; gap: 2px; }
+  .cta-label { color: var(--accent); font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+  .cta-value { color: #CBD5E0; font-size: .9rem; }
+
+  /* ── Print ── */
+  @media print {
+    .download-bar { display: none; }
+    body { background: #fff; }
+    .page-wrap { box-shadow: none; border-radius: 0; margin: 0; max-width: 100%; }
+    .cover, .venta-header, .paso-num, .section-num, .pitch-box, .detectar-box, .comision-highlight {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Barra de descarga -->
+<div class="download-bar">
+  <div>
+    <div class="brand">AETHON</div>
+    <div class="doc-name">Guía del Vendedor · Programa de Socios Comerciales</div>
+  </div>
+  <button class="btn-pdf" onclick="descargarPDF()">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+    </svg>
+    Descargar PDF
+  </button>
+</div>
+
+<!-- Documento -->
+<div class="page-wrap" id="documento">
+
+  <!-- PORTADA -->
+  <div class="cover">
+    <div class="cover-badge">Programa de Socios Comerciales</div>
+    <div class="cover-brand">AETHON</div>
+    <div class="cover-title">Guía del Vendedor</div>
+    <div class="cover-sub">Todo lo que necesitas para cerrar tu primera venta</div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">"Tú consigues el cliente. Nosotros entregamos el producto. Tú cobras la comisión."</div>
+
+    <div class="comision-highlight">
+      <div>
+        <div class="comision-pct">15%<small>+ 10% recurrente</small></div>
+      </div>
+      <div class="comision-text">
+        <strong>Comisión sobre el contrato primer año</strong> + 10% de recurrencia meses 2–12.<br>
+        Con 10 clientes en Plan Profesional → <strong>$3.737 USD/mes recurrente</strong> solo de comisiones.
+      </div>
+    </div>
+    <div class="cover-date">Mayo 2026 · Uso exclusivo de socios comerciales Aethon</div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- SECCIÓN 1: BIENVENIDO -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">Bienvenido al equipo</span>
+      </div>
+      <div class="section-divider"></div>
+      <p class="section-intro">
+        Eres un socio comercial de Aethon. Tu rol es conectar a los clientes correctos con
+        las soluciones correctas. <strong>No necesitas saber programar.</strong> No necesitas
+        entender la tecnología en profundidad. Necesitas entender el problema del cliente
+        y mostrarle que Aethon lo resuelve.
+      </p>
+
+      <h3>Cómo funciona tu comisión — ejemplo concreto</h3>
+      <table class="comision-table">
+        <thead><tr><th>Concepto</th><th style="text-align:right">Monto</th></tr></thead>
+        <tbody>
+          <tr><td>Producto vendido</td><td class="td-right">Chatbot Institucional Plan Profesional</td></tr>
+          <tr><td>Valor contrato</td><td class="td-right">$299 USD/mes × 12 meses = $3.588 USD/año</td></tr>
+          <tr><td>Tu comisión mes 1 (15%)</td><td class="td-right" style="color:var(--accent)">$44,85 USD</td></tr>
+          <tr><td>Tu comisión meses 2–12 (10% × 11)</td><td class="td-right" style="color:var(--accent)">$328,90 USD</td></tr>
+          <tr class="total-row"><td>Total primer año por ese cliente</td><td class="td-right">$373,75 USD</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.88rem;color:var(--accent);font-weight:700;margin-top:8px;">
+        Con 10 clientes activos en Plan Profesional → $3.737 USD/mes de ingresos recurrentes.
+      </p>
+    </div>
+
+    <!-- SECCIÓN 2: LOS TRES PRODUCTOS -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">Los tres productos que vendes</span>
+      </div>
+      <div class="section-divider"></div>
+
+      <!-- 2.1 CHATBOT -->
+      <div class="venta-card">
+        <div class="venta-header blue">
+          <div class="venta-num num-blue">1</div>
+          <div class="venta-header-text">
+            <div class="venta-titulo">Chatbot Institucional con IA</div>
+            <div class="venta-frase">"Un asistente virtual que responde las preguntas de los funcionarios sin que RRHH tenga que hacerlo."</div>
+          </div>
+        </div>
+        <div class="venta-body">
+          <h3>¿A quién le vendes?</h3>
+          <ul class="bullet-list">
+            <li>Jefas/jefes de RRHH de municipios, hospitales, CESFAM</li>
+            <li>Directores de establecimientos de salud</li>
+            <li>Gerentes de RRHH de empresas privadas con 100+ empleados</li>
+          </ul>
+
+          <h3>Cómo detectar si es cliente potencial</h3>
+          <div class="detectar-box">
+            Pregunta: <strong>"¿Cuántas consultas recibe su equipo de RRHH al mes de los funcionarios sobre sueldos, vacaciones o licencias?"</strong><br>
+            Si la respuesta es "muchas" o "todos los días" → es candidato.
+          </div>
+
+          <h3>Las 3 objeciones más comunes y cómo responderlas</h3>
+          <table class="objeciones">
+            <thead><tr><th>Objeción del cliente</th><th>Tu respuesta</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>"Tenemos un ERP que ya hace eso"</td>
+                <td>"El chatbot no reemplaza su ERP — se conecta a él. El funcionario puede consultar desde su celular a las 10 PM sin llamar a nadie de RRHH."</td>
+              </tr>
+              <tr>
+                <td>"¿Y la seguridad de los datos?"</td>
+                <td>"Los datos nunca salen de su institución. Usamos cifrado de nivel bancario y cumplimos con la Ley 19.628 de protección de datos personales."</td>
+              </tr>
+              <tr>
+                <td>"Es muy caro"</td>
+                <td>"¿Cuánto le cuesta hoy que su equipo de RRHH pase 20 horas/mes respondiendo consultas repetidas? El chatbot se paga solo en el primer mes."</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Pitch de 30 segundos</h3>
+          <div class="pitch-box blue">
+            <div class="pitch-label blue">Memorízalo y úsalo</div>
+            "Imagínese que un funcionario puede preguntarle a su celular '¿cuántos días de vacaciones me quedan?' a las 11 de la noche y recibir una respuesta exacta — sin llamar a nadie de RRHH. Eso es lo que hace el Chatbot Aethon. Se implementa en 2 semanas, cuesta menos que el sueldo de media jornada, y libera a su equipo para cosas que realmente importan."
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.2 PÁGINAS WEB -->
+      <div class="venta-card">
+        <div class="venta-header green">
+          <div class="venta-num num-green">2</div>
+          <div class="venta-header-text">
+            <div class="venta-titulo">Páginas Web Profesionales</div>
+            <div class="venta-frase">"Un sitio web listo en 2 semanas, con todo incluido, para que sus clientes lo encuentren en Google."</div>
+          </div>
+        </div>
+        <div class="venta-body">
+          <h3>¿A quién le vendes?</h3>
+          <ul class="bullet-list">
+            <li>Profesionales independientes (médicos, abogados, contadores, psicólogos, veterinarios)</li>
+            <li>Dueños de pymes que no tienen web o tienen una desactualizada</li>
+            <li>Emprendedores que acaban de iniciar un negocio</li>
+          </ul>
+
+          <h3>Cómo detectar si es cliente potencial</h3>
+          <div class="detectar-box">
+            <strong>Búscalos en Google por su nombre o rubro.</strong> Si no aparecen en la primera página, si su sitio se ve mal en el celular, o si directamente no tienen web → son candidatos perfectos.
+          </div>
+
+          <h3>Las 3 objeciones más comunes y cómo responderlas</h3>
+          <table class="objeciones">
+            <thead><tr><th>Objeción del cliente</th><th>Tu respuesta</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>"Tengo Instagram, con eso me basta"</td>
+                <td>"Instagram es para fidelizar. Google es para que te encuentren nuevos clientes. El 93% de las búsquedas locales pasan por Google, no por Instagram."</td>
+              </tr>
+              <tr>
+                <td>"Lo puedo hacer yo mismo en Wix"</td>
+                <td>"¿Cuánto tiempo tiene disponible? Un sitio bien hecho en Wix demora 40–80 horas si no tienes experiencia. Nosotros lo entregamos en 2 semanas y usted se dedica a su negocio."</td>
+              </tr>
+              <tr>
+                <td>"No tengo presupuesto ahora"</td>
+                <td>"Con $350 USD tiene el sitio completo con dominio y hosting el primer año. Si consigue 1 cliente nuevo gracias al sitio, ya lo recuperó completamente."</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Pitch de 30 segundos</h3>
+          <div class="pitch-box green">
+            <div class="pitch-label green">Memorízalo y úsalo</div>
+            "Cuando alguien busca en Google 'veterinario en [ciudad]' o 'contador en [ciudad]', ¿aparece usted? Si no tiene sitio web o el suyo no se ve bien en el celular, está perdiendo clientes todos los días sin saberlo. Nosotros le entregamos un sitio profesional en 2 semanas, con todo incluido — dominio, hosting, formulario de contacto y WhatsApp — desde $350 USD."
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.3 MÉRITO 19.378 -->
+      <div class="venta-card">
+        <div class="venta-header orange">
+          <div class="venta-num num-orange">3</div>
+          <div class="venta-header-text">
+            <div class="venta-titulo">Sistema de Mérito Ley 19.378</div>
+            <div class="venta-frase">"Un sistema que automatiza el proceso de evaluación y ranking APS — cumple con la Ley 19.378 sin planillas Excel."</div>
+          </div>
+        </div>
+        <div class="venta-body">
+          <h3>¿A quién le vendes?</h3>
+          <ul class="bullet-list">
+            <li>Directores de RRHH de municipios con APS (cualquier municipio con CESFAM o postas rurales)</li>
+            <li>Directores de salud comunal</li>
+            <li>Alcaldes o jefes de gabinete que quieren reducir riesgos legales ante la Contraloría</li>
+          </ul>
+
+          <h3>Cómo detectar si es cliente potencial</h3>
+          <div class="detectar-box">
+            <strong>Cualquier municipio de Chile con funcionarios APS bajo Ley 19.378.</strong> Son más de 300 municipios en todo el país. Si hacen el proceso de mérito en Excel → es tu cliente.
+          </div>
+
+          <h3>Las 3 objeciones más comunes y cómo responderlas</h3>
+          <table class="objeciones">
+            <thead><tr><th>Objeción del cliente</th><th>Tu respuesta</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>"Lo hacemos en Excel y funciona bien"</td>
+                <td>"¿Cuánto tiempo demora ese proceso? ¿Y si un funcionario impugna y pide ver cómo se calculó su puntaje? Con el sistema tiene registro completo de todo el proceso en segundos."</td>
+              </tr>
+              <tr>
+                <td>"Ya tenemos un sistema de RRHH"</td>
+                <td>"El módulo de mérito APS no viene incluido en los ERP municipales estándar — es especializado. Se complementa con lo que ya tienen, no lo reemplaza."</td>
+              </tr>
+              <tr>
+                <td>"Tenemos que licitarlo"</td>
+                <td>"El valor anual está bajo el umbral de licitación pública en la mayoría de los casos. Podemos emitir una cotización formal para el proceso de contratación directa."</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Pitch de 30 segundos</h3>
+          <div class="pitch-box orange">
+            <div class="pitch-label orange">Memorízalo y úsalo</div>
+            "El proceso de mérito APS que su equipo hace cada año en Excel — con 3 semanas de trabajo, fórmulas manuales y el riesgo de que un funcionario impugne ante la Contraloría — lo automatizamos completamente. El sistema calcula el puntaje, genera el ranking, notifica a cada funcionario y entrega el informe para Contraloría. En 3 días, no en 3 semanas."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 3: PROCESO DE VENTA -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">El proceso de venta paso a paso</span>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="pasos">
+        <div class="paso">
+          <div class="paso-num">1</div>
+          <div class="paso-content">
+            <div class="paso-title">Identificar al candidato</div>
+            <div class="paso-desc">Habla con conocidos en el sector: ¿quién tiene problemas de RRHH repetitivos? ¿quién lleva años con el mismo proceso manual? ¿quién se queja del tiempo que pierde en planillas?</div>
+          </div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">2</div>
+          <div class="paso-content">
+            <div class="paso-title">La primera conversación — No vendas todavía</div>
+            <div class="paso-desc">Pregunta: "¿Cuánto tiempo gasta su equipo en [proceso específico] cada mes?" · "¿Qué pasaría si ese tiempo se redujera a cero?" · "¿Han tenido problemas con errores en ese proceso?" Escucha. Toma nota.</div>
+            <div class="paso-tip">→ Envía el resumen de la conversación a francisco@aethon.mx antes de continuar.</div>
+          </div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">3</div>
+          <div class="paso-content">
+            <div class="paso-title">La propuesta (Día 3–7)</div>
+            <div class="paso-desc">Aethon prepara una propuesta personalizada con los números del cliente: su volumen, sus funcionarios, su ahorro estimado. Tú la presentas. Puedes invitar a Francisco a una videollamada si el cliente quiere detalles técnicos.</div>
+          </div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">4</div>
+          <div class="paso-content">
+            <div class="paso-title">El cierre — el diagnóstico gratuito</div>
+            <div class="paso-desc">La propuesta incluye la opción de agendar un diagnóstico gratuito de 30 minutos en aethon.mx. El objetivo es que el cliente vea el producto funcionando con sus propios datos. Ese es el mejor cierre.</div>
+            <div class="paso-tip">→ El que ve el demo en vivo rara vez dice que no.</div>
+          </div>
+        </div>
+        <div class="paso">
+          <div class="paso-num">5</div>
+          <div class="paso-content">
+            <div class="paso-title">Cobras tu comisión</div>
+            <div class="paso-desc">Una vez firmado el contrato, Aethon emite la factura al cliente. Tu comisión se transfiere dentro de los 5 días hábiles siguientes al pago del cliente.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 4: MATERIALES -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-title">Materiales que tienes disponibles</span>
+      </div>
+      <div class="section-divider"></div>
+      <div class="materiales-grid">
+        <div class="material-item"><span class="material-icon">📄</span>Catálogo de productos en PDF para entregar al cliente</div>
+        <div class="material-item"><span class="material-icon">📊</span>Presentación de diapositivas por producto (pedir a francisco@aethon.mx)</div>
+        <div class="material-item"><span class="material-icon">💬</span>Acceso a demo del chatbot para mostrar en vivo al cliente</div>
+        <div class="material-item"><span class="material-icon">📱</span>Soporte directo por WhatsApp con Francisco durante el proceso de venta</div>
+        <div class="material-item"><span class="material-icon">📋</span>Casos de uso con ejemplos concretos por sector</div>
+        <div class="material-item"><span class="material-icon">🤝</span>Propuestas personalizadas que Aethon prepara para cada cliente</div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 5: FAQ -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <span class="section-title">Preguntas frecuentes del vendedor</span>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="faq-item">
+        <div class="faq-q">¿Necesito saber de tecnología?</div>
+        <div class="faq-a">No. Necesitas entender el problema del cliente. La parte técnica la maneja Aethon completamente.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Puedo vender en México también?</div>
+        <div class="faq-a">Sí. El chatbot y las páginas web se venden en cualquier país de habla hispana. El Sistema de Mérito 19.378 es específico de Chile (legislación APS chilena).</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Qué pasa si el cliente pide descuento?</div>
+        <div class="faq-a">Habla con Francisco antes de ofrecer cualquier descuento. En general el descuento se aplica en el setup (pago único), no en la mensualidad recurrente — eso protege tu comisión a largo plazo.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Cuánto tiempo lleva cerrar una venta?</div>
+        <div class="faq-a">Una pyme puede cerrar en 1 semana. Un municipio puede tomar 4–8 semanas por sus procesos internos de aprobación presupuestaria. Planifica tu pipeline considerando ese plazo.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Cómo registro a un cliente que traje yo para proteger mi comisión?</div>
+        <div class="faq-a">Envía un email a francisco@aethon.mx con el nombre de la institución y el nombre de tu contacto <strong>antes de que Aethon haga cualquier acción comercial con ellos</strong>. Ese registro es tu protección.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Hay un contrato de socio comercial?</div>
+        <div class="faq-a">Sí. Una vez que quieras sumarte formalmente, Francisco te envía el contrato de socio comercial que formaliza las condiciones de comisión.</div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 6: CONTACTO -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <span class="section-title">Tu contacto en Aethon</span>
+      </div>
+      <div class="section-divider"></div>
+      <div class="cta-box">
+        <h2>Francisco Moreno · Fundador de Aethon</h2>
+        <p>Ante cualquier duda durante el proceso de venta, escribe directamente. Respondemos en menos de 24 horas en días hábiles.</p>
+        <div class="cta-grid">
+          <div class="cta-item"><span class="cta-label">Email</span><span class="cta-value">francisco@aethon.mx</span></div>
+          <div class="cta-item"><span class="cta-label">Web</span><span class="cta-value">www.aethon.mx</span></div>
+          <div class="cta-item"><span class="cta-label">WhatsApp socios</span><span class="cta-value">Disponible al registrarte</span></div>
+          <div class="cta-item"><span class="cta-label">LinkedIn</span><span class="cta-value">linkedin.com/in/franciscomorenocpo</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /doc-body -->
+</div><!-- /page-wrap -->
+
+<script>
+function descargarPDF() {
+  const btn = document.querySelector('.btn-pdf');
+  btn.textContent = 'Generando PDF...';
+  btn.disabled = true;
+
+  const opt = {
+    margin:       [10, 10, 10, 10],
+    filename:     'Aethon_Guia_Vendedores.pdf',
+    image:        { type: 'jpeg', quality: 0.97 },
+    html2canvas:  { scale: 2, useCORS: true, logging: false },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+  };
+
+  const el = document.getElementById('documento');
+  html2pdf().set(opt).from(el).save().then(() => {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;fill:#fff"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Descargar PDF`;
+    btn.disabled = false;
+  });
+}
+</script>
+</body>
+</html>

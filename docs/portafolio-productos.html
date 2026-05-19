@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aethon — Portafolio de Soluciones</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+  :root {
+    --accent: #1A73E8;
+    --dark: #0D1117;
+    --mid: #4A5568;
+    --light: #F4F7FB;
+    --green: #1AAB68;
+    --orange: #F59E0B;
+    --white: #ffffff;
+    --border: #CBD5E0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #E8EDF5;
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* ── Barra de descarga (no se imprime) ── */
+  .download-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--dark);
+    padding: 12px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(0,0,0,.3);
+  }
+  .download-bar .brand { color: var(--accent); font-weight: 700; font-size: 1.1rem; letter-spacing: .04em; }
+  .download-bar .doc-name { color: #94A3B8; font-size: .85rem; }
+  .btn-pdf {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: .92rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background .2s, transform .1s;
+  }
+  .btn-pdf:hover { background: #1557B0; transform: translateY(-1px); }
+  .btn-pdf:active { transform: translateY(0); }
+  .btn-pdf svg { width: 16px; height: 16px; fill: #fff; }
+
+  /* ── Contenedor de documento ── */
+  .page-wrap {
+    max-width: 860px;
+    margin: 32px auto 64px;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.12);
+    overflow: hidden;
+  }
+
+  /* ── Portada ── */
+  .cover {
+    background: linear-gradient(135deg, var(--dark) 0%, #1A2540 100%);
+    padding: 72px 56px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    background: var(--accent);
+    opacity: .07;
+    border-radius: 50%;
+  }
+  .cover-brand {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: .08em;
+    margin-bottom: 6px;
+  }
+  .cover-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .cover-sub {
+    font-size: 1rem;
+    color: #94A3B8;
+    margin-bottom: 28px;
+  }
+  .cover-divider {
+    height: 2px;
+    background: var(--accent);
+    opacity: .6;
+    margin-bottom: 20px;
+  }
+  .cover-tagline {
+    font-size: .95rem;
+    color: #94A3B8;
+    font-style: italic;
+    margin-bottom: 40px;
+  }
+  .cover-contact {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 20px;
+    border-top: 1px solid rgba(255,255,255,.1);
+    padding-top: 24px;
+  }
+  .cover-contact .label { color: var(--accent); font-weight: 600; font-size: .9rem; }
+  .cover-contact .value { color: #CBD5E0; font-size: .9rem; }
+  .cover-date { margin-top: 20px; color: #64748B; font-size: .8rem; }
+
+  /* ── Contenido ── */
+  .doc-body { padding: 48px 56px; }
+
+  /* ── Secciones ── */
+  .section { margin-bottom: 48px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 6px;
+  }
+  .section-num {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: .75rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: .05em;
+  }
+  .section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .section-divider {
+    height: 1.5px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    margin-bottom: 20px;
+  }
+  .section-intro {
+    color: var(--mid);
+    font-size: .95rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  /* ── Checkmarks ── */
+  .check-list { list-style: none; }
+  .check-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 6px 0;
+    font-size: .93rem;
+    color: var(--dark);
+    line-height: 1.5;
+    border-bottom: 1px solid #F1F5F9;
+  }
+  .check-list li:last-child { border-bottom: none; }
+  .check-list .chk { color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Badge de producto ── */
+  .product-card { margin-bottom: 48px; }
+  .product-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: .78rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: .06em;
+    margin-bottom: 10px;
+  }
+  .badge-blue   { background: var(--accent); }
+  .badge-green  { background: var(--green); }
+  .badge-orange { background: var(--orange); }
+
+  .product-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+  .product-desc {
+    color: var(--mid);
+    font-size: .93rem;
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  /* ── Sub-encabezados ── */
+  h3 {
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--mid);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin: 20px 0 10px;
+  }
+
+  /* ── Bullet list ── */
+  .bullet-list { list-style: none; }
+  .bullet-list li {
+    padding: 5px 0 5px 18px;
+    position: relative;
+    font-size: .92rem;
+    color: var(--dark);
+    line-height: 1.5;
+  }
+  .bullet-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── ROI Box ── */
+  .roi-box {
+    background: var(--light);
+    border-left: 4px solid var(--green);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: .9rem;
+    line-height: 1.7;
+    color: var(--dark);
+  }
+  .roi-box strong { color: var(--green); }
+
+  /* ── Tablas ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .88rem;
+    margin: 12px 0 6px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  thead tr { background: var(--dark); color: #fff; }
+  thead.blue tr { background: var(--accent); }
+  thead.green tr { background: var(--green); }
+  thead.orange tr { background: var(--orange); }
+  thead.mid tr { background: var(--mid); }
+  th {
+    padding: 10px 14px;
+    text-align: left;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+  }
+  td {
+    padding: 9px 14px;
+    vertical-align: top;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--light); }
+  tr:nth-child(odd) td { background: #fff; }
+  .td-center { text-align: center; }
+  .td-green { color: var(--green); font-weight: 700; }
+  .td-price { font-weight: 700; color: var(--accent); text-align: center; }
+
+  /* ── Steps ── */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+  }
+  .step-content {
+    padding: 12px 16px;
+    background: #fff;
+  }
+  .step:nth-child(even) .step-content { background: var(--light); }
+  .step-title { font-weight: 700; font-size: .9rem; color: var(--dark); margin-bottom: 3px; }
+  .step-desc { font-size: .87rem; color: var(--mid); line-height: 1.55; }
+
+  /* ── CTA ── */
+  .cta-box {
+    background: linear-gradient(135deg, var(--dark) 0%, #1A2540 100%);
+    border-radius: 12px;
+    padding: 36px 40px;
+    color: #fff;
+    margin-top: 8px;
+  }
+  .cta-box h2 { font-size: 1.25rem; color: #fff; margin-bottom: 10px; }
+  .cta-box p { color: #94A3B8; font-size: .92rem; line-height: 1.6; margin-bottom: 24px; }
+  .cta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .cta-item { display: flex; flex-direction: column; gap: 2px; }
+  .cta-label { color: var(--accent); font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+  .cta-value { color: #CBD5E0; font-size: .92rem; }
+
+  /* ── ROI comparativa highlight ── */
+  .roi-compare {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .roi-card {
+    background: var(--light);
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+    border-top: 4px solid var(--accent);
+  }
+  .roi-card.green { border-top-color: var(--green); }
+  .roi-card.orange { border-top-color: var(--orange); }
+  .roi-card .roi-product { font-size: .78rem; font-weight: 700; color: var(--mid); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .roi-card .roi-number { font-size: 1.8rem; font-weight: 800; color: var(--green); margin-bottom: 4px; }
+  .roi-card .roi-desc { font-size: .78rem; color: var(--mid); line-height: 1.4; }
+
+  /* ── Print ── */
+  @media print {
+    .download-bar { display: none; }
+    body { background: #fff; }
+    .page-wrap { box-shadow: none; border-radius: 0; margin: 0; max-width: 100%; }
+    .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    table, .roi-card, .step-num, .roi-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Barra de descarga -->
+<div class="download-bar">
+  <div>
+    <div class="brand">AETHON</div>
+    <div class="doc-name">Portafolio de Soluciones · Mayo 2026</div>
+  </div>
+  <button class="btn-pdf" onclick="descargarPDF()">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+    </svg>
+    Descargar PDF
+  </button>
+</div>
+
+<!-- Documento -->
+<div class="page-wrap" id="documento">
+
+  <!-- PORTADA -->
+  <div class="cover">
+    <div class="cover-brand">AETHON</div>
+    <div class="cover-title">Portafolio de Soluciones</div>
+    <div class="cover-sub">Automatización · Inteligencia Artificial · Apps para Recursos Humanos</div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">"Hacemos que su equipo trabaje menos en lo repetitivo y más en lo que importa."</div>
+    <div class="cover-contact">
+      <span class="label">Web</span>       <span class="value">www.aethon.mx</span>
+      <span class="label">Email</span>     <span class="value">francisco@aethon.mx</span>
+      <span class="label">Diagnóstico</span><span class="value">aethon.mx → "Agendar diagnóstico" (30 min, sin compromiso)</span>
+    </div>
+    <div class="cover-date">Mayo 2026</div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- SECCIÓN 1: QUIÉNES SOMOS -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">Quiénes somos</span>
+      </div>
+      <div class="section-divider"></div>
+      <p class="section-intro">
+        Aethon es una consultora especializada en automatización con inteligencia artificial
+        para el sector de Recursos Humanos, salud pública y municipios en Chile y México.
+        Ayudamos a instituciones a eliminar el trabajo manual repetitivo, reducir errores
+        y cumplir con la normativa vigente — sin necesidad de cambiar sus sistemas actuales.
+      </p>
+      <ul class="check-list">
+        <li><span class="chk">✓</span> Conocemos el sector salud pública desde adentro: APS, Ley 19.378, DEIS, Contraloría</li>
+        <li><span class="chk">✓</span> Usamos IA de última generación — Claude de Anthropic, el mismo usado por miles de empresas Fortune 500</li>
+        <li><span class="chk">✓</span> No cobramos por hora — cobramos por resultado. Nuestros incentivos están alineados con los suyos</li>
+        <li><span class="chk">✓</span> Implementación en 2–4 semanas. No meses de espera</li>
+        <li><span class="chk">✓</span> Soporte en español, con equipo en Chile y México</li>
+      </ul>
+    </div>
+
+    <!-- SECCIÓN 2: PRODUCTOS -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">Nuestros Productos</span>
+      </div>
+      <div class="section-divider"></div>
+
+      <!-- PRODUCTO 1: CHATBOT -->
+      <div class="product-card">
+        <span class="product-badge badge-blue">PRODUCTO 1</span>
+        <div class="product-title">Chatbot Institucional con IA</div>
+        <p class="product-desc">
+          Un asistente virtual entrenado con los datos reales de la institución — liquidaciones,
+          contratos, carrera funcionaria, reglamentos internos. Los funcionarios consultan
+          directamente desde su celular o computador y obtienen respuestas precisas al instante.
+        </p>
+
+        <h3>Ejemplos de consultas que responde</h3>
+        <ul class="bullet-list">
+          <li>"¿Cuántos días de vacaciones me quedan?"</li>
+          <li>"¿Cuándo me corresponde el próximo reajuste de grado?"</li>
+          <li>"¿Por qué me descontaron $X este mes?"</li>
+          <li>Consultas de liquidaciones históricas</li>
+          <li>Estado de solicitudes de permisos administrativos</li>
+        </ul>
+
+        <h3>Retorno sobre la inversión (ROI)</h3>
+        <div class="roi-box">
+          Un equipo de RRHH recibe en promedio <strong>40–80 consultas/mes</strong> de funcionarios sobre sueldos, vacaciones y licencias.
+          El chatbot resuelve el <strong>70–80% sin intervención humana</strong>, liberando <strong>15–25 horas/mes</strong> del equipo.
+          A $15.000 CLP/hora, eso equivale a <strong>$225.000–$375.000 CLP/mes en ahorro directo</strong> — el chatbot se paga en el primer mes.
+        </div>
+
+        <h3>Planes y precios</h3>
+        <table>
+          <thead class="blue"><tr><th>Plan</th><th>USD/mes</th><th>Qué incluye</th></tr></thead>
+          <tbody>
+            <tr><td>Starter</td><td class="td-price">$149</td><td>1 chatbot · hasta 150 usuarios · 3 fuentes de datos</td></tr>
+            <tr><td>Profesional</td><td class="td-price">$299</td><td>1 chatbot · hasta 500 usuarios · fuentes ilimitadas · panel de analítica</td></tr>
+            <tr><td>Institucional</td><td class="td-price">$599</td><td>Multi-sede · hasta 2.000 usuarios · integración ERP · soporte prioritario</td></tr>
+            <tr><td>Setup e implementación</td><td class="td-price">$500 <small style="font-weight:400;color:#94A3B8">(único)</small></td><td>Configuración inicial · capacitación · carga de datos históricos</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:.8rem;color:var(--mid);margin-top:6px;">Tiempo de implementación: 2–3 semanas desde la firma del contrato.</p>
+      </div>
+
+      <!-- PRODUCTO 2: PÁGINAS WEB -->
+      <div class="product-card">
+        <span class="product-badge badge-green">PRODUCTO 2</span>
+        <div class="product-title">Creación de Páginas Web Profesionales</div>
+        <p class="product-desc">
+          Diseño y desarrollo de sitios web modernos, rápidos y optimizados para Google.
+          Adaptados a cualquier dispositivo móvil. El sitio funcionando en 7–14 días hábiles,
+          con todo incluido — sin sorpresas.
+        </p>
+
+        <h3>Qué incluye cada proyecto</h3>
+        <ul class="bullet-list">
+          <li>Diseño personalizado (no plantilla genérica)</li>
+          <li>Dominio + hosting primer año incluido</li>
+          <li>Formulario de contacto funcional (recibe emails al instante)</li>
+          <li>Botón de WhatsApp integrado</li>
+          <li>Google Analytics instalado y configurado</li>
+          <li>Optimización SEO básica (aparece en Google desde el primer mes)</li>
+          <li>Certificado SSL (https://) incluido</li>
+          <li>Capacitación de 1 hora para actualizar contenidos básicos</li>
+        </ul>
+
+        <h3>Retorno sobre la inversión (ROI)</h3>
+        <div class="roi-box">
+          Un profesional sin sitio web pierde entre <strong>3–5 clientes/mes</strong> que no lo encuentran en Google.
+          A $50.000–$100.000 CLP por cliente, eso es <strong>$150.000–$500.000 CLP/mes en ingresos que no llegan</strong>.
+          El sitio web se paga solo con <strong>1 cliente nuevo</strong>.
+        </div>
+
+        <h3>Planes y precios</h3>
+        <table>
+          <thead class="green"><tr><th>Tipo de sitio</th><th>USD</th><th>Qué incluye</th></tr></thead>
+          <tbody>
+            <tr><td>Landing page (1 página)</td><td class="td-price">$350 <small style="font-weight:400;color:#94A3B8">(único)</small></td><td>Diseño · dominio · hosting 1 año · formulario · WhatsApp</td></tr>
+            <tr><td>Sitio web (5–8 páginas)</td><td class="td-price">$650 <small style="font-weight:400;color:#94A3B8">(único)</small></td><td>Todo lo anterior + blog · galería · sección servicios</td></tr>
+            <tr><td>Portal institucional</td><td class="td-price">$1.200 <small style="font-weight:400;color:#94A3B8">(único)</small></td><td>Múltiples secciones · panel de administración · formularios avanzados</td></tr>
+            <tr><td>Mantención mensual</td><td class="td-price">$49<small style="font-weight:400;color:#94A3B8">/mes</small></td><td>Actualizaciones de contenido · soporte técnico · backup</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:.8rem;color:var(--mid);margin-top:6px;">Tiempo de entrega: 7–14 días hábiles.</p>
+      </div>
+
+      <!-- PRODUCTO 3: MÉRITO 19.378 -->
+      <div class="product-card">
+        <span class="product-badge badge-orange">PRODUCTO 3</span>
+        <div class="product-title">Sistema de Mérito Ley 19.378 (APS Chile)</div>
+        <p class="product-desc">
+          Plataforma digital para gestionar el proceso de evaluación de desempeño y mérito
+          de los funcionarios de Atención Primaria de Salud (APS) bajo la Ley 19.378.
+          Automatiza la recolección de antecedentes, el cálculo del puntaje, la generación
+          del ranking y la notificación a los funcionarios — cumpliendo estrictamente con
+          la normativa de la Contraloría.
+        </p>
+
+        <h3>El problema que resuelve</h3>
+        <ul class="bullet-list">
+          <li>Los municipios y CESFAM realizan este proceso anualmente en planillas Excel manuales</li>
+          <li>El proceso toma 3–6 semanas de trabajo del equipo de RRHH</li>
+          <li>Los errores de cálculo generan reclamos, sumarios y deuda retroactiva</li>
+          <li>Sin trazabilidad: si un funcionario impugna, no hay registro del proceso</li>
+        </ul>
+
+        <h3>Qué hace el sistema</h3>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Panel de evaluadores</div><div class="step-desc">Cada evaluador ingresa las notas de desempeño por funcionario desde cualquier navegador web.</div></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Cálculo automático del mérito</div><div class="step-desc">El sistema calcula el puntaje según la Ley 19.378: nota de desempeño, años de servicio, capacitación y otros factores.</div></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Ranking con desempates configurables</div><div class="step-desc">Genera el ranking automáticamente con los criterios de desempate definidos por la institución.</div></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Notificación a funcionarios</div><div class="step-desc">Cada funcionario recibe su puntaje y posición automáticamente por correo o portal web.</div></div></div>
+          <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Informe para Contraloría</div><div class="step-desc">El informe final se genera con un clic, listo para enviar, con registro de auditoría completo de todo el proceso.</div></div></div>
+          <div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-title">Portal del funcionario</div><div class="step-desc">Consulta de puntaje, carrera funcionaria y liquidaciones desde el mismo portal, en cualquier momento.</div></div></div>
+        </div>
+
+        <h3>Retorno sobre la inversión (ROI)</h3>
+        <div class="roi-box">
+          <strong>Proceso actual (Excel):</strong> 3–6 semanas × 2–3 personas = 240–720 horas de trabajo.
+          A $10.000 CLP/hora = <strong>$2.400.000–$7.200.000 CLP por proceso anual</strong>.<br><br>
+          <strong>Con Sistema Aethon:</strong> 3–5 días. Además elimina el riesgo legal:
+          un reajuste mal calculado para 200 funcionarios puede significar
+          <strong>$50.000.000+ CLP en deuda retroactiva</strong>.
+        </div>
+
+        <h3>Planes y precios</h3>
+        <table>
+          <thead class="orange"><tr><th>Plan</th><th>USD/año</th><th>Funcionarios</th><th>Qué incluye</th></tr></thead>
+          <tbody>
+            <tr><td>Comunal Básico</td><td class="td-price">$1.800<br><small style="font-weight:400;color:#94A3B8">($150/mes)</small></td><td class="td-center">Hasta 150</td><td>Sistema completo · 1 proceso anual · soporte email</td></tr>
+            <tr><td>Comunal Pro</td><td class="td-price">$3.600<br><small style="font-weight:400;color:#94A3B8">($300/mes)</small></td><td class="td-center">Hasta 500</td><td>Procesos ilimitados · integración nómina · soporte prioritario</td></tr>
+            <tr><td>Red de Salud</td><td class="td-price">$6.000<br><small style="font-weight:400;color:#94A3B8">($500/mes)</small></td><td class="td-center">Ilimitados</td><td>Multi-comuna · API con ERP municipal · SLA garantizado</td></tr>
+            <tr><td>Implementación</td><td class="td-price">$800<br><small style="font-weight:400;color:#94A3B8">(único)</small></td><td class="td-center">—</td><td>Configuración · migración de datos históricos · capacitación</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:.8rem;color:var(--mid);margin-top:6px;">Tiempo de implementación: 3–4 semanas desde la firma.</p>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 3: ROI COMPARATIVA -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">Comparativa de ROI</span>
+      </div>
+      <div class="section-divider"></div>
+      <div class="roi-compare">
+        <div class="roi-card">
+          <div class="roi-product">Chatbot IA</div>
+          <div class="roi-number">5x–8x</div>
+          <div class="roi-desc">$149–$599 USD/mes<br>Ahorra $1.300–$3.300 USD en horas RRHH liberadas</div>
+        </div>
+        <div class="roi-card green">
+          <div class="roi-product">Página Web</div>
+          <div class="roi-number">Mes 1</div>
+          <div class="roi-desc">$350–$1.200 USD (único)<br>1 cliente nuevo recupera la inversión completa</div>
+        </div>
+        <div class="roi-card orange">
+          <div class="roi-product">Mérito 19.378</div>
+          <div class="roi-number">10x–20x</div>
+          <div class="roi-desc">$150–$500 USD/mes<br>Evita 240–720 h de trabajo + riesgo legal $50M+</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 4: SIGUIENTE PASO -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-title">Siguiente paso</span>
+      </div>
+      <div class="section-divider"></div>
+      <div class="cta-box">
+        <h2>Agende un diagnóstico gratuito de 30 minutos</h2>
+        <p>Sin compromiso. Le mostraremos cómo funciona el producto con datos reales de su institución. En una videollamada de 30 minutos tendrá claridad sobre qué automatizar primero y cuánto puede ahorrar.</p>
+        <div class="cta-grid">
+          <div class="cta-item"><span class="cta-label">Web</span><span class="cta-value">www.aethon.mx</span></div>
+          <div class="cta-item"><span class="cta-label">Email</span><span class="cta-value">francisco@aethon.mx</span></div>
+          <div class="cta-item"><span class="cta-label">Calendly</span><span class="cta-value">Botón "Agendar diagnóstico" en aethon.mx</span></div>
+          <div class="cta-item"><span class="cta-label">WhatsApp</span><span class="cta-value">+56 9 XXXX XXXX</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /doc-body -->
+</div><!-- /page-wrap -->
+
+<script>
+function descargarPDF() {
+  const btn = document.querySelector('.btn-pdf');
+  btn.textContent = 'Generando PDF...';
+  btn.disabled = true;
+
+  const opt = {
+    margin:       [10, 10, 10, 10],
+    filename:     'Aethon_Portafolio_Soluciones.pdf',
+    image:        { type: 'jpeg', quality: 0.97 },
+    html2canvas:  { scale: 2, useCORS: true, logging: false },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+  };
+
+  const el = document.getElementById('documento');
+  html2pdf().set(opt).from(el).save().then(() => {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;fill:#fff"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Descargar PDF`;
+    btn.disabled = false;
+  });
+}
+</script>
+</body>
+</html>
