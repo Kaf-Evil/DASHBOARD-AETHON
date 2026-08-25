@@ -1,0 +1,91 @@
+<!doctype html>
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="NEXORA — Organizational Intelligence MVP. Demo con empresa y datos sintéticos." name="description"/>
+<meta content="#f4f7fb" name="theme-color"/>
+<title>NEXORA — Organizational Intelligence MVP</title>
+<link href="favicon.svg" rel="icon" type="image/svg+xml"/>
+
+<link href="css/p1.css" rel="stylesheet"/><link href="css/p2.css" rel="stylesheet"/><link href="css/p3.css" rel="stylesheet"/><link href="css/p4.css" rel="stylesheet"/><link href="css/p5.css" rel="stylesheet"/><link href="css/p6.css" rel="stylesheet"/></head>
+<body>
+<div class="app-shell" id="appShell">
+<aside aria-label="Navegación principal" class="sidebar">
+<div class="brand-lockup">
+<div aria-hidden="true" class="brand-symbol"><span></span><span></span><span></span></div>
+<div>
+<div class="brand-name">NEXORA</div>
+<div class="brand-tagline">Organizational Intelligence</div>
+</div>
+</div>
+<div class="tenant-card">
+<div class="tenant-topline"><span class="status-dot"></span> Demo environment</div>
+<strong>Grupo Nova México</strong>
+<span>1,284 colaboradores · 5 unidades</span>
+<span>18 meses de historia sintética</span>
+</div>
+<nav class="side-nav" id="sideNav">
+<button class="nav-item active" data-screen="brief" type="button"><span class="nav-index">01</span><span><b>Product Brief</b><small>Qué estamos construyendo</small></span></button>
+<button class="nav-item" data-screen="center" type="button"><span class="nav-index">02</span><span><b>Intelligence Center</b><small>Qué cambió hoy</small></span></button>
+<button class="nav-item" data-screen="signal" type="button"><span class="nav-index">03</span><span><b>Signal Lab</b><small>Análisis multivariable</small></span></button>
+<button class="nav-item" data-screen="climate" type="button"><span class="nav-index">04</span><span><b>Continuous Climate</b><small>Clima como sensor</small></span></button>
+<button class="nav-item" data-screen="retention" type="button"><span class="nav-index">05</span><span><b>Retention Lab</b><small>Cohortes y permanencia</small></span></button>
+<button class="nav-item" data-screen="training" type="button"><span class="nav-index">06</span><span><b>Training Impact</b><small>Qué cambió después</small></span></button>
+<button class="nav-item" data-screen="sensors" type="button"><span class="nav-index">07</span><span><b>Sensor Modules</b><small>360°, NOM-035 y más</small></span></button>
+<button class="nav-item" data-screen="copilot" type="button"><span class="nav-index">08</span><span><b>Org Copilot</b><small>IA sobre evidencia</small></span></button>
+<button class="nav-item" data-screen="glossary" type="button"><span class="nav-index">09</span><span><b>Glosario</b><small>Conceptos en simple</small></span></button>
+</nav>
+<div class="sidebar-footer">
+<div class="synthetic-pill">100% synthetic data</div>
+<p>Demo conceptual. Ningún resultado representa una empresa real.</p>
+</div>
+</aside>
+<main class="workspace">
+<header class="topbar">
+<div class="mobile-brand">
+<div aria-hidden="true" class="brand-symbol small"><span></span><span></span><span></span></div>
+<b>NEXORA</b>
+</div>
+<div class="breadcrumb-wrap">
+<span class="breadcrumb-kicker">GRUPO NOVA MÉXICO</span>
+<strong id="screenLabel">Product Brief</strong>
+</div>
+<div class="top-actions">
+<label class="compact-control" title="Cambiar unidad">
+<span>Unidad</span>
+<select aria-label="Seleccionar unidad" id="unitSelect">
+<option value="all">Organización completa</option>
+<option value="north">Operaciones Norte</option>
+<option value="center">Operaciones Centro</option>
+<option value="bajio">Planta Bajío</option>
+<option value="commercial">Comercial</option>
+<option value="corporate">Corporativo</option>
+</select>
+</label>
+<button class="ghost-button" id="glossaryQuickBtn" type="button">Glosario</button>
+<button class="presentation-button" id="presentationBtn" type="button"><span class="play-icon">▶</span> Presentar MVP</button>
+</div>
+</header>
+<div id="screensMount"></div></main>
+</div>
+<div aria-labelledby="termModalTitle" aria-modal="true" class="modal-backdrop hidden" id="termModal" role="dialog">
+<div class="modal-card"><button aria-label="Cerrar" class="modal-close" id="termModalClose" type="button">×</button><span class="modal-category" id="termModalCategory"></span><h2 id="termModalTitle"></h2><p id="termModalDefinition"></p><div class="modal-example" id="termModalExample"></div></div>
+</div>
+<div aria-labelledby="thesisTitle" aria-modal="true" class="modal-backdrop hidden" id="thesisModal" role="dialog">
+<div class="modal-card thesis-modal"><button aria-label="Cerrar" class="modal-close" data-close="thesisModal" type="button">×</button><span class="modal-category">THE 45-SECOND THESIS</span><h2 id="thesisTitle">No queremos otra plataforma que solo muestre resultados.</h2><p>La tesis es conectar señales que normalmente viven separadas. Cuando cambia la rotación, queremos analizar qué ocurrió antes, en qué población, qué otras variables se movieron y qué información falta. Si la empresa no tiene esa evidencia, podemos crear nuevas mediciones —por ejemplo, clima continuo— y volver a observar. Con el tiempo, el producto construye una memoria analítica propia de la organización.</p><div class="thesis-chain"><span>Observe</span><i>→</i><span>Connect</span><i>→</i><span>Investigate</span><i>→</i><span>Measure</span><i>→</i><span>Learn</span></div></div>
+</div>
+<div class="presentation-overlay hidden" id="presentationOverlay">
+<div class="presentation-card">
+<div class="presentation-progress"><span id="presentationProgress"></span></div>
+<div class="presentation-top"><span id="presentationStep">Paso 1 de 6</span><button id="presentationClose" type="button">×</button></div>
+<div class="presentation-kicker" id="presentationKicker"></div>
+<h2 id="presentationTitle"></h2>
+<p id="presentationText"></p>
+<div class="presentation-actions"><button class="ghost-button" id="presentationPrev" type="button">← Anterior</button><button class="primary-button compact" id="presentationNext" type="button">Siguiente →</button></div>
+</div>
+</div>
+<script src="screens/brief.js"></script><script src="screens/center.js"></script><script src="screens/signal.js"></script><script src="screens/climate.js"></script><script src="screens/retention.js"></script><script src="screens/training.js"></script><script src="screens/sensors.js"></script><script src="screens/copilot.js"></script><script src="screens/glossary.js"></script><script>document.getElementById('screensMount').innerHTML=['brief','center','signal','climate','retention','training','sensors','copilot','glossary'].map(k=>window.NX_SCREENS[k]||'').join('');</script><script src="data.js"></script><script src="appchunks/p1.js"></script><script src="appchunks/p2.js"></script><script src="appchunks/p3.js"></script><script src="appchunks/p4.js"></script><script src="appchunks/p5.js"></script><script src="appchunks/p6.js"></script><script>(function(){const bin=atob(window.NX_APP64||'');const bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));const code=new TextDecoder().decode(bytes);new Function(code)();})();</script></body>
+</html>
